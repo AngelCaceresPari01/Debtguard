@@ -70,6 +70,48 @@ n_2023 = int((fechas.fecha_base >= "2023").sum())
 t22 = pd.read_csv(DATA / "tabla_antes_2022.csv")
 ok_previos = int(cor[cor.instance_id.isin(fechas[fechas.fecha_base < "2022"].instance_id)].llm_resuelto.eq(True).sum())
 N_PRUEBAS = 34
+PROBLEMAS = {
+    "astropy__astropy-14182": "Permitir filas de encabezado al exportar tablas en formato RST",
+    "django__django-12983": "slugify() debe quitar guiones y guiones bajos de los extremos",
+    "django__django-13315": "limit_choices_to puede mostrar opciones duplicadas en un formulario",
+    "django__django-14752": "Permitir campos adicionales en las respuestas de autocompletado del admin",
+    "django__django-16229": "Los valores por defecto calculados no se propagan bien y la validación puede saltarse al reenviar",
+    "matplotlib__matplotlib-24265": "Error al pedir el estilo seaborn-colorblind en la versión 3.6.1",
+    "matplotlib__matplotlib-24970": "Avisos de funciones obsoletas con NumPy 1.24",
+    "matplotlib__matplotlib-25332": "No se puede serializar con pickle una figura tras align_labels()",
+    "matplotlib__matplotlib-26011": "El evento xlim_changed no se emite en ejes compartidos",
+    "pallets__flask-4045": "Dar error si el nombre de un blueprint contiene un punto",
+    "pallets__flask-4992": "Añadir un parámetro de modo de archivo a Config.from_file(), por ejemplo para TOML",
+    "pallets__flask-5063": "Mostrar el dominio o subdominio de cada ruta en flask routes",
+    "psf__requests-3362": "iter_content(decode_unicode=True) devuelve bytes en lugar de texto",
+    "pydata__xarray-4493": "Dataset.update hace que un arreglo dask deje de estar dividido en bloques",
+    "pylint-dev__pylint-7114": "Falla si un paquete contiene un módulo con su mismo nombre",
+    "pylint-dev__pylint-7228": "Error al usar \\p{Han} en una expresión regular de la configuración",
+    "pytest-dev__pytest-5221": "Mostrar el alcance de los fixtures con pytest --fixtures",
+    "pytest-dev__pytest-5495": "Mensaje confuso al comparar cadenas de bytes",
+    "pytest-dev__pytest-7220": "Ruta incorrecta del archivo si un fixture cambia de directorio",
+    "pytest-dev__pytest-7373": "Caché incorrecta al evaluar condiciones de skipif y xfail",
+    "scikit-learn__scikit-learn-10297": "Problema con el parámetro store_cv_values en RidgeClassifierCV",
+    "scikit-learn__scikit-learn-11040": "Falta validar n_neighbors cuando es decimal",
+    "scikit-learn__scikit-learn-13497": "Comparación de texto con un array en _estimate_mi",
+    "scikit-learn__scikit-learn-14092": "NCA falla en GridSearch por una validación demasiado estricta de parámetros",
+    "sphinx-doc__sphinx-8282": "autodoc_typehints no afecta a las funciones sobrecargadas",
+    "sphinx-doc__sphinx-8801": "Un atributo solo anotado en una superclase se trata como no documentado",
+    "sympy__sympy-12419": "La suma de los elementos de una matriz identidad da cero",
+    "sympy__sympy-13031": "Cambió el comportamiento de hstack y vstack en la versión 1.1",
+    "sympy__sympy-14308": "Los vectores se imprimen mal en el modo pretty",
+    "sympy__sympy-18835": "uniq no avisa si la lista se modifica mientras se recorre",
+}
+assert set(PROBLEMAS) == set(fechas.instance_id)
+resuelve = cor.set_index("instance_id").llm_resuelto.eq(True)
+por_origen = res.set_index(["origen", "instance_id"])
+ceros = int(((res[res.origen == "humano"].set_index("instance_id").deuda_horas == 0)
+             & (res[res.origen == "LLM"].set_index("instance_id").deuda_horas == 0)).sum())
+
+
+def nc(x) -> str:
+    """Numero sin ceros decimales innecesarios."""
+    return n(x, 2).rstrip("0").rstrip(",") if "," in n(x, 2) else n(x, 2)
 
 try:
     hw = subprocess.run(["powershell", "-NoProfile", "-Command",
@@ -329,6 +371,21 @@ T(["Tipo", "Variable", "Cómo se mide"], [
 ], [2.5, 5, 9], "Variables del experimento")
 P("Se excluyen de la medición las pruebas, las migraciones y los archivos autogenerados. Los valores absolutos y los deltas "
   "se reportan como análisis exploratorio, sin intervenir en la decisión sobre las hipótesis.")
+P("Cada parche se mide después de aplicarlo, sobre su código de producción. La Tabla siguiente explica qué representa cada "
+  "métrica.")
+T(["Métrica", "Qué significa", "Mejor si es", "Herramienta"], [
+    ["Complejidad cognitiva máxima [21]", "Qué tan difícil de entender es la función más enredada que toca el parche", "Baja", "complexipy"],
+    ["Complejidad ciclomática máxima [22]", "Cuántos caminos de ejecución tiene esa función", "Baja", "Radon"],
+    ["Clones nuevos", "Fragmentos duplicados creados por el parche", "Baja", "jscpd"],
+    ["Advertencias", "Malas prácticas en líneas nuevas e importaciones cíclicas nuevas. En la prueba se usan por cada 1000 líneas añadidas (KLOC)", "Baja", "Ruff y Pylint"],
+    ["Índice de mantenibilidad (MI) [23]", "Puntaje del archivo menos mantenible que toca el parche", "Alto", "Radon"],
+    ["Horas de deuda [20]", "Tiempo estimado para corregir lo introducido. En la prueba se usan horas/KLOC", "Baja", "Modelo SQALE"],
+    ["SATD [4]", "Comentarios nuevos como TODO o FIXME. En la prueba se usan por KLOC", "Según H4", "tokenize"],
+], [4, 7.5, 1.6, 2.6], "Métricas del experimento")
+P("Hay tres matices para leerlas. La complejidad es la de la función completa, incluida la que ya tenía antes del parche, "
+  "mientras que las horas cobran solo el aumento. Las razones por KLOC se disparan en parches diminutos: en pytest-7373, 2 horas "
+  "equivalen a 400 h/KLOC en el parche humano de 5 líneas y a 667 en el del LLM, de 3 líneas. Y un MI de 0 indica un archivo muy "
+  "poco mantenible según Radon, que un parche pequeño apenas mueve.")
 H2("3.4 Cronograma y recursos")
 T(["Fecha", "Actividad", "Responsable", "Estado"], [
     ["2/11", "Guía de desarrollo y definición del alcance", "Todos", "Hecho"],
@@ -413,9 +470,18 @@ P(f"**Construcción y pruebas.** Las {N_PRUEBAS} pruebas automáticas pasan. Inc
   "enumera de otro modo los ciclos existentes al añadir un import, y los saltos de línea de Windows alteraban los parches "
   "enviados a git. Ambos se corrigieron con pruebas de regresión antes de congelar la configuración y de medir ningún parche "
   "LLM.")
+P("**Origen de los casos.** Los 30 casos son problemas reales de proyectos de Python en GitHub, tomados del conjunto público "
+  "SWE-bench Lite [19]. Ese conjunto tiene 300 problemas e incluye, para cada uno, el reporte original, el commit donde estaba el "
+  "error y la solución que escribieron los desarrolladores. Cada caso compara dos soluciones al mismo problema, partiendo del "
+  "mismo código: la humana y la del LLM.")
 P(f"**Muestreo.** Con semilla 42 se barajaron los 86 issues cuyo parche humano tiene entre 10 y 300 líneas cambiadas de "
   f"código de producción. Se asignaron 30 a la comparación y 20 a la calibración, con un máximo de 4 por proyecto; los "
-  f"restantes quedaron como reserva.")
+  f"restantes quedaron como reserva. La Tabla siguiente resume de qué trata cada caso.")
+_rol = pd.read_csv(DATA / "casos.csv").set_index("instance_id")
+_fecha = fechas.set_index("instance_id").fecha_base
+T(["Caso", "Proyecto", "Año", "Problema", "Reserva"],
+  [[i.split("__")[1], _rol.loc[i, "repo"].split("/")[1], _fecha[i][:4], PROBLEMAS[i], "Sí" if _rol.loc[i, "rol"] == "reserva" else "No"]
+   for i in sorted(PROBLEMAS)], [3.4, 2.3, 1.2, 7.8, 1.5], "Los 30 casos del experimento. El año es el del commit base")
 P(f"**Generación con el LLM.** Se usó deepseek-v4-pro con temperatura 0, razonamiento desactivado y el mismo prompt para "
   f"todos los casos (Anexo C). El prompt incluye los archivos que toca el parche humano. Se probaron {n_gen} issues: "
   f"{n_mal} no produjeron un parche utilizable, ni siquiera tras un reintento, y {n_reserva} de los 30 finales salieron de "
@@ -456,6 +522,25 @@ T(["Métrica exploratoria", "Media humano", "Media LLM", "p sin ajustar", "δ Cl
     n(ex.loc[m, "media_humano"]), n(ex.loc[m, "media_llm"]), ps(ex.loc[m, "p"]), n(ex.loc[m, "cliff"], 3)]
    for m in ("delta_cognitiva", "delta_ciclomatica", "deuda_horas", "lineas_anadidas", "lineas_eliminadas")],
   [6, 2.5, 2.5, 2.5, 2], "Análisis exploratorio, sin corrección múltiple")
+P(f"**Resultados por caso.** La Tabla siguiente muestra cada par como humano / LLM. Las pruebas estadísticas no comparan estos "
+  f"valores uno a uno, sino los 30 pares en conjunto. En {ceros} de los 30 pares ambos parches dan 0 horas, y muchos valores "
+  "coinciden porque los dos parches tocan la misma función.")
+
+
+def _par(i, m):
+    return f"{nc(por_origen.loc[('humano', i), m])} / {nc(por_origen.loc[('LLM', i), m])}"
+
+
+_filas = [[i.split("__")[1], _par(i, "cognitiva_max"), _par(i, "ciclomatica_max"), _par(i, "clones"), _par(i, "advertencias"),
+           _par(i, "mi_min"), _par(i, "deuda_horas"), _par(i, "satd"), _par(i, "lineas_anadidas"), "Sí" if resuelve[i] else "No"]
+          for i in sorted(PROBLEMAS)]
+_suma = res.groupby("origen")[["clones", "advertencias", "deuda_horas", "satd", "lineas_anadidas"]].sum()
+_filas.append(["Total", "—", "—", *[f"{nc(_suma.loc['humano', m])} / {nc(_suma.loc['LLM', m])}" for m in ("clones", "advertencias")], "—",
+               f"{nc(_suma.loc['humano', 'deuda_horas'])} / {nc(_suma.loc['LLM', 'deuda_horas'])}",
+               f"{nc(_suma.loc['humano', 'satd'])} / {nc(_suma.loc['LLM', 'satd'])}",
+               f"{nc(_suma.loc['humano', 'lineas_anadidas'])} / {nc(_suma.loc['LLM', 'lineas_anadidas'])}", f"{n_ok} de 30"])
+T(["Caso", "Cogn.", "Cicl.", "Clones", "Adv.", "MI", "Horas", "SATD", "Líneas +", "¿Resuelve el LLM?"], _filas,
+  [3, 1.2, 1.2, 1.25, 0.95, 2.35, 2.05, 1.05, 1.45, 1.5], "Resultados por caso (humano / LLM); todos los parches humanos resuelven el issue. Líneas +: líneas añadidas")
 P(f"**Deuda total.** Sumando los 30 parches, el código humano acumula {n(h_total, 1)} h y el del LLM {n(l_total, 1)} h. "
   f"Por tamaño ocurre lo contrario: {n(h_total / h_lin * 1000, 1)} h/KLOC frente a {n(l_total / l_lin * 1000, 1)} h/KLOC. "
   f"Ninguna de las dos lecturas es concluyente: con parches de pocas líneas, un solo hallazgo cambia mucho la razón por "

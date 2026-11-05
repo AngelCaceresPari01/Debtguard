@@ -1,0 +1,42 @@
+{
+  "caso_id": "astropy__astropy-14182_humano",
+  "origen": "humano",
+  "modelo": null,
+  "kloc_cambiadas": 0.028,
+  "metricas": {
+    "cognitiva_max": 0,
+    "ciclomatica_max": 1,
+    "delta_cognitiva": 0,
+    "delta_ciclomatica": 1,
+    "funciones_tocadas": 3,
+    "mi_min": 81.40586903067887,
+    "delta_mi": -5.383843523083314,
+    "advertencias": 0,
+    "advertencias_kloc": 0.0,
+    "adv_altas_kloc": 0.0,
+    "clones": 0,
+    "satd": 0,
+    "satd_kloc": 0.0,
+    "lineas_anadidas": 28,
+    "lineas_eliminadas": 10,
+    "archivos": 1
+  },
+  "hallazgos": [],
+  "deuda_min": 0,
+  "deuda_horas": 0.0,
+  "horas_kloc": 0.0,
+  "debt_ratio": 0.0,
+  "nota_sqale": "A",
+  "ird": 0.0,
+  "veredicto": "ACEPTAR",
+  "versiones": {
+    "radon": "6.0.1",
+    "complexipy": "8.3.0",
+    "ruff": "0.17.3",
+    "pylint": "4.1.3",
+    "unidiff": "1.0.1",
+    "jscpd": "jscpd 5.4.2"
+  },
+  "errores": [],
+  "excluidos": []
+}

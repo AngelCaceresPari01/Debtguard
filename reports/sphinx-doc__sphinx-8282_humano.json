@@ -1,0 +1,71 @@
+{
+  "caso_id": "sphinx-doc__sphinx-8282_humano",
+  "origen": "humano",
+  "modelo": null,
+  "kloc_cambiadas": 0.007,
+  "metricas": {
+    "cognitiva_max": 16,
+    "ciclomatica_max": 10,
+    "delta_cognitiva": 1,
+    "delta_ciclomatica": 3,
+    "funciones_tocadas": 3,
+    "mi_min": 0.0,
+    "delta_mi": 0.0,
+    "advertencias": 0,
+    "advertencias_kloc": 0.0,
+    "adv_altas_kloc": 0.0,
+    "clones": 2,
+    "satd": 0,
+    "satd_kloc": 0.0,
+    "lineas_anadidas": 7,
+    "lineas_eliminadas": 3,
+    "archivos": 1
+  },
+  "hallazgos": [
+    {
+      "archivo": "sphinx/ext/autodoc/__init__.py",
+      "linea": 1241,
+      "funcion": null,
+      "familia": "clon",
+      "regla": "clone",
+      "severidad": "media",
+      "valor": 6,
+      "umbral": null,
+      "costo_min": 20.0,
+      "categoria": null,
+      "valor_previo": null,
+      "detalle": "lineas 1241-1246; igual a sphinx/ext/autodoc/__init__.py:1885"
+    },
+    {
+      "archivo": "sphinx/ext/autodoc/__init__.py",
+      "linea": 1885,
+      "funcion": null,
+      "familia": "clon",
+      "regla": "clone",
+      "severidad": "media",
+      "valor": 6,
+      "umbral": null,
+      "costo_min": 20.0,
+      "categoria": null,
+      "valor_previo": null,
+      "detalle": "lineas 1885-1890; igual a sphinx/ext/autodoc/__init__.py:1241"
+    }
+  ],
+  "deuda_min": 40.0,
+  "deuda_horas": 0.6666666666666666,
+  "horas_kloc": 95.23809523809523,
+  "debt_ratio": 0.19047619047619047,
+  "nota_sqale": "C",
+  "ird": 45.41,
+  "veredicto": "BLOQUEAR",
+  "versiones": {
+    "radon": "6.0.1",
+    "complexipy": "8.3.0",
+    "ruff": "0.17.3",
+    "pylint": "4.1.3",
+    "unidiff": "1.0.1",
+    "jscpd": "jscpd 5.4.2"
+  },
+  "errores": [],
+  "excluidos": []
+}

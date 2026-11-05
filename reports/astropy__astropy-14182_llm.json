@@ -1,0 +1,42 @@
+{
+  "caso_id": "astropy__astropy-14182_llm",
+  "origen": "LLM",
+  "modelo": "deepseek-v4-pro",
+  "kloc_cambiadas": 0.011,
+  "metricas": {
+    "cognitiva_max": 2,
+    "ciclomatica_max": 2,
+    "delta_cognitiva": 2,
+    "delta_ciclomatica": 1,
+    "funciones_tocadas": 2,
+    "mi_min": 80.76889987985332,
+    "delta_mi": -6.020812673908864,
+    "advertencias": 0,
+    "advertencias_kloc": 0.0,
+    "adv_altas_kloc": 0.0,
+    "clones": 0,
+    "satd": 0,
+    "satd_kloc": 0.0,
+    "lineas_anadidas": 11,
+    "lineas_eliminadas": 4,
+    "archivos": 1
+  },
+  "hallazgos": [],
+  "deuda_min": 0,
+  "deuda_horas": 0.0,
+  "horas_kloc": 0.0,
+  "debt_ratio": 0.0,
+  "nota_sqale": "A",
+  "ird": 0.68,
+  "veredicto": "ACEPTAR",
+  "versiones": {
+    "radon": "6.0.1",
+    "complexipy": "8.3.0",
+    "ruff": "0.17.3",
+    "pylint": "4.1.3",
+    "unidiff": "1.0.1",
+    "jscpd": "jscpd 5.4.2"
+  },
+  "errores": [],
+  "excluidos": []
+}

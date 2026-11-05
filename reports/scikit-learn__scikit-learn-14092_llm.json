@@ -1,0 +1,42 @@
+{
+  "caso_id": "scikit-learn__scikit-learn-14092_llm",
+  "origen": "LLM",
+  "modelo": "deepseek-v4-pro",
+  "kloc_cambiadas": 0.032,
+  "metricas": {
+    "cognitiva_max": 22,
+    "ciclomatica_max": 14,
+    "delta_cognitiva": 5,
+    "delta_ciclomatica": 6,
+    "funciones_tocadas": 2,
+    "mi_min": 46.67012724000382,
+    "delta_mi": -1.91990495089086,
+    "advertencias": 0,
+    "advertencias_kloc": 0.0,
+    "adv_altas_kloc": 0.0,
+    "clones": 0,
+    "satd": 0,
+    "satd_kloc": 0.0,
+    "lineas_anadidas": 32,
+    "lineas_eliminadas": 7,
+    "archivos": 1
+  },
+  "hallazgos": [],
+  "deuda_min": 0,
+  "deuda_horas": 0.0,
+  "horas_kloc": 0.0,
+  "debt_ratio": 0.0,
+  "nota_sqale": "A",
+  "ird": 7.45,
+  "veredicto": "ACEPTAR",
+  "versiones": {
+    "radon": "6.0.1",
+    "complexipy": "8.3.0",
+    "ruff": "0.17.3",
+    "pylint": "4.1.3",
+    "unidiff": "1.0.1",
+    "jscpd": "jscpd 5.4.2"
+  },
+  "errores": [],
+  "excluidos": []
+}

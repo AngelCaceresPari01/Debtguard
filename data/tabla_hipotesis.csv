@@ -1,0 +1,8 @@
+hipotesis,esperado,metrica,n,med_humano,med_llm,media_humano,media_llm,llm_mayor,empates,llm_menor,W,p,cliff,magnitud,p_holm,decision
+H1,mayor,cognitiva_max,30,16.5,16.0,17.566666666666666,15.866666666666667,6,9,15,76.0,0.1687422365829877,-0.03,despreciable,1.0,No se rechaza H0
+H1,mayor,ciclomatica_max,30,10.0,9.5,11.0,9.9,4,13,13,38.5,0.07052889193102686,-0.07,despreciable,0.49370224351718806,No se rechaza H0
+H2,mayor,clones,30,0.0,0.0,0.1,0.1,1,28,1,1.5,1.0,0.0,despreciable,1.0,No se rechaza H0
+H3,mayor,advertencias_kloc,30,0.0,0.0,29.152307387601507,39.68336468336468,5,19,6,28.0,0.6566419342620566,-0.02,despreciable,1.0,No se rechaza H0
+H3,menor,mi_min,30,35.32690782027185,35.384860958208165,31.71242493763435,31.667509106222305,11,9,10,106.0,0.7412506037181041,-0.0011111111111111111,despreciable,1.0,No se rechaza H0
+H4,mayor,horas_kloc,30,14.665032679738562,0.0,30.341580022049577,42.41771441771443,8,10,12,88.0,0.5256531981764858,-0.12666666666666668,despreciable,1.0,No se rechaza H0
+H4,menor,satd_kloc,30,0.0,0.0,3.3333333333333335,0.0,0,29,1,0.0,0.31731050786291415,-0.03333333333333333,despreciable,1.0,No se rechaza H0

@@ -1,0 +1,57 @@
+{
+  "caso_id": "pylint-dev__pylint-7228_humano",
+  "origen": "humano",
+  "modelo": null,
+  "kloc_cambiadas": 0.009,
+  "metricas": {
+    "cognitiva_max": 1,
+    "ciclomatica_max": 2,
+    "delta_cognitiva": 1,
+    "delta_ciclomatica": 2,
+    "funciones_tocadas": 2,
+    "mi_min": 60.5991399066645,
+    "delta_mi": -0.7032498128888918,
+    "advertencias": 1,
+    "advertencias_kloc": 111.11111111111111,
+    "adv_altas_kloc": 0.0,
+    "clones": 0,
+    "satd": 0,
+    "satd_kloc": 0.0,
+    "lineas_anadidas": 9,
+    "lineas_eliminadas": 2,
+    "archivos": 1
+  },
+  "hallazgos": [
+    {
+      "archivo": "pylint/config/argument.py",
+      "linea": 108,
+      "funcion": null,
+      "familia": "regla",
+      "regla": "B904",
+      "severidad": "media",
+      "valor": 1,
+      "umbral": null,
+      "costo_min": 15,
+      "categoria": "mantenibilidad",
+      "valor_previo": null,
+      "detalle": "Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling"
+    }
+  ],
+  "deuda_min": 15,
+  "deuda_horas": 0.25,
+  "horas_kloc": 27.77777777777778,
+  "debt_ratio": 0.05555555555555555,
+  "nota_sqale": "B",
+  "ird": 10.29,
+  "veredicto": "ACEPTAR",
+  "versiones": {
+    "radon": "6.0.1",
+    "complexipy": "8.3.0",
+    "ruff": "0.17.3",
+    "pylint": "4.1.3",
+    "unidiff": "1.0.1",
+    "jscpd": "jscpd 5.4.2"
+  },
+  "errores": [],
+  "excluidos": []
+}

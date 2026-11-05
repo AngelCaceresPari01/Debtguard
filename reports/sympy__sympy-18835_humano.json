@@ -1,0 +1,71 @@
+{
+  "caso_id": "sympy__sympy-18835_humano",
+  "origen": "humano",
+  "modelo": null,
+  "kloc_cambiadas": 0.018,
+  "metricas": {
+    "cognitiva_max": 22,
+    "ciclomatica_max": 11,
+    "delta_cognitiva": 4,
+    "delta_ciclomatica": 4,
+    "funciones_tocadas": 2,
+    "mi_min": 0.0,
+    "delta_mi": 0.0,
+    "advertencias": 0,
+    "advertencias_kloc": 0.0,
+    "adv_altas_kloc": 0.0,
+    "clones": 0,
+    "satd": 0,
+    "satd_kloc": 0.0,
+    "lineas_anadidas": 18,
+    "lineas_eliminadas": 2,
+    "archivos": 1
+  },
+  "hallazgos": [
+    {
+      "archivo": "sympy/utilities/iterables.py",
+      "linea": 2088,
+      "funcion": "uniq",
+      "familia": "complejidad",
+      "regla": "cognitive>15",
+      "severidad": "media",
+      "valor": 22,
+      "umbral": 15,
+      "costo_min": 12,
+      "categoria": null,
+      "valor_previo": 18,
+      "detalle": ""
+    },
+    {
+      "archivo": "sympy/utilities/iterables.py",
+      "linea": 2088,
+      "funcion": "uniq",
+      "familia": "complejidad",
+      "regla": "cyclomatic>10",
+      "severidad": "media",
+      "valor": 11,
+      "umbral": 10,
+      "costo_min": 2,
+      "categoria": null,
+      "valor_previo": 10,
+      "detalle": ""
+    }
+  ],
+  "deuda_min": 14,
+  "deuda_horas": 0.23333333333333334,
+  "horas_kloc": 12.962962962962964,
+  "debt_ratio": 0.025925925925925925,
+  "nota_sqale": "A",
+  "ird": 12.09,
+  "veredicto": "ACEPTAR",
+  "versiones": {
+    "radon": "6.0.1",
+    "complexipy": "8.3.0",
+    "ruff": "0.17.3",
+    "pylint": "4.1.3",
+    "unidiff": "1.0.1",
+    "jscpd": "jscpd 5.4.2"
+  },
+  "errores": [],
+  "excluidos": []
+}

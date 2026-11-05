@@ -1,0 +1,57 @@
+{
+  "caso_id": "scikit-learn__scikit-learn-10297_humano",
+  "origen": "humano",
+  "modelo": null,
+  "kloc_cambiadas": 0.019,
+  "metricas": {
+    "cognitiva_max": 0,
+    "ciclomatica_max": 1,
+    "delta_cognitiva": 0,
+    "delta_ciclomatica": 0,
+    "funciones_tocadas": 1,
+    "mi_min": 23.88464489000356,
+    "delta_mi": -0.09517181406030772,
+    "advertencias": 0,
+    "advertencias_kloc": 0.0,
+    "adv_altas_kloc": 0.0,
+    "clones": 1,
+    "satd": 0,
+    "satd_kloc": 0.0,
+    "lineas_anadidas": 19,
+    "lineas_eliminadas": 14,
+    "archivos": 1
+  },
+  "hallazgos": [
+    {
+      "archivo": "sklearn/linear_model/ridge.py",
+      "linea": 1304,
+      "funcion": null,
+      "familia": "clon",
+      "regla": "clone",
+      "severidad": "media",
+      "valor": 9,
+      "umbral": null,
+      "costo_min": 20.0,
+      "categoria": null,
+      "valor_previo": null,
+      "detalle": "lineas 1304-1312; igual a sklearn/linear_model/ridge.py:1213"
+    }
+  ],
+  "deuda_min": 20.0,
+  "deuda_horas": 0.3333333333333333,
+  "horas_kloc": 17.543859649122805,
+  "debt_ratio": 0.03508771929824561,
+  "nota_sqale": "A",
+  "ird": 16.28,
+  "veredicto": "ACEPTAR",
+  "versiones": {
+    "radon": "6.0.1",
+    "complexipy": "8.3.0",
+    "ruff": "0.17.3",
+    "pylint": "4.1.3",
+    "unidiff": "1.0.1",
+    "jscpd": "jscpd 5.4.2"
+  },
+  "errores": [],
+  "excluidos": []
+}

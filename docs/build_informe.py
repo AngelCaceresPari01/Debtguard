@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import subprocess
+import sys
 from pathlib import Path
 
 import pandas as pd
@@ -15,7 +16,7 @@ from docx.shared import Cm, Pt, RGBColor
 
 RAIZ = Path(__file__).resolve().parents[1]
 DATA, FIG = RAIZ / "data", RAIZ / "docs" / "figuras"
-SALIDA = RAIZ.parent / "A.9_HITO2_Carrasco_Caceres_Chancuaña_Yana.docx"
+SALIDA = Path(sys.argv[1]) if len(sys.argv) > 1 else RAIZ.parent / "A.9_HITO2_Carrasco_Caceres_Chancuaña_Yana.docx"
 ANCHO = 16.5
 
 t = pd.read_csv(DATA / "tabla_hipotesis.csv")
@@ -51,6 +52,18 @@ n_gen, n_mal = len(gen), int((gen.estado != "ok").sum())
 tok_in, tok_out = int(gen.tokens_entrada.sum()), int(gen.tokens_salida.sum())
 w = res.pivot(index="instance_id", columns="origen", values="lineas_anadidas")
 llm_menos = int((w.LLM < w.humano).sum())
+cor = pd.read_csv(DATA / "correccion" / "correccion.csv")
+tc = pd.read_csv(DATA / "correccion" / "tabla_solo_correctos.csv")
+n_ok = int((cor.llm_resuelto == True).sum())  # noqa: E712
+n_hum = int((cor.humano_resuelto == True).sum())  # noqa: E712
+n_no_corre = int((cor.llm_aplica != True).sum())  # noqa: E712
+n_prev = int((cor.llm_p2p_mal > 0).sum())
+n_falla = len(cor) - n_ok - n_no_corre
+llm_cor = res[res.origen == "LLM"].merge(cor[["instance_id", "llm_resuelto"]], on="instance_id")
+med_ok = llm_cor[llm_cor.llm_resuelto == True].lineas_anadidas.median()  # noqa: E712
+med_mal = llm_cor[llm_cor.llm_resuelto != True].lineas_anadidas.median()  # noqa: E712
+sub_ok = res[res.instance_id.isin(cor[cor.llm_resuelto == True].instance_id)]  # noqa: E712
+tot_ok = sub_ok.groupby("origen")[["deuda_horas", "lineas_anadidas"]].sum()
 
 try:
     hw = subprocess.run(["powershell", "-NoProfile", "-Command",
@@ -230,9 +243,10 @@ P("Este Hito 2 pasa de la revisión al experimento y aporta tres cosas: **debtgu
   "un experimento pareado con 30 issues de SWE-bench Lite [19], cada uno resuelto por una persona y por DeepSeek-V4-Pro; y "
   "un análisis de sensibilidad del modelo de costos.")
 P(f"El resultado principal es que **no se encontró una diferencia significativa en ninguna de las siete métricas "
-  f"principales**. Este resultado debe leerse junto a otro: los parches del LLM fueron bastante más pequeños "
-  f"(mediana de {n(ex.loc['lineas_anadidas', 'med_llm'], 0)} líneas añadidas frente a "
-  f"{n(ex.loc['lineas_anadidas', 'med_humano'], 0)}) y no se comprobó si resuelven el issue.")
+  f"principales**. Este resultado debe leerse junto a otro: **solo {n_ok} de los 30 parches del LLM resolvieron el issue "
+  f"según las pruebas de SWE-bench, frente a {n_hum} de 30 parches humanos**. Además, los parches del LLM fueron más "
+  f"pequeños (mediana de {n(ex.loc['lineas_anadidas', 'med_llm'], 0)} líneas añadidas frente a "
+  f"{n(ex.loc['lineas_anadidas', 'med_humano'], 0)}).")
 P("El informe se organiza así: la Sección 2 discute los trabajos relacionados; la 3, la planificación metodológica; la 4, "
   "la conducción del experimento; la 5, los resultados; y la 6, las conclusiones, la discusión frente a S01–S10, las "
   "amenazas a la validez y el trabajo futuro.")
@@ -305,6 +319,7 @@ T(["Tipo", "Variable", "Cómo se mide"], [
     ["Control", "Issue y commit base", "Iguales en cada par"],
     ["Control", "Lenguaje y prompt", "Solo Python; prompt único; temperatura 0"],
     ["Registrada", "Tamaño y aplicación del parche", "Líneas añadidas y eliminadas; modo de aplicación; similitud con el parche humano"],
+    ["Registrada", "Corrección funcional", "Si el parche resuelve el issue según las pruebas oficiales de SWE-bench"],
 ], [2.5, 5, 9], "Variables del experimento")
 P("Se excluyen de la medición las pruebas, las migraciones y los archivos autogenerados. Los valores absolutos y los deltas "
   "se reportan como análisis exploratorio, sin intervenir en la decisión sobre las hipótesis.")
@@ -314,6 +329,7 @@ T(["Fecha", "Actividad", "Responsable", "Estado"], [
     ["5/11", "Prototipo, pruebas y muestreo", "P1, P2", "Hecho"],
     ["5/11", "Generación de parches, calibración y lote de 60 casos", "P1, P2", "Hecho"],
     ["5/11", "Estadística, gráficos y sensibilidad", "P2", "Hecho"],
+    ["5/11", "Comprobación funcional con las pruebas de SWE-bench", "P1, P2", "Hecho"],
     ["6–7/11", "Etiquetado de 60 alertas por dos revisores", "P2, P3", "[[por hacer]]"],
     ["7–8/11", "Corrección cronometrada de 10–15 hallazgos; Kappa y precisión", "P2, P3", "[[por hacer]]"],
     ["8/11", "Publicación del repositorio en GitHub", "P1", "[[por hacer]]"],
@@ -324,7 +340,7 @@ T(["Recurso", "Detalle"], [
     ["Humanos", "P1: prototipo e implementación. P2: datos y análisis. P3: informe y validación."],
     ["Datos", "SWE-bench Lite [19]: 300 issues, de los que 86 cumplen el filtro de tamaño"],
     ["Costo de la API", f"DeepSeek: {n(tok_in, 0)} tokens de entrada y {n(tok_out, 0)} de salida en {n_gen} issues; 0,28 USD (saldo de 3,57 a 3,29 USD)"],
-    ["Hardware", hw + ". Sin GPU. El lote de 60 casos tardó 7 min 41 s."],
+    ["Hardware", hw + ". Sin GPU. El lote de 60 casos tardó 7 min 41 s; la comprobación funcional, cerca de 1 h 30 min en Docker."],
     ["Software", "Herramientas de código abierto; ver la Tabla de herramientas de la Sección 4.1"],
 ], [3, 13], "Recursos")
 
@@ -345,6 +361,8 @@ T(["Herramienta", "Versión", "Licencia", "Uso"], [
     ["scikit-learn", "1.9.1", "BSD", "Kappa de Cohen"],
     ["matplotlib", "3.11.2", "PSF", "Gráficos"],
     ["SDK openai / API DeepSeek", "deepseek-v4-pro", "Servicio de pago", "Generación de parches"],
+    ["swebench", "5.0.2", "MIT", "Comprobación funcional de los parches"],
+    ["Docker", "29.8.0", "Apache-2.0 (motor)", "Entorno de pruebas de cada issue"],
 ], [5, 3, 2.5, 6], "Herramientas y stack tecnológico")
 H2("4.2 Diseño del prototipo")
 P("debtguard es una herramienta de consola. Recibe un diff y el proyecto con el parche aplicado, y devuelve un JSON por "
@@ -399,6 +417,10 @@ P(f"**Generación con el LLM.** Se usó deepseek-v4-pro con temperatura 0, razon
 P("**Procedimiento del lote.** Para cada issue se hace checkout del commit base, se aplica el parche, se obtiene un diff "
   "canónico y se ejecuta el prototipo: primero con el parche humano y después con el del LLM. Se obtuvieron 60 JSON sin "
   "errores de herramienta.")
+P("**Comprobación funcional.** Después del lote, los 60 parches se evaluaron con el harness oficial de SWE-bench, en "
+  "contenedores Docker con el entorno de cada issue. Un parche cuenta como correcto si pasan las pruebas objetivo y las que "
+  "ya pasaban. Este paso no estaba previsto al congelar la configuración, por lo que el análisis restringido a parches "
+  "correctos es exploratorio. Los parches humanos funcionan como control del entorno.")
 P("**Análisis.** Se aplicó la prueba de rangos con signo de Wilcoxon [24] bilateral, el delta de Cliff [25] y la "
   "corrección de Holm [26] sobre las siete pruebas principales, con α = 0,05. H0 se rechaza si el p ajustado es menor que "
   "0,05, |δ| ≥ 0,147 y el sentido coincide con la hipótesis.")
@@ -433,6 +455,22 @@ T(["Origen", "Complejidad (min)", "Reglas (min)", "Clones (min)", "SATD (min)", 
   [[{"humano": "Humano", "LLM": "LLM"}[o], n(comp.loc[o, "min_complejidad"], 1), n(comp.loc[o, "min_regla"], 1), n(comp.loc[o, "min_clon"], 1),
     n(comp.loc[o, "min_satd"], 1), n(comp.loc[o, "deuda_horas"], 1), int(comp.loc[o, "lineas_anadidas"]), int(comp.loc[o, "n_hallazgos"])]
    for o in ("humano", "LLM")], [2, 2.3, 2, 2, 2, 2, 2.2, 2], "Composición de la deuda estimada en los 30 pares")
+P(f"**Corrección funcional.** Todos los parches humanos pasaron ({n_hum} de 30), lo que respalda el entorno de pruebas. Del "
+  f"LLM, solo {n_ok} de 30 resolvieron el issue ({n(n_ok / 30 * 100, 0)} %). De los otros {30 - n_ok}, {n_no_corre} impidieron "
+  f"que las pruebas llegaran a ejecutarse, por ejemplo con un import circular o un import inexistente, y {n_falla} se ejecutaron "
+  f"sin pasarlas; {n_prev} de estos últimos además rompieron pruebas que antes pasaban. Debido a esta tasa, la Tabla de H1–H4 "
+  f"compara sobre todo parches humanos correctos con parches del LLM incorrectos.")
+P(f"La brevedad no se explica por la incorrección: la mediana de líneas añadidas por el LLM es {n(med_ok, 0)} tanto en los "
+  f"parches correctos como en los demás ({n(med_mal, 0)}).")
+filas_c = [[f.hipotesis, NOMBRES[f.metrica], n(f.med_humano), n(f.med_llm), f"{f.llm_mayor} / {f.empates} / {f.llm_menor}", ps(f.p), ps(f.p_holm), n(f.cliff, 3)]
+           for f in tc.itertuples()]
+T(["H", "Métrica", "Mediana humano", "Mediana LLM", "LLM > / = / <", "p", "p Holm", "δ Cliff"], filas_c,
+  [0.9, 4, 1.8, 1.8, 2, 1.3, 1.3, 1.3], f"Análisis exploratorio con los {n_ok} pares en que el LLM resolvió el issue")
+P(f"En esos {n_ok} pares tampoco aparece ninguna diferencia significativa (todos los p ajustados valen 1,000). Sumados, la deuda "
+  f"estimada es de {n(tot_ok.loc['humano', 'deuda_horas'], 2)} h para el código humano y de {n(tot_ok.loc['LLM', 'deuda_horas'], 2)} h "
+  f"para el LLM, es decir, {n(tot_ok.loc['humano', 'deuda_horas'] / tot_ok.loc['humano', 'lineas_anadidas'] * 1000, 1)} y "
+  f"{n(tot_ok.loc['LLM', 'deuda_horas'] / tot_ok.loc['LLM', 'lineas_anadidas'] * 1000, 1)} h/KLOC. Con 9 pares, este análisis solo "
+  "podría detectar efectos muy grandes y no permite concluir que la deuda sea equivalente.")
 P("**Sensibilidad de costos.** Multiplicar todos los costos por un mismo factor no altera los rangos ni, por tanto, la "
   "prueba. Por eso se varió ±25 % cada familia por separado. La conclusión de H4 no cambia en ningún escenario.")
 T(["Familia variada", "Factor", "Mediana humano (h/KLOC)", "Mediana LLM (h/KLOC)", "p", "δ Cliff"],
@@ -467,6 +505,9 @@ B(f"**H2 (clones): no se confirma.** Solo 2 de 30 pares difieren; p Holm = {ps(t
 B(f"**H3 (advertencias y mantenibilidad): no se confirma.** Advertencias: p Holm = {ps(t.p_holm[3])}. Mantenibilidad: p Holm = {ps(t.p_holm[4])}.")
 B(f"**H4 (horas y SATD): no se confirma.** Horas/KLOC: p Holm = {ps(t.p_holm[5])}, δ = {n(t.cliff[5], 3)}, resultado estable ante la variación de costos. SATD/KLOC: p Holm = {ps(t.p_holm[6])}; hubo un solo comentario en los 60 parches.")
 P("No haber detectado diferencias no prueba que no existan. Con 30 pares solo se pueden detectar efectos medianos o grandes.")
+P(f"**La conclusión práctica más fuerte es funcional:** el LLM resolvió {n_ok} de 30 issues. Una estimación baja de deuda no "
+  "indica que un parche sea aceptable, y por eso el prototipo debe complementar a las pruebas, no reemplazarlas. Por ejemplo, "
+  "debtguard no marcó ningún hallazgo en el parche de sympy-12419, que introduce un import circular y detiene las pruebas.")
 H2("Discusión frente a S01–S10")
 T(["Estudio", "Qué reporta", "Qué se observó aquí", "Lectura"], [
     ["S01", "+39 % cognitiva y +18 % advertencias tras adoptar agentes", "Sin diferencia en cognitiva ni advertencias", "No se replica; S01 mide agentes a nivel de repositorio y aquí un chat acotado"],
@@ -478,12 +519,13 @@ T(["Estudio", "Qué reporta", "Qué se observó aquí", "Lectura"], [
     ["S07", "Menos días de deuda en lo generado (tarea de traducción)", "Menos horas totales en el LLM, sin diferencia por KLOC", "Coincide en lo absoluto; la deuda sigue el tamaño"],
     ["S09, S10", "SATD y TODO en generación con Copilot", "SATD casi ausente", "La muestra no permite evaluarlo"],
 ], [1.6, 5, 4.6, 5], "Comparación con los estudios primarios")
-P("La explicación más plausible de las diferencias con S01 y S06 es el contexto: aquí el LLM recibió los archivos exactos y "
+P("Una explicación plausible de las diferencias con S01 y S06 es el contexto: aquí el LLM recibió los archivos exactos y "
   "produjo cambios muy pequeños, mientras que aquellos estudios observan agentes o parches que recorren el repositorio. Un "
   "parche mínimo apenas puede añadir complejidad. Es una hipótesis para probar, no una conclusión de este experimento.")
 H2("Amenazas a la validez")
 T(["Tipo", "Amenaza", "Tratamiento"], [
-    ["Constructo", "No se comprobó si los parches resuelven el issue; uno incorrecto puede ser más corto y tener menos deuda", "Declarado; es la amenaza principal y el primer trabajo futuro"],
+    ["Constructo", f"Solo {n_ok} de 30 parches del LLM son correctos, de modo que la comparación principal mezcla calidad interna con parches que no funcionan", "Se midió con el harness; análisis exploratorio con parches correctos"],
+    ["Constructo", "Pasar las pruebas de SWE-bench no garantiza que un parche sea correcto en todos los casos", "Se usa el criterio oficial del conjunto de datos"],
     ["Constructo", "El prompt incluye los archivos del parche humano, lo que facilita la tarea y acota el cambio", "Decisión de diseño declarada"],
     ["Constructo", "Costos definidos por el equipo", "Sensibilidad ±25 % por familia; validación cronometrada pendiente"],
     ["Constructo", "Falsos positivos de las herramientas", "Revisión manual pendiente"],
@@ -494,6 +536,7 @@ T(["Tipo", "Amenaza", "Tratamiento"], [
     ["Interna", "Memorización del conjunto de datos", "Similitud máxima 0,68; ningún caso sobre 0,9"],
     ["Interna", "Umbrales circulares", "Muestra de calibración separada"],
     ["Conclusión", "Muestra pequeña y muchos empates (19 pares en advertencias, 28 en clones)", "Pruebas no paramétricas, efecto y conteos de empates"],
+    ["Conclusión", f"El análisis con parches correctos tiene solo {n_ok} pares y no estaba previsto al congelar la configuración", "Se presenta como exploratorio"],
     ["Conclusión", "Razones por KLOC inestables en parches de pocas líneas", "Se reportan también valores absolutos"],
     ["Externa", "Un solo LLM, sin razonamiento, un solo lenguaje y 11 proyectos de código abierto", "No se generaliza a agentes, a otros modelos ni a la industria"],
     ["Fiabilidad", "No determinismo y cambios del servicio del LLM", "Temperatura 0; respuestas crudas, modelo, fecha y huella guardados"],
@@ -504,7 +547,7 @@ for x in ("El prototipo solo analiza Python y no mide clones semánticos ni acop
           "Con la validación manual pendiente, todavía no se conoce la precisión de las alertas."):
     B(x)
 H2("Trabajo futuro")
-for x in ("Ejecutar las pruebas de SWE-bench para repetir el análisis solo con parches correctos.",
+for x in ("Ampliar la muestra hasta reunir suficientes pares con parches correctos.",
           "Controlar el tamaño del cambio, o comparar parches de tamaño similar.",
           "Comparar chat, IDE y agentes sobre los mismos issues, usando predicciones públicas de agentes.",
           "Añadir clones semánticos con embeddings, medición de acoplamiento y otros lenguajes.",
@@ -565,11 +608,13 @@ for lin in ("Eres un desarrollador. Repositorio: {repo}. Resuelve el siguiente i
     r.font.name, r.font.size = "Consolas", Pt(9)
 H2("Anexo D. Casos (casos.csv)")
 casos = pd.read_csv(DATA / "casos.csv").set_index("instance_id")
-T(["Issue", "Proyecto", "Líneas del parche humano", "Origen en la muestra", "Modo de aplicación LLM", "Similitud"],
+cor_i = cor.set_index("instance_id")
+T(["Issue", "Proyecto", "Líneas del parche humano", "Origen en la muestra", "Modo de aplicación LLM", "Similitud", "LLM resuelve"],
   [[f.instance_id, casos.loc[f.instance_id, "repo"], int(casos.loc[f.instance_id, "lineas_humano"]),
     {"comparacion": "Comparación", "reserva": "Reserva"}[f.rol], {"laxo": "Laxo", "estricto": "Estricto"}[f.modo],
-    n(eje.set_index("instance_id").loc[f.instance_id, "similitud"])] for f in sel.itertuples()],
-  [5, 3.6, 1.8, 2.5, 1.9, 1.7], "Los 30 pares analizados")
+    n(eje.set_index("instance_id").loc[f.instance_id, "similitud"]), "Sí" if cor_i.loc[f.instance_id, "llm_resuelto"] == True else "No"]  # noqa: E712
+   for f in sel.itertuples()],
+  [4.8, 3.4, 1.6, 2.3, 1.7, 1.5, 1.4], "Los 30 pares analizados")
 H2("Anexo E. Declaración de uso de asistentes de IA")
 P("El prototipo, la ejecución del análisis y un primer borrador de este informe se realizaron con ayuda de Claude Code "
   "(Claude Opus 5.5). Los parches del experimento los generó únicamente DeepSeek-V4-Pro. La validación manual corresponde a "

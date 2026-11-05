@@ -1,0 +1,64 @@
+{
+    "total_instances": 1,
+    "submitted_instances": 30,
+    "completed_instances": 1,
+    "resolved_instances": 0,
+    "unresolved_instances": 1,
+    "infra_failure_instances": 0,
+    "ambiguous_failure_instances": 0,
+    "empty_patch_instances": 0,
+    "error_instances": 0,
+    "completed_ids": [
+        "scikit-learn__scikit-learn-13497"
+    ],
+    "incomplete_ids": [],
+    "empty_patch_ids": [],
+    "submitted_ids": [
+        "astropy__astropy-14182",
+        "django__django-12983",
+        "django__django-13315",
+        "django__django-14752",
+        "django__django-16229",
+        "matplotlib__matplotlib-24265",
+        "matplotlib__matplotlib-24970",
+        "matplotlib__matplotlib-25332",
+        "matplotlib__matplotlib-26011",
+        "pallets__flask-4045",
+        "pallets__flask-4992",
+        "pallets__flask-5063",
+        "psf__requests-3362",
+        "pydata__xarray-4493",
+        "pylint-dev__pylint-7114",
+        "pylint-dev__pylint-7228",
+        "pytest-dev__pytest-5221",
+        "pytest-dev__pytest-5495",
+        "pytest-dev__pytest-7220",
+        "pytest-dev__pytest-7373",
+        "scikit-learn__scikit-learn-10297",
+        "scikit-learn__scikit-learn-11040",
+        "scikit-learn__scikit-learn-13497",
+        "scikit-learn__scikit-learn-14092",
+        "sphinx-doc__sphinx-8282",
+        "sphinx-doc__sphinx-8801",
+        "sympy__sympy-12419",
+        "sympy__sympy-13031",
+        "sympy__sympy-14308",
+        "sympy__sympy-18835"
+    ],
+    "resolved_ids": [],
+    "unresolved_ids": [
+        "scikit-learn__scikit-learn-13497"
+    ],
+    "infra_failure_ids": [],
+    "ambiguous_failure_ids": [],
+    "failure_reasons": {},
+    "error_ids": [],
+    "schema_version": 2,
+    "unstopped_instances": 1,
+    "unstopped_containers": [
+        "sweb.eval.scikit-learn__scikit-learn-13497.hito2_llm"
+    ],
+    "unremoved_images": [
+        "swebench/sweb.eval.x86_64.scikit-learn_1776_scikit-learn-13497:latest"
+    ]
+}

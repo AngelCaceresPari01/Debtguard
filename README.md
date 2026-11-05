@@ -58,3 +58,12 @@ No abras `clave_no_abrir.csv` antes de etiquetar: indica el origen de cada alert
 - `experiments/`: muestreo, generación, lote, análisis y validación
 - `data/`, `casos/`, `reports/`: casos, parches, resultados y JSON por caso
 - `docs/`: figuras y generador del informe
+
+## Comprobar corrección (opcional, requiere Docker)
+
+Construye una imagen con `swebench==5.0.2`, monta `data/correccion` en `/work` y el socket de Docker, y ejecuta `swe_eval.py` dentro. Después:
+
+```bash
+python experiments/swe_predicciones.py
+cd experiments && python analysis_correccion.py
+```

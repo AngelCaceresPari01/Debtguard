@@ -1,0 +1,42 @@
+{
+  "caso_id": "pytest-dev__pytest-7490_humano",
+  "origen": "humano",
+  "modelo": null,
+  "kloc_cambiadas": 0.01,
+  "metricas": {
+    "cognitiva_max": 4,
+    "ciclomatica_max": 6,
+    "delta_cognitiva": -3,
+    "delta_ciclomatica": 1,
+    "funciones_tocadas": 2,
+    "mi_min": 40.30811052031536,
+    "delta_mi": -0.03764664857040856,
+    "advertencias": 0,
+    "advertencias_kloc": 0.0,
+    "adv_altas_kloc": 0.0,
+    "clones": 0,
+    "satd": 0,
+    "satd_kloc": 0.0,
+    "lineas_anadidas": 10,
+    "lineas_eliminadas": 9,
+    "archivos": 1
+  },
+  "hallazgos": [],
+  "deuda_min": 0,
+  "deuda_horas": 0.0,
+  "horas_kloc": 0.0,
+  "debt_ratio": 0.0,
+  "nota_sqale": "A",
+  "ird": 1.35,
+  "veredicto": "ACEPTAR",
+  "versiones": {
+    "radon": "6.0.1",
+    "complexipy": "8.3.0",
+    "ruff": "0.17.3",
+    "pylint": "4.1.3",
+    "unidiff": "1.0.1",
+    "jscpd": "jscpd 5.4.2"
+  },
+  "errores": [],
+  "excluidos": []
+}

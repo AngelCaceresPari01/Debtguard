@@ -1,0 +1,13 @@
+diff --git a/src/flask/cli.py b/src/flask/cli.py
+index 37a15ff2..21d94385 100644
+--- a/src/flask/cli.py
++++ b/src/flask/cli.py
+@@ -1018,7 +1018,7 @@ def routes_command(sort: str, all_methods: bool) -> None:
+         for rule in rules
+     ]
+ 
+-    headers = ("Endpoint", "Methods", "Rule")
++    headers = ("Domain", "Endpoint", "Methods", "Rule")
+     widths = (
+         max(len(rule.endpoint) for rule in rules),
+         max(len(methods) for methods in rule_methods),

@@ -1,0 +1,71 @@
+{
+  "caso_id": "django__django-11742_humano",
+  "origen": "humano",
+  "modelo": null,
+  "kloc_cambiadas": 0.017,
+  "metricas": {
+    "cognitiva_max": 25,
+    "ciclomatica_max": 21,
+    "delta_cognitiva": 9,
+    "delta_ciclomatica": 8,
+    "funciones_tocadas": 1,
+    "mi_min": 0.0,
+    "delta_mi": 0.0,
+    "advertencias": 0,
+    "advertencias_kloc": 0.0,
+    "adv_altas_kloc": 0.0,
+    "clones": 0,
+    "satd": 0,
+    "satd_kloc": 0.0,
+    "lineas_anadidas": 17,
+    "lineas_eliminadas": 0,
+    "archivos": 1
+  },
+  "hallazgos": [
+    {
+      "archivo": "django/db/models/fields/__init__.py",
+      "linea": 244,
+      "funcion": "Field._check_choices",
+      "familia": "complejidad",
+      "regla": "cognitive>15",
+      "severidad": "media",
+      "valor": 25,
+      "umbral": 15,
+      "costo_min": 27,
+      "categoria": null,
+      "valor_previo": 16,
+      "detalle": ""
+    },
+    {
+      "archivo": "django/db/models/fields/__init__.py",
+      "linea": 244,
+      "funcion": "Field._check_choices",
+      "familia": "complejidad",
+      "regla": "cyclomatic>10",
+      "severidad": "alta",
+      "valor": 21,
+      "umbral": 10,
+      "costo_min": 16,
+      "categoria": null,
+      "valor_previo": 13,
+      "detalle": ""
+    }
+  ],
+  "deuda_min": 43,
+  "deuda_horas": 0.7166666666666667,
+  "horas_kloc": 42.15686274509804,
+  "debt_ratio": 0.08431372549019608,
+  "nota_sqale": "B",
+  "ird": 8.54,
+  "veredicto": "ACEPTAR",
+  "versiones": {
+    "radon": "6.0.1",
+    "complexipy": "8.3.0",
+    "ruff": "0.17.3",
+    "pylint": "4.1.3",
+    "unidiff": "1.0.1",
+    "jscpd": "jscpd 5.4.2"
+  },
+  "errores": [],
+  "excluidos": []
+}

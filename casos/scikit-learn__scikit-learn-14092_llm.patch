@@ -1,0 +1,91 @@
+diff --git a/sklearn/neighbors/nca.py b/sklearn/neighbors/nca.py
+index 1d278b6e1..5a4d754c3 100644
+--- a/sklearn/neighbors/nca.py
++++ b/sklearn/neighbors/nca.py
+@@ -14,6 +14,7 @@ import numpy as np
+ import sys
+ import time
+ from scipy.optimize import minimize
++from numbers import Integral, Real
+ from ..utils.extmath import softmax
+ from ..metrics import pairwise_distances
+ from ..base import BaseEstimator, TransformerMixin
+@@ -21,8 +22,7 @@ from ..preprocessing import LabelEncoder
+ from ..decomposition import PCA
+ from ..utils.multiclass import check_classification_targets
+ from ..utils.random import check_random_state
+-from ..utils.validation import (check_is_fitted, check_array, check_X_y,
+-                                check_scalar)
++from ..utils.validation import check_is_fitted, check_array, check_X_y
+ from ..exceptions import ConvergenceWarning
+ 
+ 
+@@ -299,7 +299,7 @@ class NeighborhoodComponentsAnalysis(BaseEstimator, TransformerMixin):
+ 
+         # Check the preferred dimensionality of the projected space
+         if self.n_components is not None:
+-            check_scalar(self.n_components, 'n_components', int, 1)
++            self._check_scalar(self.n_components, 'n_components', Integral, 1)
+ 
+             if self.n_components > X.shape[1]:
+                 raise ValueError('The preferred dimensionality of the '
+@@ -309,7 +309,7 @@ class NeighborhoodComponentsAnalysis(BaseEstimator, TransformerMixin):
+                                  .format(self.n_components, X.shape[1]))
+ 
+         # If warm_start is enabled, check that the inputs are consistent
+-        check_scalar(self.warm_start, 'warm_start', bool)
++        self._check_scalar(self.warm_start, 'warm_start', bool)
+         if self.warm_start and hasattr(self, 'components_'):
+             if self.components_.shape[1] != X.shape[1]:
+                 raise ValueError('The new inputs dimensionality ({}) does not '
+@@ -318,9 +318,9 @@ class NeighborhoodComponentsAnalysis(BaseEstimator, TransformerMixin):
+                                  .format(X.shape[1],
+                                          self.components_.shape[1]))
+ 
+-        check_scalar(self.max_iter, 'max_iter', int, 1)
+-        check_scalar(self.tol, 'tol', float, 0.)
+-        check_scalar(self.verbose, 'verbose', int, 0)
++        self._check_scalar(self.max_iter, 'max_iter', Integral, 1)
++        self._check_scalar(self.tol, 'tol', Real, 0.)
++        self._check_scalar(self.verbose, 'verbose', Integral, 0)
+ 
+         if self.callback is not None:
+             if not callable(self.callback):
+@@ -367,6 +367,37 @@ class NeighborhoodComponentsAnalysis(BaseEstimator, TransformerMixin):
+ 
+         return X, y, init
+ 
++    def _check_scalar(self, value, name, target_type, min_val=None,
++                      max_val=None):
++        """Validate scalar parameter.
++
++        Parameters
++        ----------
++        value : object
++            The scalar value to check.
++
++        name : str
++            The name of the parameter.
++
++        target_type : type or tuple
++            The expected type(s) of the parameter.
++
++        min_val : float or int, optional (default=None)
++            The minimum valid value (inclusive).
++
++        max_val : float or int, optional (default=None)
++            The maximum valid value (inclusive).
++        """
++        if not isinstance(value, target_type):
++            raise TypeError("`{}` must be an instance of {}, not {}."
++                            .format(name, target_type, type(value)))
++        if min_val is not None and value < min_val:
++            raise ValueError("`{}`= {}, must be >= {}."
++                             .format(name, value, min_val))
++        if max_val is not None and value > max_val:
++            raise ValueError("`{}`= {}, must be <= {}."
++                             .format(name, value, max_val))
++
+     def _initialize(self, X, y, init):
+         """Initialize the transformation.
+ 

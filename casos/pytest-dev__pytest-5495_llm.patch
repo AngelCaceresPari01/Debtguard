@@ -1,0 +1,102 @@
+diff --git a/src/_pytest/assertion/util.py b/src/_pytest/assertion/util.py
+index 762e5761d..e9c153de5 100644
+--- a/src/_pytest/assertion/util.py
++++ b/src/_pytest/assertion/util.py
+@@ -1,6 +1,7 @@
+ """Utilities for assertion debugging"""
+ import pprint
+ from collections.abc import Sequence
++from collections.abc import ByteString
+ 
+ import _pytest._code
+ from _pytest import outcomes
+@@ -82,7 +83,7 @@ def _format_lines(lines):
+ 
+ 
+ def issequence(x):
+-    return isinstance(x, Sequence) and not isinstance(x, str)
++    return isinstance(x, Sequence) and not isinstance(x, (str, bytes))
+ 
+ 
+ def istext(x):
+@@ -93,6 +94,10 @@ def isdict(x):
+     return isinstance(x, dict)
+ 
+ 
++def isbytes(x):
++    return isinstance(x, bytes)
++
++
+ def isset(x):
+     return isinstance(x, (set, frozenset))
+ 
+@@ -108,7 +113,7 @@ def isattrs(obj):
+ def isiterable(obj):
+     try:
+         iter(obj)
+-        return not istext(obj)
++        return not istext(obj) and not isbytes(obj)
+     except TypeError:
+         return False
+ 
+@@ -127,6 +132,8 @@ def assertrepr_compare(config, op, left, right):
+         if op == "==":
+             if istext(left) and istext(right):
+                 explanation = _diff_text(left, right, verbose)
++            elif isbytes(left) and isbytes(right):
++                explanation = _compare_eq_bytes(left, right, verbose)
+             else:
+                 if issequence(left) and issequence(right):
+                     explanation = _compare_eq_sequence(left, right, verbose)
+@@ -163,6 +170,40 @@ def assertrepr_compare(config, op, left, right):
+     return [summary] + explanation
+ 
+ 
++def _compare_eq_bytes(left, right, verbose=0):
++    """Return the explanation for the diff between two bytes objects."""
++    explanation = []
++    len_left = len(left)
++    len_right = len(right)
++    for i in range(min(len_left, len_right)):
++        if left[i] != right[i]:
++            explanation += [
++                "At index {} diff: {!r} != {!r}".format(i, left[i], right[i])
++            ]
++            break
++    len_diff = len_left - len_right
++
++    if len_diff:
++        if len_diff > 0:
++            dir_with_more = "Left"
++            extra = saferepr(left[len_right])
++        else:
++            len_diff = 0 - len_diff
++            dir_with_more = "Right"
++            extra = saferepr(right[len_left])
++
++        if len_diff == 1:
++            explanation += [
++                "{} contains one more item: {}".format(dir_with_more, extra)
++            ]
++        else:
++            explanation += [
++                "%s contains %d more items, first extra item: %s"
++                % (dir_with_more, len_diff, extra)
++            ]
++    return explanation
++
++
+ def _diff_text(left, right, verbose=0):
+     """Return the explanation for the diff between text or bytes.
+ 
+@@ -186,10 +227,6 @@ def _diff_text(left, right, verbose=0):
+         r = r.replace(r"\r", "\r")
+         return r
+ 
+-    if isinstance(left, bytes):
+-        left = escape_for_readable_diff(left)
+-    if isinstance(right, bytes):
+-        right = escape_for_readable_diff(right)
+     if verbose < 1:
+         i = 0  # just in case left or right has zero length
+         for i in range(min(len(left), len(right))):

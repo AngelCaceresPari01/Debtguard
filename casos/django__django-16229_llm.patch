@@ -1,0 +1,13 @@
+diff --git a/django/forms/boundfield.py b/django/forms/boundfield.py
+index 9f2ae59ab4..408bbf2548 100644
+--- a/django/forms/boundfield.py
++++ b/django/forms/boundfield.py
+@@ -141,7 +141,7 @@ class BoundField:
+         if field.show_hidden_initial:
+             hidden_widget = field.hidden_widget()
+             initial_value = self.form._widget_data_value(
+-                hidden_widget,
++                field.widget,
+                 self.html_initial_name,
+             )
+             try:

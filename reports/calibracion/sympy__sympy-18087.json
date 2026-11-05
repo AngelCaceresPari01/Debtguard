@@ -1,0 +1,71 @@
+{
+  "caso_id": "sympy__sympy-18087_humano",
+  "origen": "humano",
+  "modelo": null,
+  "kloc_cambiadas": 0.006,
+  "metricas": {
+    "cognitiva_max": 80,
+    "ciclomatica_max": 42,
+    "delta_cognitiva": -1,
+    "delta_ciclomatica": -1,
+    "funciones_tocadas": 2,
+    "mi_min": 0.0,
+    "delta_mi": 0.0,
+    "advertencias": 2,
+    "advertencias_kloc": 333.3333333333333,
+    "adv_altas_kloc": 0.0,
+    "clones": 0,
+    "satd": 0,
+    "satd_kloc": 0.0,
+    "lineas_anadidas": 6,
+    "lineas_eliminadas": 8,
+    "archivos": 1
+  },
+  "hallazgos": [
+    {
+      "archivo": "sympy/core/exprtools.py",
+      "linea": 361,
+      "funcion": null,
+      "familia": "regla",
+      "regla": "SIM401",
+      "severidad": "baja",
+      "valor": 1,
+      "umbral": null,
+      "costo_min": 7.5,
+      "categoria": "mantenibilidad",
+      "valor_previo": null,
+      "detalle": "Use `factors.get(p, S.Zero)` instead of an `if` block"
+    },
+    {
+      "archivo": "sympy/core/exprtools.py",
+      "linea": 362,
+      "funcion": null,
+      "familia": "regla",
+      "regla": "SIM401",
+      "severidad": "baja",
+      "valor": 1,
+      "umbral": null,
+      "costo_min": 7.5,
+      "categoria": "mantenibilidad",
+      "valor_previo": null,
+      "detalle": "Use `factors.get(q, S.Zero)` instead of an `if` block"
+    }
+  ],
+  "deuda_min": 15.0,
+  "deuda_horas": 0.25,
+  "horas_kloc": 41.666666666666664,
+  "debt_ratio": 0.08333333333333333,
+  "nota_sqale": "B",
+  "ird": 20.08,
+  "veredicto": "ACEPTAR",
+  "versiones": {
+    "radon": "6.0.1",
+    "complexipy": "8.3.0",
+    "ruff": "0.17.3",
+    "pylint": "4.1.3",
+    "unidiff": "1.0.1",
+    "jscpd": "jscpd 5.4.2"
+  },
+  "errores": [],
+  "excluidos": []
+}

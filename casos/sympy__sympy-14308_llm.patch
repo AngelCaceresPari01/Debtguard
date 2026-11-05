@@ -1,0 +1,14 @@
+diff --git a/sympy/printing/pretty/pretty.py b/sympy/printing/pretty/pretty.py
+index 09e2b00735..89aed789f3 100644
+--- a/sympy/printing/pretty/pretty.py
++++ b/sympy/printing/pretty/pretty.py
+@@ -917,8 +917,7 @@ def _print_BasisDependent(self, expr):
+                 else:
+                     #We always wrap the measure numbers in
+                     #parentheses
+-                    arg_str = self._print(
+-                        v).parens()[0]
++                    arg_str = self._print(v)
+ 
+                     o1.append(arg_str + ' ' + k._pretty_form)
+                 vectstrs.append(k._pretty_form)

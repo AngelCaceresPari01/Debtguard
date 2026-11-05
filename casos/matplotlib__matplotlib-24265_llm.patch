@@ -1,0 +1,16 @@
+diff --git a/lib/matplotlib/style/core.py b/lib/matplotlib/style/core.py
+index fb0a5426e..6b1113645 100644
+--- a/lib/matplotlib/style/core.py
++++ b/lib/matplotlib/style/core.py
+@@ -138,6 +138,11 @@ def use(style):
+                     "they will remain available as 'seaborn-v0_8-<style>'. "
+                     "Alternatively, directly use the seaborn API instead.")
+                 s = s.replace("seaborn", "seaborn-v0_8")
++                # Update the library to include the old seaborn style names
++                # so that direct access to plt.style.library["seaborn-<style>"]
++                # continues to work.
++                if s in library:
++                    library[style] = library[s]
+         return s
+ 
+     for style in map(fix_style, styles):

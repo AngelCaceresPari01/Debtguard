@@ -1,0 +1,41 @@
+diff --git a/sklearn/neighbors/base.py b/sklearn/neighbors/base.py
+index 3e5e729c2..2c2849024 100644
+--- a/sklearn/neighbors/base.py
++++ b/sklearn/neighbors/base.py
+@@ -117,6 +117,12 @@ class NeighborsBase(six.with_metaclass(ABCMeta, BaseEstimator)):
+         self.n_jobs = n_jobs
+         self._check_algorithm_metric()
+ 
++        if n_neighbors is not None:
++            if not isinstance(n_neighbors, (int, np.integer)):
++                raise TypeError(
++                    "n_neighbors does not take %s value, "
++                    "enter integer value" % type(n_neighbors))
++
+     def _check_algorithm_metric(self):
+         if self.algorithm not in ['auto', 'brute',
+                                   'kd_tree', 'ball_tree']:
+@@ -328,6 +334,11 @@ class KNeighborsMixin(object):
+         if n_neighbors is None:
+             n_neighbors = self.n_neighbors
+ 
++        if not isinstance(n_neighbors, (int, np.integer)):
++            raise TypeError(
++                "n_neighbors does not take %s value, "
++                "enter integer value" % type(n_neighbors))
++
+         if X is not None:
+             query_is_train = False
+             X = check_array(X, accept_sparse='csr')
+@@ -467,6 +478,11 @@ class KNeighborsMixin(object):
+         if n_neighbors is None:
+             n_neighbors = self.n_neighbors
+ 
++        if not isinstance(n_neighbors, (int, np.integer)):
++            raise TypeError(
++                "n_neighbors does not take %s value, "
++                "enter integer value" % type(n_neighbors))
++
+         # kneighbors does the None handling.
+         if X is not None:
+             X = check_array(X, accept_sparse='csr')

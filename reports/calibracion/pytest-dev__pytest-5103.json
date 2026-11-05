@@ -1,0 +1,57 @@
+{
+  "caso_id": "pytest-dev__pytest-5103_humano",
+  "origen": "humano",
+  "modelo": null,
+  "kloc_cambiadas": 0.024,
+  "metricas": {
+    "cognitiva_max": 7,
+    "ciclomatica_max": 7,
+    "delta_cognitiva": 5,
+    "delta_ciclomatica": 6,
+    "funciones_tocadas": 3,
+    "mi_min": 15.069286475082517,
+    "delta_mi": -1.3140663939201502,
+    "advertencias": 1,
+    "advertencias_kloc": 41.666666666666664,
+    "adv_altas_kloc": 0.0,
+    "clones": 0,
+    "satd": 0,
+    "satd_kloc": 0.0,
+    "lineas_anadidas": 24,
+    "lineas_eliminadas": 0,
+    "archivos": 1
+  },
+  "hallazgos": [
+    {
+      "archivo": "src/_pytest/assertion/rewrite.py",
+      "linea": 999,
+      "funcion": null,
+      "familia": "regla",
+      "regla": "RET502",
+      "severidad": "baja",
+      "valor": 1,
+      "umbral": null,
+      "costo_min": 7.5,
+      "categoria": "mantenibilidad",
+      "valor_previo": null,
+      "detalle": "Do not implicitly `return None` in function able to return non-`None` value"
+    }
+  ],
+  "deuda_min": 7.5,
+  "deuda_horas": 0.125,
+  "horas_kloc": 5.208333333333333,
+  "debt_ratio": 0.010416666666666666,
+  "nota_sqale": "A",
+  "ird": 2.38,
+  "veredicto": "ACEPTAR",
+  "versiones": {
+    "radon": "6.0.1",
+    "complexipy": "8.3.0",
+    "ruff": "0.17.3",
+    "pylint": "4.1.3",
+    "unidiff": "1.0.1",
+    "jscpd": "jscpd 5.4.2"
+  },
+  "errores": [],
+  "excluidos": []
+}

@@ -1,0 +1,12 @@
+ird:
+  advertir: 28.6
+  bloquear: 35.5
+p95:
+  horas_kloc: 55.8295
+  cognitiva_max: 59.1
+  clones: 2.0
+  adv_altas_kloc: 0.0
+  satd_kloc: 0.0
+bloquear_si:
+- seguridad:critica
+n_calibracion: 20

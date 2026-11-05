@@ -1,0 +1,22 @@
+diff --git a/sphinx/ext/autodoc/importer.py b/sphinx/ext/autodoc/importer.py
+index 477aae247..513d37998 100644
+--- a/sphinx/ext/autodoc/importer.py
++++ b/sphinx/ext/autodoc/importer.py
+@@ -298,7 +298,7 @@ def get_class_members(subject: Any, objpath: List[str], attrgetter: Callable
+             for name in getannotations(cls):
+                 name = unmangle(cls, name)
+                 if name and name not in members:
+-                    members[name] = ObjectMember(name, INSTANCEATTR, class_=cls)
++                    members[name] = ObjectMember(name, INSTANCEATTR, class_=subject)
+ 
+             # append instance attributes (cf. self.attr1) if analyzer knows
+             try:
+@@ -308,7 +308,7 @@ def get_class_members(subject: Any, objpath: List[str], attrgetter: Callable
+                 analyzer.analyze()
+                 for (ns, name), docstring in analyzer.attr_docs.items():
+                     if ns == qualname and name not in members:
+-                        members[name] = ObjectMember(name, INSTANCEATTR, class_=cls,
++                        members[name] = ObjectMember(name, INSTANCEATTR, class_=subject,
+                                                      docstring='\n'.join(docstring))
+             except (AttributeError, PycodeError):
+                 pass

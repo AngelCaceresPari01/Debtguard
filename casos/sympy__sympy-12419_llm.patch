@@ -1,0 +1,24 @@
+diff --git a/sympy/matrices/expressions/matexpr.py b/sympy/matrices/expressions/matexpr.py
+index b4d759836e..8be70bb2dc 100644
+--- a/sympy/matrices/expressions/matexpr.py
++++ b/sympy/matrices/expressions/matexpr.py
+@@ -1,6 +1,7 @@
+ from __future__ import print_function, division
+ 
+ from functools import wraps
++from sympy import Piecewise
+ 
+ from sympy.core import S, Symbol, Tuple, Integer, Basic, Expr
+ from sympy.core.decorators import call_highest_priority
+@@ -476,10 +477,7 @@ def conjugate(self):
+         return self
+ 
+     def _entry(self, i, j):
+-        if i == j:
+-            return S.One
+-        else:
+-            return S.Zero
++        return Piecewise((S.One, i == j), (S.Zero, True))
+ 
+     def _eval_determinant(self):
+         return S.One

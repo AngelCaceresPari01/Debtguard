@@ -1,0 +1,40 @@
+instance_id,repo,rol,estado,intento_ok,modo,n_intentos,elegido,tokens_entrada,tokens_salida
+sympy__sympy-18835,sympy/sympy,comparacion,ok,1.0,estricto,1,True,23121,185
+astropy__astropy-14182,astropy/astropy,comparacion,ok,1.0,laxo,1,True,1115,513
+sympy__sympy-16106,sympy/sympy,comparacion,"no_aplica: error: patch failed: sympy/printing/mathml.py:355
+error: sympy/printing/mathml.py: patch does not apply",,,2,False,23986,508
+django__django-16229,django/django,comparacion,ok,1.0,estricto,1,True,3042,271
+django__django-13315,django/django,comparacion,ok,1.0,laxo,1,True,12771,272
+sphinx-doc__sphinx-10325,sphinx-doc/sphinx,comparacion,no_aplica: error: corrupt patch at line 10,,,2,False,53523,492
+django__django-12983,django/django,comparacion,ok,1.0,estricto,1,True,3827,138
+django__django-14752,django/django,comparacion,ok,1.0,laxo,1,True,1567,236
+sympy__sympy-14308,sympy/sympy,comparacion,ok,1.0,laxo,1,True,21570,589
+sphinx-doc__sphinx-8282,sphinx-doc/sphinx,comparacion,ok,1.0,laxo,1,True,21292,603
+sympy__sympy-12419,sympy/sympy,comparacion,ok,1.0,estricto,1,True,4374,298
+scikit-learn__scikit-learn-14894,scikit-learn/scikit-learn,comparacion,no_aplica: error: corrupt patch at line 20,,,2,False,19654,567
+sphinx-doc__sphinx-8801,sphinx-doc/sphinx,comparacion,ok,1.0,laxo,1,True,3231,455
+matplotlib__matplotlib-26020,matplotlib/matplotlib,comparacion,no_aplica: error: corrupt patch at line 14,,,2,False,22943,543
+scikit-learn__scikit-learn-25500,scikit-learn/scikit-learn,comparacion,"no_aplica: error: patch failed: sklearn/calibration.py:761
+error: sklearn/calibration.py: patch does not apply",,,2,False,11308,635
+matplotlib__matplotlib-25332,matplotlib/matplotlib,comparacion,ok,1.0,laxo,1,True,19873,362
+pylint-dev__pylint-7228,pylint-dev/pylint,comparacion,ok,1.0,laxo,1,True,4966,445
+matplotlib__matplotlib-24265,matplotlib/matplotlib,comparacion,ok,1.0,laxo,1,True,2565,385
+sympy__sympy-13031,sympy/sympy,reserva,ok,1.0,estricto,1,True,11250,218
+pylint-dev__pylint-7114,pylint-dev/pylint,comparacion,ok,1.0,laxo,1,True,2106,1786
+matplotlib__matplotlib-25442,matplotlib/matplotlib,comparacion,no_aplica: error: corrupt patch at line 11,,,2,False,28649,609
+pallets__flask-4992,pallets/flask,comparacion,ok,1.0,laxo,1,True,3173,339
+pytest-dev__pytest-7373,pytest-dev/pytest,comparacion,ok,1.0,laxo,1,True,1430,416
+pytest-dev__pytest-7220,pytest-dev/pytest,comparacion,ok,1.0,laxo,1,True,5810,287
+pytest-dev__pytest-5221,pytest-dev/pytest,comparacion,ok,1.0,estricto,1,True,13000,234
+pallets__flask-4045,pallets/flask,comparacion,ok,1.0,laxo,1,True,4913,168
+scikit-learn__scikit-learn-11040,scikit-learn/scikit-learn,comparacion,ok,1.0,laxo,1,True,7459,421
+scikit-learn__scikit-learn-10297,scikit-learn/scikit-learn,comparacion,ok,1.0,laxo,1,True,13733,210
+pydata__xarray-4493,pydata/xarray,comparacion,ok,1.0,estricto,1,True,24773,265
+pallets__flask-5063,pallets/flask,comparacion,ok,1.0,estricto,2,True,17585,769
+pytest-dev__pytest-5495,pytest-dev/pytest,comparacion,ok,1.0,laxo,1,True,3393,2251
+matplotlib__matplotlib-26011,matplotlib/matplotlib,reserva,ok,1.0,laxo,1,True,24277,278
+psf__requests-3362,psf/requests,reserva,ok,1.0,laxo,1,True,5981,269
+matplotlib__matplotlib-24970,matplotlib/matplotlib,reserva,ok,1.0,estricto,1,True,25896,282
+scikit-learn__scikit-learn-14092,scikit-learn/scikit-learn,reserva,ok,1.0,laxo,1,True,5330,853
+sphinx-doc__sphinx-7975,sphinx-doc/sphinx,reserva,no_aplica: el parche no cambia codigo Python de produccion,,,1,False,1922,372
+scikit-learn__scikit-learn-13497,scikit-learn/scikit-learn,reserva,ok,1.0,estricto,1,True,4241,149

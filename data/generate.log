@@ -1,0 +1,40 @@
+sympy__sympy-16106: no_aplica: error: patch failed: sympy/printing/mathml.py:355
+error: sy
+pallets__flask-4992: ok
+pylint-dev__pylint-7228: ok
+pallets__flask-4045: ok
+sympy__sympy-14308: ok
+sphinx-doc__sphinx-10325: no_aplica: error: corrupt patch at line 10
+pallets__flask-5063: no_aplica: error: patch failed: src/flask/cli.py:1040
+error: src/flask
+pylint-dev__pylint-7114: ok
+sympy__sympy-12419: ok
+sphinx-doc__sphinx-8282: ok
+scikit-learn__scikit-learn-14894: no_aplica: error: corrupt patch at line 20
+astropy__astropy-14182: ok
+matplotlib__matplotlib-26020: no_aplica: error: corrupt patch at line 14
+pytest-dev__pytest-7373: ok
+pydata__xarray-4493: ok
+sphinx-doc__sphinx-8801: ok
+matplotlib__matplotlib-25332: ok
+scikit-learn__scikit-learn-25500: no_aplica: error: patch failed: sklearn/calibration.py:761
+error: skle
+django__django-16229: ok
+pytest-dev__pytest-7220: ok
+scikit-learn__scikit-learn-11040: ok
+matplotlib__matplotlib-24265: ok
+pytest-dev__pytest-5221: ok
+matplotlib__matplotlib-25442: no_aplica: error: corrupt patch at line 11
+pytest-dev__pytest-5495: ok
+django__django-13315: ok
+scikit-learn__scikit-learn-10297: ok
+django__django-12983: ok
+django__django-14752: ok
+sympy__sympy-13031: ok
+sphinx-doc__sphinx-7975: ok
+psf__requests-3362: ok
+matplotlib__matplotlib-26011: ok
+scikit-learn__scikit-learn-14092: ok
+scikit-learn__scikit-learn-13497: ok
+matplotlib__matplotlib-24970: ok
+Parches validos: 30 | por repo: {'sympy/sympy': 4, 'astropy/astropy': 1, 'django/django': 4, 'sphinx-doc/sphinx': 3, 'scikit-learn/scikit-learn': 4, 'matplotlib/matplotlib': 4, 'pylint-dev/pylint': 2, 'pallets/flask': 2, 'pytest-dev/pytest': 4, 'pydata/xarray': 1, 'psf/requests': 1} | saldo: 3.50 USD

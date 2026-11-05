@@ -1,0 +1,42 @@
+# Modelo de costo tipo SQALE. Valores iniciales de la guia, seccion 9.2.
+severidad_factor: {baja: 0.5, media: 1, alta: 2, critica: 4}
+regla_base_min: {estilo: 5, mantenibilidad: 15, seguridad: 30}
+complejidad:
+  cognitiva: {umbral: 15, min_por_punto: 3}
+  ciclomatica: {umbral: 10, min_por_punto: 2}
+  funcion_larga: {umbral_loc: 70, min: 15}
+clon_min: 20
+satd_min: 10
+clones:
+  min_tokens: 50
+  # Parte del fragmento clonado que debe ser linea nueva para atribuirlo al cambio.
+  min_solapamiento: 0.5
+ruff:
+  select: [E, W, F, B, BLE, S, PLE, PLW, PLR, SIM, RET, ARG]
+  ignore: [E501]
+  # Prefijo mas largo que coincide -> [categoria, severidad]
+  mapa:
+    E: [estilo, baja]
+    W: [estilo, baja]
+    E9: [mantenibilidad, alta]
+    invalid-syntax: [mantenibilidad, critica]
+    F: [mantenibilidad, media]
+    F8: [mantenibilidad, alta]
+    B: [mantenibilidad, media]
+    BLE: [mantenibilidad, media]
+    PLE: [mantenibilidad, alta]
+    PLW: [mantenibilidad, media]
+    PLR: [mantenibilidad, baja]
+    SIM: [mantenibilidad, baja]
+    RET: [mantenibilidad, baja]
+    ARG: [mantenibilidad, baja]
+    S: [seguridad, media]
+    S101: [seguridad, baja]
+    S102: [seguridad, critica]
+    S301: [seguridad, alta]
+    S307: [seguridad, critica]
+    S506: [seguridad, alta]
+    S602: [seguridad, critica]
+    S605: [seguridad, critica]
+    S608: [seguridad, alta]
+pylint_timeout_s: 300

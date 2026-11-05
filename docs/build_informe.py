@@ -500,7 +500,7 @@ T(["Tipo", "Amenaza", "Tratamiento"], [
 ], [2, 8, 6.5], "Amenazas a la validez [28]")
 H2("Limitaciones")
 for x in ("El prototipo solo analiza Python y no mide clones semánticos ni acoplamiento.",
-          "El IRD normaliza SATD y advertencias altas con un percentil 95 igual a 0, por lo que un único hallazgo aporta todo su componente.",
+          "El IRD normaliza SATD y advertencias altas con un percentil 95 igual a 0, por lo que un único hallazgo aporta todo su componente. Con la calibración actual, un solo TODO en un cambio de una línea basta para BLOQUEAR, de modo que el veredicto necesita más datos de calibración antes de usarse en un flujo real.",
           "Con la validación manual pendiente, todavía no se conoce la precisión de las alertas."):
     B(x)
 H2("Trabajo futuro")

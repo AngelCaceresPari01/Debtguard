@@ -64,6 +64,12 @@ med_ok = llm_cor[llm_cor.llm_resuelto == True].lineas_anadidas.median()  # noqa:
 med_mal = llm_cor[llm_cor.llm_resuelto != True].lineas_anadidas.median()  # noqa: E712
 sub_ok = res[res.instance_id.isin(cor[cor.llm_resuelto == True].instance_id)]  # noqa: E712
 tot_ok = sub_ok.groupby("origen")[["deuda_horas", "lineas_anadidas"]].sum()
+fechas = pd.read_csv(DATA / "fechas_base.csv")
+n_2022 = int((fechas.fecha_base >= "2022").sum())
+n_2023 = int((fechas.fecha_base >= "2023").sum())
+t22 = pd.read_csv(DATA / "tabla_antes_2022.csv")
+ok_previos = int(cor[cor.instance_id.isin(fechas[fechas.fecha_base < "2022"].instance_id)].llm_resuelto.eq(True).sum())
+N_PRUEBAS = 34
 
 try:
     hw = subprocess.run(["powershell", "-NoProfile", "-Command",
@@ -347,23 +353,23 @@ T(["Recurso", "Detalle"], [
 # ---------- 4 ----------
 H1("4. Conducción del experimento")
 H2("4.1 Herramientas y stack tecnológico")
-T(["Herramienta", "Versión", "Licencia", "Uso"], [
-    ["Python", "3.13.5", "PSF", "Lenguaje del prototipo"],
-    ["Radon", "6.0.1", "MIT", "Ciclomática e índice de mantenibilidad"],
-    ["complexipy", "8.3.0", "MIT", "Complejidad cognitiva"],
-    ["Ruff", "0.17.3", "MIT", "Reglas estáticas"],
-    ["Pylint", "4.1.3", "GPL-2.0", "Solo R0401, importación cíclica"],
-    ["jscpd", "5.4.2", "MIT", "Clones contra el proyecto completo"],
-    ["unidiff", "1.0.1", "MIT", "Lectura de diffs"],
-    ["datasets", "5.1.0", "Apache-2.0", "Descarga de SWE-bench Lite"],
-    ["pandas / SciPy", "3.1.1 / 1.18.1", "BSD", "Consolidación y prueba de Wilcoxon"],
-    ["statsmodels", "0.15.0", "BSD", "Corrección de Holm"],
-    ["scikit-learn", "1.9.1", "BSD", "Kappa de Cohen"],
-    ["matplotlib", "3.11.2", "PSF", "Gráficos"],
-    ["SDK openai / API DeepSeek", "deepseek-v4-pro", "Servicio de pago", "Generación de parches"],
-    ["swebench", "5.0.2", "MIT", "Comprobación funcional de los parches"],
-    ["Docker", "29.8.0", "Apache-2.0 (motor)", "Entorno de pruebas de cada issue"],
-], [5, 3, 2.5, 6], "Herramientas y stack tecnológico")
+T(["Herramienta", "Versión", "Licencia", "Uso", "Ref."], [
+    ["Python", "3.13.5", "PSF", "Lenguaje del prototipo", "[31]"],
+    ["Radon", "6.0.1", "MIT", "Ciclomática e índice de mantenibilidad", "[32]"],
+    ["complexipy", "8.3.0", "MIT", "Complejidad cognitiva", "[33]"],
+    ["Ruff", "0.17.3", "MIT", "Reglas estáticas", "[34]"],
+    ["Pylint", "4.1.3", "GPL-2.0", "Solo R0401, importación cíclica", "[35]"],
+    ["jscpd", "5.4.2", "MIT", "Clones contra el proyecto completo", "[36]"],
+    ["unidiff", "1.0.1", "MIT", "Lectura de diffs", "[37]"],
+    ["datasets", "5.1.0", "Apache-2.0", "Descarga de SWE-bench Lite", "[38]"],
+    ["pandas / SciPy", "3.1.1 / 1.18.1", "BSD", "Consolidación y prueba de Wilcoxon", "[39], [40]"],
+    ["statsmodels", "0.15.0", "BSD", "Corrección de Holm", "[41]"],
+    ["scikit-learn", "1.9.1", "BSD", "Kappa de Cohen", "[42]"],
+    ["matplotlib", "3.11.2", "PSF", "Gráficos", "[43]"],
+    ["SDK openai / API DeepSeek", "deepseek-v4-pro", "Servicio de pago", "Generación de parches", "[44], [45]"],
+    ["swebench", "5.0.2", "MIT", "Comprobación funcional de los parches", "[46]"],
+    ["Docker", "29.8.0", "Apache-2.0 (motor)", "Entorno de pruebas de cada issue", "[47]"],
+], [4.5, 2.7, 2.3, 5.5, 1.6], "Herramientas y stack tecnológico")
 H2("4.2 Diseño del prototipo")
 P("debtguard es una herramienta de consola. Recibe un diff y el proyecto con el parche aplicado, y devuelve un JSON por "
   "caso y un código de salida. No usa un LLM para decidir, porque S04 y S08 muestran que no sería fiable, y por ello el "
@@ -401,8 +407,9 @@ P(f"**Índice de riesgo (IRD).** Promedia cinco componentes normalizados con el 
   "las hipótesis.")
 H2("4.3 Implementación del experimento")
 F("flujo_experimento.png", "Flujo del experimento", 8.5)
-P("**Construcción y pruebas.** Las 27 pruebas automáticas pasan. Incluyen casos con deuda conocida y costos calculados a "
-  "mano. La primera ejecución de calibración reveló dos defectos: un parche humano pequeño recibía 2 390 horas porque Pylint "
+P(f"**Construcción y pruebas.** Las {N_PRUEBAS} pruebas automáticas pasan. Incluyen seis tipos de archivos con deuda conocida "
+  "(anidamiento profundo, except genérico, función duplicada, TODO, importación cíclica y un archivo limpio), costos calculados "
+  "a mano y la lectura del diff real del PR 3690 de AIDev [30]. La primera ejecución de calibración reveló dos defectos: un parche humano pequeño recibía 2 390 horas porque Pylint "
   "enumera de otro modo los ciclos existentes al añadir un import, y los saltos de línea de Windows alteraban los parches "
   "enviados a git. Ambos se corrigieron con pruebas de regresión antes de congelar la configuración y de medir ningún parche "
   "LLM.")
@@ -417,6 +424,8 @@ P(f"**Generación con el LLM.** Se usó deepseek-v4-pro con temperatura 0, razon
 P("**Procedimiento del lote.** Para cada issue se hace checkout del commit base, se aplica el parche, se obtiene un diff "
   "canónico y se ejecuta el prototipo: primero con el parche humano y después con el del LLM. Se obtuvieron 60 JSON sin "
   "errores de herramienta.")
+F("consola_pruebas.png", "Salida real de las pruebas automáticas")
+F("consola_analisis.png", "Salida real de la consola: un parche aceptado y otro bloqueado por el uso de eval")
 P("**Comprobación funcional.** Después del lote, los 60 parches se evaluaron con el harness oficial de SWE-bench, en "
   "contenedores Docker con el entorno de cada issue. Un parche cuenta como correcto si pasan las pruebas objetivo y las que "
   "ya pasaban. Este paso no estaba previsto al congelar la configuración, por lo que el análisis restringido a parches "
@@ -485,7 +494,10 @@ P(f"**Memorización.** La similitud entre las líneas nuevas de cada par tuvo un
   f"{n(sim.max())}. Ningún caso superó 0,9, de modo que no hubo que excluir pares ni hay indicios de que el modelo copiara "
   "el parche de referencia.")
 fam = cl.familia.value_counts()
-P(f"**Validación del prototipo.** Las pruebas automáticas de los detectores pasan (27 de 27). Se seleccionaron 60 de los 64 "
+P(f"**Fecha de los parches humanos.** {n_2022} de los 30 commits base son de 2022 en adelante ({n_2023} de 2023 en adelante), "
+  f"de modo que parte del grupo humano pudo escribirse con asistentes de IA. Con los {30 - n_2022} pares anteriores a 2022 "
+  f"tampoco aparecen diferencias (el p ajustado vale {n(t22.p_holm.min(), 3)} o más), y el LLM resolvió {ok_previos} de esos {30 - n_2022} issues.")
+P(f"**Validación del prototipo.** Las pruebas automáticas de los detectores pasan ({N_PRUEBAS} de {N_PRUEBAS}). Se seleccionaron 60 de los 64 "
   f"hallazgos para revisión a ciegas: {fam.get('complejidad', 0)} de complejidad, {fam.get('regla', 0)} de reglas, "
   f"{fam.get('clon', 0)} de clones y {fam.get('satd', 0)} de SATD. La muestra no pudo equilibrarse porque hay pocos clones y "
   "casi ningún SATD.")
@@ -531,6 +543,7 @@ T(["Tipo", "Amenaza", "Tratamiento"], [
     ["Constructo", "Falsos positivos de las herramientas", "Revisión manual pendiente"],
     ["Constructo", "Clones semánticos no medidos: jscpd no detecta el Tipo 4, justamente el que S03 asocia a los LLMs", "H2 solo cubre clones sintácticos"],
     ["Constructo", "El índice de mantenibilidad vale 0 en archivos muy grandes, y un parche pequeño apenas lo mueve", "Se reporta; se lee con cautela"],
+    ["Interna", f"Grupo humano posiblemente contaminado: {n_2022} de los 30 commits base son de 2022 en adelante, cuando ya existían asistentes como Copilot", f"Se conservan los 30 casos; se repite el análisis con los {30 - n_2022} pares anteriores a 2022"],
     ["Interna", f"Selección: {n_mal} issues sin parche utilizable reemplazados desde la reserva", "Tasa reportada; podría favorecer al LLM si fallan los issues más difíciles"],
     ["Interna", f"{laxos} de 30 parches requirieron aplicación laxa", "Se aplica el mismo procedimiento y se conserva el diff canónico"],
     ["Interna", "Memorización del conjunto de datos", "Similitud máxima 0,68; ningún caso sobre 0,9"],
@@ -544,7 +557,8 @@ T(["Tipo", "Amenaza", "Tratamiento"], [
 H2("Limitaciones")
 for x in ("El prototipo solo analiza Python y no mide clones semánticos ni acoplamiento.",
           "El IRD normaliza SATD y advertencias altas con un percentil 95 igual a 0, por lo que un único hallazgo aporta todo su componente. Con la calibración actual, un solo TODO en un cambio de una línea basta para BLOQUEAR, de modo que el veredicto necesita más datos de calibración antes de usarse en un flujo real.",
-          "Con la validación manual pendiente, todavía no se conoce la precisión de las alertas."):
+          "Con la validación manual pendiente, todavía no se conoce la precisión de las alertas.",
+          "No se realizaron los componentes opcionales de la planificación: el diseño secundario con AIDev [30], la calibración de costos con SonarQube, la integración como hook o GitHub Action y la medición de exhaustividad."):
     B(x)
 H2("Trabajo futuro")
 for x in ("Ampliar la muestra hasta reunir suficientes pares con parches correctos.",
@@ -586,6 +600,24 @@ REFS = [
     'J. Cohen, "A coefficient of agreement for nominal scales," Educational and Psychological Measurement, vol. 20, no. 1, pp. 37–46, 1960.',
     'C. Wohlin et al., Experimentation in Software Engineering. Springer, 2012.',
     'A. M. Carrasco Choque, A. R. Caceres Pari, K. Chancuaña Alvis, and L. E. Yana Agramonte, "Deuda técnica en el desarrollo de software asistido por LLMs: un estudio de mapeo sistemático," informe del Hito 1, 2026.',
+    'H. Li, H. Zhang, and A. E. Hassan, "The rise of AI teammates in software engineering (SE) 3.0: How autonomous coding agents are reshaping software engineering," arXiv:2507.15003, 2025.',
+    'Python Software Foundation, Python. [Online]. Available: https://www.python.org',
+    'M. Lacchia, Radon. [Online]. Available: https://github.com/rubik/radon',
+    'complexipy contributors, complexipy. [Online]. Available: https://github.com/rohaquinlop/complexipy',
+    'Astral, Ruff. [Online]. Available: https://github.com/astral-sh/ruff',
+    'Pylint contributors, Pylint. [Online]. Available: https://github.com/pylint-dev/pylint',
+    'A. Kucherenko, jscpd. [Online]. Available: https://github.com/kucherenko/jscpd',
+    'python-unidiff contributors, python-unidiff. [Online]. Available: https://github.com/matiasb/python-unidiff',
+    'Hugging Face, Datasets. [Online]. Available: https://github.com/huggingface/datasets',
+    'pandas development team, pandas. [Online]. Available: https://github.com/pandas-dev/pandas',
+    'SciPy developers, SciPy. [Online]. Available: https://github.com/scipy/scipy',
+    'statsmodels developers, statsmodels. [Online]. Available: https://github.com/statsmodels/statsmodels',
+    'scikit-learn developers, scikit-learn. [Online]. Available: https://github.com/scikit-learn/scikit-learn',
+    'Matplotlib development team, Matplotlib. [Online]. Available: https://github.com/matplotlib/matplotlib',
+    'OpenAI, openai-python. [Online]. Available: https://github.com/openai/openai-python',
+    'DeepSeek, DeepSeek API documentation. [Online]. Available: https://api-docs.deepseek.com',
+    'SWE-bench team, SWE-bench. [Online]. Available: https://github.com/SWE-bench/SWE-bench',
+    'Moby project, Docker Engine. [Online]. Available: https://github.com/moby/moby',
 ]
 for i, r in enumerate(REFS, 1):
     p = P(f"[{i}] {r}")

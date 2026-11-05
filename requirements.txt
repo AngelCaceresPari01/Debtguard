@@ -23,7 +23,6 @@ formulaic==1.2.2
 frozenlist==1.8.0
 fsspec==2026.7.0
 gitdb==4.0.12
-GitPython==3.2.1
 h11==0.16.0
 hf-xet==1.8.0
 httpcore2==2.16.0

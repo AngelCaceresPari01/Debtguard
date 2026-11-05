@@ -394,8 +394,8 @@ P(f"**Muestreo.** Con semilla 42 se barajaron los 86 issues cuyo parche humano t
 P(f"**Generación con el LLM.** Se usó deepseek-v4-pro con temperatura 0, razonamiento desactivado y el mismo prompt para "
   f"todos los casos (Anexo C). El prompt incluye los archivos que toca el parche humano. Se probaron {n_gen} issues: "
   f"{n_mal} no produjeron un parche utilizable, ni siquiera tras un reintento, y {n_reserva} de los 30 finales salieron de "
-  f"la reserva. Además, {laxos} de los 30 parches solo se aplicaron con git apply --recount --ignore-whitespace, porque "
-  f"traían mal los conteos de sus bloques.")
+  f"la reserva. Además, {laxos} de los 30 parches no se aplicaron en modo estricto y necesitaron "
+  f"git apply --recount --ignore-whitespace.")
 P("**Procedimiento del lote.** Para cada issue se hace checkout del commit base, se aplica el parche, se obtiene un diff "
   "canónico y se ejecuta el prototipo: primero con el parche humano y después con el del LLM. Se obtuvieron 60 JSON sin "
   "errores de herramienta.")

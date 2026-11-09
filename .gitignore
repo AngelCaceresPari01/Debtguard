@@ -7,4 +7,6 @@ __pycache__/
 .pytest_cache/
 data/correccion/logs/
 data/correccion/.hf/
-data/opus_piloto/
+salida/
+dashboard-web/cache/
+dashboard-web/.venv/

@@ -1,69 +1,158 @@
-# debtguard
+# Debtguard
 
-Prototipo que recibe un diff de Python, detecta la deuda técnica que introduce y la estima en horas de remediación con un modelo de tipo SQALE. También calcula un índice de riesgo y un veredicto. Es determinista: no usa un LLM para decidir.
+Detección y estimación en horas de la deuda técnica en código generado por LLMs. Es el trabajo de los Hitos 1 y 2 del curso Tópicos Avanzados de Ingeniería de Sistemas.
+
+El repositorio reúne tres partes:
+
+1. **`debtguard`:** prototipo de consola. Recibe un diff de Python, detecta la deuda que introduce (complejidad, malas prácticas, clones y comentarios `TODO`) y la estima en horas de corrección con un modelo de tipo SQALE.
+2. **Experimento del Hito 2:** compara 30 problemas reales de SWE-bench Lite resueltos por personas y por DeepSeek-V4-Pro.
+3. **`dashboard-web`:** aplicación web local para analizar cualquier carpeta o repositorio git con las mismas métricas.
+
+## Resultados en breve
+
+- **Deuda:** no hubo diferencias significativas entre el código humano y el del LLM en ninguna de las 7 métricas (Wilcoxon con corrección de Holm, n = 30 pares).
+- **Corrección:** según las pruebas oficiales de SWE-bench, el LLM resolvió **9 de 30** problemas y las personas, 30 de 30. Con solo los 9 pares correctos tampoco hubo diferencias.
+- **Tamaño:** los parches del LLM son más pequeños: mediana de 3 líneas añadidas frente a 9.
+
+El detalle está en el informe: [`entregables/A.9_HITO2_Carrasco_Caceres_Chancuaña_Yana.docx`](entregables/A.9_HITO2_Carrasco_Caceres_Chancuaña_Yana.docx).
+
+**Pendiente del equipo:** la revisión manual de 60 alertas (Kappa y precisión) y la validación cronometrada de los costos. Ver [`entregables/REPARTO_HITO2.md`](entregables/REPARTO_HITO2.md).
+
+## Contenido
+
+| Carpeta | Contenido |
+|---|---|
+| `src/debtguard/` | Prototipo: lectura del diff, métricas, estimador de costo, veredicto y reportes |
+| `config/` | Costos de remediación y umbrales calibrados |
+| `tests/` | Pruebas automáticas y archivos con deuda conocida |
+| `experiments/` | Muestreo, generación con DeepSeek, lote, análisis, validación y comprobación funcional |
+| `data/` | Casos, respuestas crudas del LLM, resultados, tablas y plantillas de validación |
+| `casos/` | Parches humanos y del LLM de cada caso |
+| `reports/` | JSON del prototipo para cada parche y para la muestra de calibración |
+| `docs/` | Figuras, capturas y el script que genera el informe |
+| `dashboard-web/` | Dashboard local |
+| `entregables/` | Informes de los Hitos 1 y 2, guías del curso y reparto de tareas |
+
+La etiqueta `v1.0-experimento` marca la configuración congelada antes de medir los parches del LLM.
+
+## Requisitos
+
+- Windows 10 u 11 (lo probado), Python 3.13, Node.js 18 o superior y git.
+- Docker solo si quieres repetir la comprobación funcional con SWE-bench.
+- Microsoft Word solo para abrir el informe y actualizar su índice.
 
 ## Instalación
 
-Requiere Python 3.13, Node.js 18 o superior y git.
+En PowerShell:
 
-```bash
+```powershell
+git clone https://github.com/AngelCaceresPari01/Debtguard.git
+cd Debtguard
 py -3.13 -m venv .venv
-.venv/Scripts/pip install -r requirements.txt
-.venv/Scripts/pip install -e .
+.venv\Scripts\python.exe -m pip install -r requirements.txt
+.venv\Scripts\python.exe -m pip install -e .
 npm ci
-.venv/Scripts/python -m pytest
+.venv\Scripts\python.exe -m pytest
 ```
 
-## Uso
+Las pruebas deben terminar con `34 passed`. `npm ci` instala jscpd, el detector de clones, con la versión fijada en `package-lock.json`.
 
-Aplica primero el parche en el repositorio, sin hacer commit, y ejecuta:
+## Usar el prototipo
 
-```bash
-python -m debtguard analyze --diff cambio.patch --repo ruta/al/repo --case-id X --origin LLM --json reports/X.json --md reports/X.md
+El prototipo analiza un parche **ya aplicado** en un repositorio, y compara contra el commit anterior (`HEAD`):
+
+```powershell
+.venv\Scripts\python.exe -m debtguard analyze --diff cambio.patch --repo C:\ruta\al\repo --case-id mi-cambio --origin LLM --json salida\mi-cambio.json --md salida\mi-cambio.md
 ```
 
-El código de salida es 1 si el veredicto es BLOQUEAR.
+Imprime el veredicto, las horas, la nota SQALE y el número de hallazgos. El código de salida es 1 si el veredicto es BLOQUEAR.
+
+### Volver a medir uno de los 30 casos
+
+Primero descarga los repositorios del experimento. Pesan varios GB y se guardan en `repos\`, que no se sube a git:
+
+```powershell
+.venv\Scripts\python.exe experiments\prepare_repos.py
+```
+
+Después, cambiando solo las dos primeras líneas:
+
+```powershell
+$id = 'pytest-dev__pytest-7373'
+$origen = 'llm'     # 'llm' o 'humano'
+
+$fila = Import-Csv data\casos.csv | Where-Object instance_id -eq $id
+$repo = 'repos\' + ($fila.repo -replace '/', '__')
+git -C $repo reset -q --hard
+git -C $repo clean -qfdx
+git -C $repo checkout -qf $fila.base_commit
+git -C $repo apply --index --whitespace=nowarn (Resolve-Path "casos\${id}_$origen.patch")
+if ($origen -eq 'llm') { $extra = @('--origin','LLM','--model','deepseek-v4-pro') } else { $extra = @('--origin','humano') }
+.venv\Scripts\python.exe -m debtguard analyze --diff "casos\${id}_$origen.patch" --repo $repo --case-id "${id}_$origen" @extra --json "salida\${id}_$origen.json" --md "salida\${id}_$origen.md"
+git -C $repo reset -q --hard
+git -C $repo clean -qfdx
+```
+
+El resultado queda en `salida\`. No lo guardes en `reports\`, porque el análisis lee todos los JSON de esa carpeta. Los identificadores de los 30 casos están en `data\seleccion.csv`.
+
+## Dashboard
+
+```powershell
+cd dashboard-web
+py -3.13 -m venv .venv
+.venv\Scripts\python.exe -m pip install -r requirements.txt
+.venv\Scripts\python.exe -m dashboard.server
+```
+
+Abre http://127.0.0.1:8765, elige una carpeta y pulsa Analizar. También puedes iniciarlo con doble clic en `dashboard-web\iniciar.bat`, que instala las dependencias la primera vez.
+
+- **Qué puede analizar:** el código actual, los últimos commits o los cambios sin confirmar.
+- **Qué muestra:** cada métrica abre una explicación de qué significa el resultado.
+- **Solo lectura:** la carpeta analizada no se modifica y su código no se ejecuta.
+
+Más detalle en [`dashboard-web/README.md`](dashboard-web/README.md).
 
 ## Reproducir el experimento
 
-Crea un archivo `.env` con `DEEPSEEK_API_KEY=...`. Este archivo no se versiona.
+Las respuestas de DeepSeek ya están guardadas en `data/llm/`, así que **no hace falta la API** para repetir las mediciones y el análisis:
 
-```bash
-python experiments/sample.py
-python experiments/generate_llm.py
-cd experiments && python revalidate_llm.py && cd ..
-python experiments/run_batch.py --rol calibracion
-python experiments/calibrate.py
-python experiments/run_batch.py --rol comparacion
-python experiments/validation.py muestra
-python experiments/analysis.py
+```powershell
+.venv\Scripts\python.exe experiments\prepare_repos.py
+.venv\Scripts\python.exe experiments\run_batch.py --rol calibracion
+.venv\Scripts\python.exe experiments\run_batch.py --rol comparacion
+.venv\Scripts\python.exe experiments\analysis.py
+cd experiments
+..\.venv\Scripts\python.exe analysis_correccion.py
+..\.venv\Scripts\python.exe fechas_base.py
+cd ..
 ```
 
-Las respuestas crudas del LLM están en `data/llm/`, así que no hace falta volver a llamar a la API para repetir el análisis.
+Los comandos de `run_batch.py` no vuelven a medir los casos que ya tienen JSON en `reports\`. Para medirlos de nuevo, mueve esos archivos a otra carpeta.
+
+**Para generar parches nuevos con DeepSeek**, crea un archivo `.env` con `DEEPSEEK_API_KEY=tu_clave` (ver `.env.example`) y ejecuta `experiments\generate_llm.py`. El archivo `.env` está en `.gitignore`: nunca subas tu clave.
+
+**Para la comprobación funcional con SWE-bench**, necesitas Docker. El procedimiento está en `experiments/swe_eval.py`, y sus resultados en `data/correccion/correccion.csv`.
 
 ## Validación manual
 
-P2 y P3 completan por separado `data/validacion/alertas_P2.csv` y `alertas_P3.csv` con VP o FP. Después:
+P2 y P3 etiquetan por separado `data/validacion/alertas_P2.csv` y `data/validacion/alertas_P3.csv` con VP o FP, sin abrir `clave_no_abrir.csv`. Después:
 
-```bash
-python experiments/validation.py calcular
+```powershell
+.venv\Scripts\python.exe experiments\validation.py calcular
 ```
 
-No abras `clave_no_abrir.csv` antes de etiquetar: indica el origen de cada alerta.
+## Generar el informe
 
-## Estructura
-
-- `src/debtguard/`: ingesta, métricas, estimador y reportes
-- `config/`: costos, umbrales y resultados de calibración
-- `experiments/`: muestreo, generación, lote, análisis y validación
-- `data/`, `casos/`, `reports/`: casos, parches, resultados y JSON por caso
-- `docs/`: figuras y generador del informe
-
-## Comprobar corrección (opcional, requiere Docker)
-
-Construye una imagen con `swebench==5.0.2`, monta `data/correccion` en `/work` y el socket de Docker, y ejecuta `swe_eval.py` dentro. Después:
-
-```bash
-python experiments/swe_predicciones.py
-cd experiments && python analysis_correccion.py
+```powershell
+.venv\Scripts\python.exe docs\build_informe.py
 ```
+
+Lo escribe en `entregables\` con las cifras de `data\`. Sobrescribe cualquier cambio hecho a mano en el Word: usa otra ruta como argumento si quieres conservarlo.
+
+## Uso de asistentes de IA
+
+El prototipo, el análisis y el borrador del informe se hicieron con ayuda de Claude Code. Los parches del experimento los generó únicamente DeepSeek-V4-Pro.
+
+## Autores
+
+Carrasco Choque Arles Melvin, Caceres Pari Angel Raul, Chancuaña Alvis Klismann y Yana Agramonte Luis Efrain.

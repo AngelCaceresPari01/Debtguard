@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>debtguard: deuda técnica</title>
+<link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+<header class="cabecera">
+  <div>
+    <h1>debtguard</h1>
+    <p>Deuda técnica de una carpeta, en horas de corrección</p>
+  </div>
+  <p class="garantia">Solo lectura: tu carpeta no se modifica y su código no se ejecuta.</p>
+</header>
+
+<main>
+  <section class="panel" aria-labelledby="t-carpeta">
+    <h2 id="t-carpeta">Carpeta</h2>
+    <div class="fila-ruta">
+      <input id="ruta" type="text" spellcheck="false" autocomplete="off" aria-label="Ruta de la carpeta" placeholder="C:\ruta\de\tu\proyecto">
+      <button id="btn-examinar" type="button">Examinar</button>
+      <button id="btn-nativo" type="button">Selector de Windows</button>
+    </div>
+    <div id="info" class="info" hidden></div>
+    <fieldset class="opciones" id="opciones" hidden>
+      <legend>Qué analizar</legend>
+      <label><input type="checkbox" id="op-codigo" checked> Código actual</label>
+      <label><input type="checkbox" id="op-historial" checked> Historial de git:
+        <select id="op-n" aria-label="Número de commits">
+          <option>10</option><option selected>25</option><option>50</option><option>100</option><option>250</option>
+        </select> commits</label>
+      <label><input type="checkbox" id="op-sucio"> Cambios sin confirmar</label>
+      <button id="btn-analizar" class="primario" type="button">Analizar</button>
+    </fieldset>
+    <div id="progreso" class="progreso" hidden>
+      <div class="barra"><div id="barra-valor"></div></div>
+      <p id="progreso-texto" aria-live="polite"></p>
+      <button id="btn-cancelar" type="button">Cancelar</button>
+    </div>
+    <p id="error" class="error" role="alert" hidden></p>
+  </section>
+
+  <section id="resultados" hidden>
+    <nav class="pestanas" role="tablist" aria-label="Resultados">
+      <button role="tab" data-p="resumen" aria-selected="true">Resumen</button>
+      <button role="tab" data-p="commits" aria-selected="false">Commits</button>
+      <button role="tab" data-p="archivos" aria-selected="false">Archivos y funciones</button>
+      <button role="tab" data-p="hallazgos" aria-selected="false">Hallazgos</button>
+      <button role="tab" data-p="comparar" aria-selected="false">IA y resto</button>
+      <button role="tab" data-p="metodo" aria-selected="false">Cómo se mide</button>
+      <span class="exportar">
+        <button id="btn-json" type="button">Descargar JSON</button>
+        <button id="btn-csv" type="button">Descargar CSV</button>
+      </span>
+    </nav>
+    <div id="p-resumen" class="pagina"></div>
+    <div id="p-commits" class="pagina" hidden></div>
+    <div id="p-archivos" class="pagina" hidden></div>
+    <div id="p-hallazgos" class="pagina" hidden></div>
+    <div id="p-comparar" class="pagina" hidden></div>
+    <div id="p-metodo" class="pagina" hidden></div>
+  </section>
+
+  <section id="vacio" class="vacio">
+    <h2>Elige una carpeta para empezar</h2>
+    <p>Busca su repositorio git, mide el código Python y muestra complejidad, clones, advertencias, deuda autoadmitida y horas de deuda.</p>
+  </section>
+</main>
+
+<dialog id="dlg-carpeta" aria-labelledby="dlg-titulo">
+  <h2 id="dlg-titulo">Elegir carpeta</h2>
+  <div id="dlg-accesos" class="accesos"></div>
+  <p id="dlg-ruta" class="dlg-ruta"></p>
+  <ul id="dlg-lista" class="lista-carpetas"></ul>
+  <div class="dlg-pie">
+    <button id="dlg-subir" type="button">Subir un nivel</button>
+    <span></span>
+    <button id="dlg-cerrar" type="button">Cancelar</button>
+    <button id="dlg-usar" class="primario" type="button">Usar esta carpeta</button>
+  </div>
+</dialog>
+<dialog id="dlg-metrica" class="dlg-metrica" aria-labelledby="exp-titulo">
+  <div class="exp-cabecera">
+    <h2 id="exp-titulo"></h2>
+    <button id="exp-cerrar" type="button" aria-label="Cerrar">Cerrar</button>
+  </div>
+  <div id="exp-cuerpo" class="exp-cuerpo"></div>
+</dialog>
+<div id="tooltip" class="tooltip" role="status" hidden></div>
+<script src="/static/metricas.js"></script>
+<script src="/static/app.js"></script>
+</body>
+</html>

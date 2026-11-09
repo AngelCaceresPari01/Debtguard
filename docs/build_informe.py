@@ -16,7 +16,7 @@ from docx.shared import Cm, Pt, RGBColor
 
 RAIZ = Path(__file__).resolve().parents[1]
 DATA, FIG = RAIZ / "data", RAIZ / "docs" / "figuras"
-SALIDA = Path(sys.argv[1]) if len(sys.argv) > 1 else RAIZ.parent / "A.9_HITO2_Carrasco_Caceres_Chancuaña_Yana.docx"
+SALIDA = Path(sys.argv[1]) if len(sys.argv) > 1 else RAIZ / "entregables" / "A.9_HITO2_Carrasco_Caceres_Chancuaña_Yana.docx"
 ANCHO = 16.5
 
 t = pd.read_csv(DATA / "tabla_hipotesis.csv")

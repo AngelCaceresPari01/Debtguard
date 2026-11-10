@@ -184,14 +184,22 @@ function composicion(minutos) {
 }
 function tilesMetricas(d, ctx) {
   const h = d.metricas, abrir = (clave) => () => abrirExplicacion(clave, d, ctx);
+  const signo = (x) => (x === null || x === undefined ? "—" : `${x > 0 ? "+" : ""}${fmt(x, 1)}`);
   return el("div", { class: "tiles" },
     tile("Deuda estimada", `${fmt(d.deuda_horas)} h`, `${fmt(d.horas_kloc, 1)} h/KLOC`, true, abrir("deuda")),
     tile("Nota SQALE", d.nota_sqale, `Razón de deuda: ${fmt(100 * d.debt_ratio, 1)} %`, true, abrir("sqale")),
     tile("Cognitiva máx.", fmt(h.cognitiva_max, 0), "Umbral: 15", false, abrir("cognitiva")),
     tile("Ciclomática máx.", fmt(h.ciclomatica_max, 0), "Umbral: 10", false, abrir("ciclomatica")),
-    tile("Clones", fmt(h.clones, 0), "Fragmentos duplicados", false, abrir("clones")),
+    tile("Clones", fmt(h.clones, 0), "Copias exactas", false, abrir("clones")),
+    tile("Clones parecidos", fmt(h.clones_similares, 0), "Misma estructura (Tipo 3)", false, abrir("clones_similares")),
     tile("Advertencias", fmt(h.advertencias, 0), `${fmt(h.advertencias_kloc, 1)} por KLOC`, false, abrir("advertencias")),
-    tile("Mantenibilidad mín.", fmt(h.mi_min, 1), "Radon: de 0 a 100", false, abrir("mantenibilidad")),
+    tile("Acoplamiento máx.", `${fmt(h.acoplamiento_eferente_max, 0)} / ${fmt(h.acoplamiento_aferente_max, 0)}`, "Dependencias de salida / de entrada", false, abrir("acoplamiento")),
+    ctx === "codigo"
+      ? tile("Ciclos de importación", fmt(h.ciclos, 0), "Grupos de módulos en ciclo", false, abrir("ciclos"))
+      : tile("Dependencias nuevas", fmt(h.dependencias_nuevas, 0), "Imports internos añadidos", false, abrir("dependencias")),
+    ctx === "codigo"
+      ? tile("Mantenibilidad", fmt(h.mi_min, 1), `Mínimo; promedio ${fmt(h.mi_promedio, 1)}`, false, abrir("mantenibilidad"))
+      : tile("Cambio de mantenibilidad", signo(h.delta_mi), "Peor cambio del índice", false, abrir("mi_cambio")),
     tile("SATD", fmt(h.satd, 0), "TODO, FIXME, HACK, XXX", false, abrir("satd")));
 }
 
@@ -265,17 +273,18 @@ function pintarCommits() {
     filas.push(el("tr", { class: "clic", tabindex: 0, "aria-expanded": abierto, on: { click: () => alternar(c.sha), keydown: (e) => { if (e.key === "Enter") alternar(c.sha); } } },
       td(c.corto, "mono"), td(c.fecha.slice(0, 10)), td(c.autor), td(c.asunto, "asunto"), td(sel),
       td(`+${m.lineas_anadidas} −${m.lineas_eliminadas}`, "num"), td(fmt(c.deuda_horas), "num"), td(fmt(c.horas_kloc, 1), "num"),
-      td(fmt(m.cognitiva_max, 0), "num"), td(fmt(m.ciclomatica_max, 0), "num"), td(fmt(m.clones, 0), "num"), td(fmt(m.advertencias, 0), "num"),
-      td(fmt(m.mi_min, 1), "num"), td(fmt(m.satd, 0), "num"), td(insigniaVeredicto(c.veredicto))));
+      td(fmt(m.cognitiva_max, 0), "num"), td(fmt(m.ciclomatica_max, 0), "num"), td(`${fmt(m.clones, 0)} / ${fmt(m.clones_similares, 0)}`, "num"), td(fmt(m.advertencias, 0), "num"),
+      td(fmt(m.dependencias_nuevas, 0), "num"), td(m.delta_mi === null || m.delta_mi === undefined ? "—" : `${m.delta_mi > 0 ? "+" : ""}${fmt(m.delta_mi, 1)}`, "num"),
+      td(fmt(m.satd, 0), "num"), td(insigniaVeredicto(c.veredicto))));
     if (abierto) {
-      filas.push(el("tr", { class: "detalle" }, el("td", { colspan: 15 },
+      filas.push(el("tr", { class: "detalle" }, el("td", { colspan: 16 },
         c.hallazgos.length ? tabla(["Ubicación", "Familia", "Regla", "Severidad", "Función o detalle", { t: "Min", num: true }], c.hallazgos.map((x) => filaHallazgo(x))) : el("p", { class: "nota" }, "Sin hallazgos en este commit."),
         c.errores?.length ? el("p", { class: "nota" }, c.errores.join(" ")) : null)));
     }
   }
   p.append(el("p", { class: "nota seccion" }, "Selecciona un commit para ver sus hallazgos. Puedes corregir su origen si sabes que se usó IA."),
     tabla(["Commit", "Fecha", "Autor", "Asunto", "Origen", { t: "Líneas", num: true }, { t: "Horas", num: true }, { t: "h/KLOC", num: true }, { t: "Cogn.", num: true }, { t: "Cicl.", num: true },
-      { t: "Clones", num: true }, { t: "Adv.", num: true }, { t: "MI", num: true }, { t: "SATD", num: true }, "Veredicto"], filas));
+      { t: "Clones exactos / parecidos", num: true }, { t: "Adv.", num: true }, { t: "Dep. nuevas", num: true }, { t: "Cambio MI", num: true }, { t: "SATD", num: true }, "Veredicto"], filas));
 }
 function alternar(sha) { estado.abierto = estado.abierto === sha ? null : sha; pintarCommits(); }
 function pintarArchivos() {
@@ -285,6 +294,12 @@ function pintarArchivos() {
   p.append(el("section", { class: "seccion" }, el("h2", {}, "Funciones más complejas"),
     c.funciones.length ? tabla(["Función", "Ubicación", { t: "Cognitiva", num: true }, { t: "Ciclomática", num: true }, { t: "Líneas", num: true }],
       c.funciones.map((f) => el("tr", {}, td(f.funcion, "mono ruta"), td(`${f.archivo}:${f.linea}`, "mono ruta"), td(fmt(f.cognitiva, 0), "num"), td(fmt(f.ciclomatica, 0), "num"), td(fmt(f.loc, 0), "num")))) : el("p", { class: "nota" }, "No hay funciones.")));
+  if (c.modulos?.length) {
+    p.append(el("section", { class: "seccion" }, el("h2", {}, "Módulos más acoplados"),
+      el("p", { class: "nota seccion-ayuda" }, "Salida: módulos internos que importa. Entrada: módulos internos que lo importan. Inestabilidad: salida ÷ (salida + entrada)."),
+      tabla(["Módulo", "Archivo", { t: "Salida", num: true }, { t: "Entrada", num: true }, { t: "Inestabilidad", num: true }],
+        c.modulos.map((m) => el("tr", {}, td(m.modulo, "mono ruta"), td(m.archivo, "mono ruta"), td(fmt(m.eferente, 0), "num"), td(fmt(m.aferente, 0), "num"), td(fmt(m.inestabilidad, 2), "num"))))));
+  }
   p.append(el("section", { class: "seccion" }, el("h2", {}, "Archivos, de más a menos deuda"),
     tabla(["Archivo", { t: "Líneas", num: true }, { t: "Funciones", num: true }, { t: "Cognitiva", num: true }, { t: "Ciclomática", num: true }, { t: "MI", num: true }, { t: "Hallazgos", num: true }, { t: "Horas", num: true }],
       c.archivos.slice(0, 500).map((f) => el("tr", {}, td(f.archivo, "mono ruta"), td(fmt(f.loc, 0), "num"), td(fmt(f.funciones, 0), "num"), td(fmt(f.cognitiva_max, 0), "num"), td(fmt(f.ciclomatica_max, 0), "num"), td(fmt(f.mi, 1), "num"), td(fmt(f.hallazgos, 0), "num"), td(fmt(f.horas), "num"))))));
@@ -333,9 +348,12 @@ async function pintarComparar() {
 function pintarMetodo() {
   const filas = [["Complejidad cognitiva", "Qué tan difícil de entender es la función más enredada. Umbral: 15; cuesta 3 min por punto de aumento.", "complexipy"],
     ["Complejidad ciclomática", "Cuántos caminos de ejecución tiene la función. Umbral: 10; cuesta 2 min por punto de aumento.", "Radon"],
-    ["Clones", "Fragmentos duplicados contra el resto del proyecto. Cuesta 20 min.", "jscpd"],
+    ["Clones exactos", "Fragmentos copiados contra el resto del proyecto. Cuesta 20 min.", "jscpd"],
+    ["Clones parecidos (v1.1)", "Funciones con la misma estructura aunque cambien los nombres (Tipo 3). Cuesta 20 min.", "jscpd --similarity"],
+    ["Acoplamiento (v1.1)", "Dependencias internas de salida y de entrada de cada módulo, e inestabilidad. No suma horas.", "Grafo de imports con ast"],
+    ["Ciclos de importación (v1.1)", "Módulos que se importan entre sí al cargarse. Cuesta 30 min.", "Grafo de imports con ast"],
     ["Advertencias", "Malas prácticas e importaciones cíclicas. De 2,5 a 120 min, según categoría y severidad.", "Ruff y Pylint"],
-    ["Mantenibilidad (MI)", "Puntaje del archivo menos mantenible. Más alto es mejor.", "Radon"],
+    ["Mantenibilidad (MI)", "En un cambio: cuánto sube o baja el índice del archivo que más empeora. En el código completo: mínimo y promedio por líneas. Más alto es mejor.", "Radon"],
     ["SATD", "Comentarios TODO, FIXME, HACK o XXX. Cuesta 10 min.", "tokenize"],
     ["Horas de deuda", "Suma de los costos, según el modelo tipo SQALE de la guía.", "debtguard"],
     ["IRD y veredicto", "Índice de 0 a 100 calibrado con 20 parches humanos. Solo se aplica a cambios, no al código completo.", "debtguard"]];
@@ -350,7 +368,8 @@ function pintarMetodo() {
       el("li", {}, "No comprueba si el código funciona: para eso están las pruebas del proyecto."),
       el("li", {}, "Las horas son una estimación con costos definidos por el equipo; todavía no se han validado con correcciones cronometradas."),
       el("li", {}, "La precisión de las alertas sigue pendiente de la revisión manual del Hito 2."),
-      el("li", {}, "No detecta clones semánticos ni mide acoplamiento."),
+      el("li", {}, "Detecta clones exactos y parecidos, pero no código que hace lo mismo con otra estructura (Tipo 4)."),
+      el("li", {}, "El acoplamiento solo cuenta imports entre módulos del propio proyecto, no llamadas ni librerías externas."),
       el("li", {}, "El veredicto es muy estricto en cambios diminutos: un solo TODO puede bloquear un cambio de una línea."))));
 }
 function pintarTodo() {

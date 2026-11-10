@@ -1,0 +1,474 @@
+﻿archivo,linea,funcion,familia,regla,severidad,categoria,valor,costo_min,detalle
+sqlite_utils/db.py,4673,Table.insert_all,complejidad,cognitive>15,alta,,265,750,
+sqlite_utils/db.py,2773,Table.transform_sql,complejidad,cognitive>15,alta,,215,600,
+sqlite_utils/cli.py,1061,insert_upsert_implementation,complejidad,cognitive>15,alta,,150,405,
+sqlite_utils/db.py,1429,Database.create_table_sql,complejidad,cognitive>15,alta,,125,330,
+sqlite_utils/db.py,4305,Table.build_insert_queries_and_params,complejidad,cognitive>15,alta,,106,273,
+sqlite_utils/db.py,2773,Table.transform_sql,complejidad,cyclomatic>10,alta,,133,246,
+sqlite_utils/db.py,4673,Table.insert_all,complejidad,cyclomatic>10,alta,,106,192,
+sqlite_utils/db.py,1429,Database.create_table_sql,complejidad,cyclomatic>10,alta,,94,168,
+docs/conf.py,118,,regla,S602,critica,seguridad,1,120,"`subprocess` call with `shell=True` seems safe, but may be changed in the future; consider rewriting without `shell`"
+sqlite_utils/utils.py,546,,regla,S307,critica,seguridad,1,120,Use of possibly insecure function; consider using `ast.literal_eval`
+sqlite_utils/db.py,4305,Table.build_insert_queries_and_params,complejidad,cyclomatic>10,alta,,65,110,
+sqlite_utils/cli.py,1061,insert_upsert_implementation,complejidad,cyclomatic>10,alta,,64,108,
+sqlite_utils/db.py,1893,Database.add_foreign_keys,complejidad,cognitive>15,alta,,50,105,
+sqlite_utils/db.py,1700,Database.create_table,complejidad,cognitive>15,alta,,49,102,
+sqlite_utils/create_table_parser.py,233,_lex,complejidad,cognitive>15,alta,,48,99,
+sqlite_utils/cli.py,2105,memory,complejidad,cognitive>15,alta,,47,96,
+sqlite_utils/cli.py,2906,insert_files,complejidad,cognitive>15,alta,,44,87,
+sqlite_utils/cli.py,213,tables,complejidad,cognitive>15,alta,,39,72,
+sqlite_utils/cli.py,3534,migrate,complejidad,cognitive>15,alta,,38,69,
+sqlite_utils/cli.py,2209,,regla,S608,alta,seguridad,1,60,Possible SQL injection vector through string-based query construction
+sqlite_utils/cli.py,2483,,regla,S608,alta,seguridad,1,60,Possible SQL injection vector through string-based query construction
+sqlite_utils/db.py,1103,,regla,S608,alta,seguridad,1,60,Possible SQL injection vector through string-based query construction
+sqlite_utils/db.py,1178,,regla,S608,alta,seguridad,1,60,Possible SQL injection vector through string-based query construction
+sqlite_utils/db.py,1181,,regla,S608,alta,seguridad,1,60,Possible SQL injection vector through string-based query construction
+sqlite_utils/db.py,1264,,regla,S608,alta,seguridad,1,60,Possible SQL injection vector through string-based query construction
+sqlite_utils/db.py,2121,,regla,S608,alta,seguridad,1,60,Possible SQL injection vector through string-based query construction
+sqlite_utils/db.py,2164,,regla,S608,alta,seguridad,1,60,Possible SQL injection vector through string-based query construction
+sqlite_utils/db.py,2639,,regla,S608,alta,seguridad,1,60,Possible SQL injection vector through string-based query construction
+sqlite_utils/db.py,3123,,regla,S608,alta,seguridad,1,60,Possible SQL injection vector through string-based query construction
+sqlite_utils/db.py,3239,,regla,S608,alta,seguridad,1,60,Possible SQL injection vector through string-based query construction
+sqlite_utils/db.py,3244,,regla,S608,alta,seguridad,1,60,Possible SQL injection vector through string-based query construction
+sqlite_utils/db.py,3335,,regla,S608,alta,seguridad,1,60,Possible SQL injection vector through string-based query construction
+sqlite_utils/db.py,3354,,regla,S608,alta,seguridad,1,60,Possible SQL injection vector through string-based query construction
+sqlite_utils/db.py,4084,,regla,S608,alta,seguridad,1,60,Possible SQL injection vector through string-based query construction
+sqlite_utils/db.py,4109,,regla,S608,alta,seguridad,1,60,Possible SQL injection vector through string-based query construction
+sqlite_utils/db.py,4156,,regla,S608,alta,seguridad,1,60,Possible SQL injection vector through string-based query construction
+sqlite_utils/db.py,4239,,regla,S608,alta,seguridad,1,60,Possible SQL injection vector through string-based query construction
+sqlite_utils/db.py,4403,,regla,S608,alta,seguridad,1,60,Possible SQL injection vector through string-based query construction
+sqlite_utils/db.py,4464,,regla,S608,alta,seguridad,1,60,Possible SQL injection vector through string-based query construction
+sqlite_utils/db.py,4495,,regla,S608,alta,seguridad,1,60,Possible SQL injection vector through string-based query construction
+sqlite_utils/db.py,4825,,regla,S608,alta,seguridad,1,60,Possible SQL injection vector through string-based query construction
+sqlite_utils/db.py,4958,,regla,S608,alta,seguridad,1,60,Possible SQL injection vector through string-based query construction
+sqlite_utils/db.py,5336,,regla,S608,alta,seguridad,1,60,Possible SQL injection vector through string-based query construction
+sqlite_utils/db.py,5339,,regla,S608,alta,seguridad,1,60,Possible SQL injection vector through string-based query construction
+sqlite_utils/db.py,5342,,regla,S608,alta,seguridad,1,60,Possible SQL injection vector through string-based query construction
+sqlite_utils/db.py,5348,,regla,S608,alta,seguridad,1,60,Possible SQL injection vector through string-based query construction
+sqlite_utils/db.py,5360,,regla,S608,alta,seguridad,1,60,Possible SQL injection vector through string-based query construction
+sqlite_utils/db.py,5375,,regla,S608,alta,seguridad,1,60,Possible SQL injection vector through string-based query construction
+sqlite_utils/db.py,1290,Database.resolve_foreign_keys,complejidad,cognitive>15,alta,,33,54,
+sqlite_utils/utils.py,288,rows_from_file,complejidad,cognitive>15,alta,,31,48,
+sqlite_utils/db.py,1893,Database.add_foreign_keys,complejidad,cyclomatic>10,alta,,33,46,
+sqlite_utils/cli.py,3250,convert,complejidad,cognitive>15,media,,30,45,
+sqlite_utils/db.py,3585,Table.add_foreign_key,complejidad,cognitive>15,media,,30,45,
+sqlite_utils/db.py,1700,Database.create_table,complejidad,cyclomatic>10,alta,,32,44,
+sqlite_utils/cli.py,2105,memory,complejidad,cyclomatic>10,alta,,31,42,
+sqlite_utils/cli.py,2263,_execute_query,complejidad,cognitive>15,media,,29,42,
+sqlite_utils/db.py,3585,Table.add_foreign_key,complejidad,cyclomatic>10,alta,,30,40,
+sqlite_utils/db.py,5299,Table.analyze_column,complejidad,cognitive>15,media,,28,39,
+sqlite_utils/db.py,3256,Table.extract,complejidad,cyclomatic>10,alta,,29,38,
+sqlite_utils/db.py,3256,Table.extract,complejidad,cognitive>15,media,,27,36,
+docs/conf.py,49,,regla,S607,media,seguridad,1,30,Starting a process with a partial executable path
+docs/conf.py,118,,regla,S607,media,seguridad,1,30,Starting a process with a partial executable path
+sqlite_utils/cli.py,2987,,regla,S324,media,seguridad,1,30,Probable use of insecure hash functions in `hashlib`: `md5`
+sqlite_utils/cli.py,3664,,regla,S324,media,seguridad,1,30,Probable use of insecure hash functions in `hashlib`: `md5`
+sqlite_utils/utils.py,613,,regla,S324,media,seguridad,1,30,Probable use of insecure hash functions in `hashlib`: `sha1`
+sqlite_utils/create_table_parser.py,728,parse_uniques,complejidad,cognitive>15,media,,24,27,
+sqlite_utils/db.py,2643,Table.transform,complejidad,cognitive>15,media,,24,27,
+sqlite_utils/create_table_parser.py,233,_lex,complejidad,cyclomatic>10,alta,,23,26,
+sqlite_utils/create_table_parser.py,499,_table_body,complejidad,cyclomatic>10,alta,,23,26,
+sqlite_utils/db.py,569,Database.__init__,complejidad,cognitive>15,media,,23,24,
+sqlite_utils/cli.py,1105,insert_upsert_implementation._insert_docs,complejidad,cyclomatic>10,alta,,21,22,
+sqlite_utils/cli.py,3534,migrate,complejidad,cyclomatic>10,alta,,21,22,
+sqlite_utils/db.py,2643,Table.transform,complejidad,cyclomatic>10,alta,,21,22,
+sqlite_utils/db.py,5117,Table.lookup,complejidad,cognitive>15,media,,22,21,
+sqlite_utils/cli.py,2263,_execute_query,complejidad,cyclomatic>10,media,,20,20,
+sqlite_utils/cli.py,274,,clon,clone,media,,10,20.0,lineas 274-283; igual a sqlite_utils/cli.py:2308
+sqlite_utils/cli.py,374,,clon,clone,media,,9,20.0,lineas 374-382; igual a sqlite_utils/cli.py:402
+sqlite_utils/cli.py,387,,clon,clone,media,,9,20.0,lineas 387-395; igual a sqlite_utils/cli.py:883
+sqlite_utils/cli.py,402,,clon,clone,media,,9,20.0,lineas 402-410; igual a sqlite_utils/cli.py:374
+sqlite_utils/cli.py,652,,clon,clone,media,,9,20.0,lineas 652-660; igual a sqlite_utils/cli.py:737
+sqlite_utils/cli.py,737,,clon,clone,media,,9,20.0,lineas 737-745; igual a sqlite_utils/cli.py:652
+sqlite_utils/cli.py,792,,clon,clone,media,,9,20.0,lineas 792-800; igual a sqlite_utils/cli.py:652
+sqlite_utils/cli.py,883,,clon,clone,media,,9,20.0,lineas 883-891; igual a sqlite_utils/cli.py:387
+sqlite_utils/cli.py,1447,,clon,clone,media,,25,20.0,lineas 1447-1471; igual a sqlite_utils/cli.py:1540
+sqlite_utils/cli.py,1540,,clon,clone,media,,25,20.0,lineas 1540-1564; igual a sqlite_utils/cli.py:1447
+sqlite_utils/cli.py,1699,,clon,clone,media,,9,20.0,lineas 1699-1707; igual a sqlite_utils/cli.py:2824
+sqlite_utils/cli.py,1975,,clon,clone,media,,13,20.0,lineas 1975-1987; igual a sqlite_utils/cli.py:2070
+sqlite_utils/cli.py,2070,,clon,clone,media,,13,20.0,lineas 2070-2082; igual a sqlite_utils/cli.py:1975
+sqlite_utils/cli.py,2308,,clon,clone,media,,10,20.0,lineas 2308-2317; igual a sqlite_utils/cli.py:274
+sqlite_utils/cli.py,2397,,clon,clone,media,,13,20.0,lineas 2397-2409; igual a sqlite_utils/cli.py:2552
+sqlite_utils/cli.py,2505,,clon,clone,media,,15,20.0,lineas 2505-2519; igual a sqlite_utils/cli.py:2562
+sqlite_utils/cli.py,2552,,clon,clone,media,,25,20.0,lineas 2552-2576; igual a sqlite_utils/cli.py:2397
+sqlite_utils/cli.py,2623,,clon,clone,media,,24,20.0,lineas 2623-2646; igual a sqlite_utils/cli.py:2397
+sqlite_utils/cli.py,2824,,clon,clone,media,,9,20.0,lineas 2824-2832; igual a sqlite_utils/cli.py:1699
+sqlite_utils/cli.py,3344,,clon,clone,media,,9,20.0,lineas 3344-3352; igual a sqlite_utils/cli.py:3421
+sqlite_utils/cli.py,3400,,clon,clone,media,,7,20.0,lineas 3400-3406; igual a sqlite_utils/cli.py:3433
+sqlite_utils/cli.py,3421,,clon,clone,media,,9,20.0,lineas 3421-3429; igual a sqlite_utils/cli.py:3344
+sqlite_utils/cli.py,3433,,clon,clone,media,,7,20.0,lineas 3433-3439; igual a sqlite_utils/cli.py:3400
+sqlite_utils/create_table_parser.py,24,,clon,clone,media,,6,20.0,lineas 24-29; igual a sqlite_utils/create_table_parser.py:48
+sqlite_utils/create_table_parser.py,48,,clon,clone,media,,6,20.0,lineas 48-53; igual a sqlite_utils/create_table_parser.py:24
+sqlite_utils/create_table_parser.py,460,,clon,clone,media,,16,20.0,lineas 460-475; igual a sqlite_utils/create_table_parser.py:682
+sqlite_utils/create_table_parser.py,549,,clon,clone,media,,13,20.0,lineas 549-561; igual a sqlite_utils/create_table_parser.py:735
+sqlite_utils/create_table_parser.py,682,,clon,clone,media,,16,20.0,lineas 682-697; igual a sqlite_utils/create_table_parser.py:460
+sqlite_utils/create_table_parser.py,735,,clon,clone,media,,13,20.0,lineas 735-747; igual a sqlite_utils/create_table_parser.py:549
+sqlite_utils/db.py,1429,,clon,clone,media,,13,20.0,lineas 1429-1441; igual a sqlite_utils/db.py:1700
+sqlite_utils/db.py,1449,,clon,clone,media,,14,20.0,lineas 1449-1462; igual a sqlite_utils/db.py:1721
+sqlite_utils/db.py,1700,,clon,clone,media,,13,20.0,lineas 1700-1712; igual a sqlite_utils/db.py:1429
+sqlite_utils/db.py,1721,,clon,clone,media,,18,20.0,lineas 1721-1738; igual a sqlite_utils/db.py:1449
+sqlite_utils/db.py,2115,,clon,clone,media,,6,20.0,lineas 2115-2120; igual a sqlite_utils/db.py:2152
+sqlite_utils/db.py,2152,,clon,clone,media,,10,20.0,lineas 2152-2161; igual a sqlite_utils/db.py:2115
+sqlite_utils/db.py,2193,,clon,clone,media,,8,20.0,lineas 2193-2200; igual a sqlite_utils/db.py:2154
+sqlite_utils/db.py,2288,,clon,clone,media,,6,20.0,lineas 2288-2293; igual a sqlite_utils/db.py:1432
+sqlite_utils/db.py,2562,,clon,clone,media,,15,20.0,lineas 2562-2576; igual a sqlite_utils/db.py:1452
+sqlite_utils/db.py,2643,,clon,clone,media,,10,20.0,lineas 2643-2652; igual a sqlite_utils/db.py:2773
+sqlite_utils/db.py,2668,,clon,clone,media,,21,20.0,lineas 2668-2688; igual a sqlite_utils/db.py:2791
+sqlite_utils/db.py,2773,,clon,clone,media,,10,20.0,lineas 2773-2782; igual a sqlite_utils/db.py:2643
+sqlite_utils/db.py,2791,,clon,clone,media,,16,20.0,lineas 2791-2806; igual a sqlite_utils/db.py:2668
+sqlite_utils/db.py,2807,,clon,clone,media,,6,20.0,lineas 2807-2812; igual a sqlite_utils/db.py:2683
+sqlite_utils/db.py,4604,,clon,clone,media,,20,20.0,lineas 4604-4623; igual a sqlite_utils/db.py:5031
+sqlite_utils/db.py,4673,,clon,clone,media,,14,20.0,lineas 4673-4686; igual a sqlite_utils/db.py:5069
+sqlite_utils/db.py,5031,,clon,clone,media,,18,20.0,lineas 5031-5048; igual a sqlite_utils/db.py:4604
+sqlite_utils/db.py,5069,,clon,clone,media,,15,20.0,lineas 5069-5083; igual a sqlite_utils/db.py:4673
+sqlite_utils/recipes.py,20,,clon,clone,media,,10,20.0,lineas 20-29; igual a sqlite_utils/recipes.py:51
+sqlite_utils/recipes.py,51,,clon,clone,media,,10,20.0,lineas 51-60; igual a sqlite_utils/recipes.py:20
+sqlite_utils/db.py,704,,clon,clone-similar,media,,6,20.0,lineas 704-709; parecido a sqlite_utils/db.py:711
+sqlite_utils/db.py,711,,clon,clone-similar,media,,7,20.0,lineas 711-717; parecido a sqlite_utils/db.py:704
+sqlite_utils/db.py,1206,,clon,clone-similar,media,,11,20.0,lineas 1206-1216; parecido a sqlite_utils/db.py:1218
+sqlite_utils/db.py,1218,,clon,clone-similar,media,,11,20.0,lineas 1218-1228; parecido a sqlite_utils/db.py:1206
+sqlite_utils/db.py,3534,,clon,clone-similar,media,,11,20.0,lineas 3534-3544; parecido a sqlite_utils/db.py:5487
+sqlite_utils/db.py,5487,,clon,clone-similar,media,,12,20.0,lineas 5487-5498; parecido a sqlite_utils/db.py:3534
+sqlite_utils/create_table_parser.py,664,_column_uniques,complejidad,cognitive>15,media,,21,18,
+sqlite_utils/db.py,569,Database.__init__,complejidad,cyclomatic>10,media,,19,18,
+sqlite_utils/db.py,867,Database.query,complejidad,cognitive>15,media,,21,18,
+sqlite_utils/db.py,3389,Table.create_index,complejidad,cognitive>15,media,,21,18,
+sqlite_utils/utils.py,288,rows_from_file,complejidad,cyclomatic>10,media,,19,18,
+sqlite_utils/cli.py,213,tables,complejidad,long_function>70,baja,,75,15.0,
+sqlite_utils/cli.py,979,insert_upsert_options,complejidad,long_function>70,baja,,80,15.0,
+sqlite_utils/cli.py,980,insert_upsert_options.inner,complejidad,long_function>70,baja,,77,15.0,
+sqlite_utils/cli.py,1061,insert_upsert_implementation,complejidad,long_function>70,baja,,263,15.0,
+sqlite_utils/cli.py,1105,insert_upsert_implementation._insert_docs,complejidad,long_function>70,baja,,75,15.0,
+sqlite_utils/cli.py,1355,insert,complejidad,long_function>70,baja,,132,15.0,
+sqlite_utils/cli.py,1491,upsert,complejidad,long_function>70,baja,,86,15.0,
+sqlite_utils/cli.py,2105,memory,complejidad,long_function>70,baja,,155,15.0,
+sqlite_utils/cli.py,2346,search,complejidad,long_function>70,baja,,74,15.0,
+sqlite_utils/cli.py,2729,transform,complejidad,long_function>70,baja,,92,15.0,
+sqlite_utils/cli.py,2906,insert_files,complejidad,long_function>70,baja,,119,15.0,
+sqlite_utils/cli.py,3250,convert,complejidad,long_function>70,baja,,91,15.0,
+sqlite_utils/cli.py,3534,migrate,complejidad,long_function>70,baja,,97,15.0,
+sqlite_utils/create_table_parser.py,499,_table_body,complejidad,cognitive>15,media,,20,15,
+sqlite_utils/db.py,867,Database.query,complejidad,long_function>70,baja,,77,15.0,
+sqlite_utils/db.py,1290,Database.resolve_foreign_keys,complejidad,long_function>70,baja,,96,15.0,
+sqlite_utils/db.py,1429,Database.create_table_sql,complejidad,long_function>70,baja,,270,15.0,
+sqlite_utils/db.py,1700,Database.create_table,complejidad,long_function>70,baja,,136,15.0,
+sqlite_utils/db.py,1893,Database.add_foreign_keys,complejidad,long_function>70,baja,,120,15.0,
+sqlite_utils/db.py,2540,Table.create,complejidad,long_function>70,baja,,89,15.0,
+sqlite_utils/db.py,2643,Table.transform,complejidad,long_function>70,baja,,129,15.0,
+sqlite_utils/db.py,2773,Table.transform_sql,complejidad,long_function>70,baja,,482,15.0,
+sqlite_utils/db.py,3256,Table.extract,complejidad,long_function>70,baja,,132,15.0,
+sqlite_utils/db.py,3389,Table.create_index,complejidad,long_function>70,baja,,73,15.0,
+sqlite_utils/db.py,3477,Table.add_column,complejidad,cognitive>15,media,,20,15,
+sqlite_utils/db.py,3585,Table.add_foreign_key,complejidad,long_function>70,baja,,106,15.0,
+sqlite_utils/db.py,3754,Table.enable_fts,complejidad,cognitive>15,media,,20,15,
+sqlite_utils/db.py,3754,Table.enable_fts,complejidad,long_function>70,baja,,91,15.0,
+sqlite_utils/db.py,3939,Table.search_sql,complejidad,long_function>70,baja,,77,15.0,
+sqlite_utils/db.py,4177,Table.convert,complejidad,long_function>70,baja,,77,15.0,
+sqlite_utils/db.py,4305,Table.build_insert_queries_and_params,complejidad,long_function>70,baja,,214,15.0,
+sqlite_utils/db.py,4520,Table.insert_chunk,complejidad,long_function>70,baja,,83,15.0,
+sqlite_utils/db.py,4673,Table.insert_all,complejidad,long_function>70,baja,,357,15.0,
+sqlite_utils/db.py,5117,Table.lookup,complejidad,long_function>70,baja,,92,15.0,
+sqlite_utils/db.py,5210,Table.m2m,complejidad,cognitive>15,media,,20,15,
+sqlite_utils/db.py,5210,Table.m2m,complejidad,long_function>70,baja,,84,15.0,
+sqlite_utils/db.py,5299,Table.analyze_column,complejidad,long_function>70,baja,,92,15.0,
+sqlite_utils/utils.py,288,rows_from_file,complejidad,long_function>70,baja,,122,15.0,
+sqlite_utils/cli.py,336,,regla,S101,baja,seguridad,1,15.0,Use of `assert` detected
+sqlite_utils/cli.py,437,,regla,B904,media,mantenibilidad,1,15,"Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling"
+sqlite_utils/cli.py,555,,regla,B904,media,mantenibilidad,1,15,"Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling"
+sqlite_utils/cli.py,592,,regla,B904,media,mantenibilidad,1,15,"Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling"
+sqlite_utils/cli.py,627,,regla,B904,media,mantenibilidad,1,15,"Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling"
+sqlite_utils/cli.py,698,,regla,PLW2901,media,mantenibilidad,1,15,`for` loop variable `col` overwritten by assignment target
+sqlite_utils/cli.py,734,,regla,B904,media,mantenibilidad,1,15,"Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling"
+sqlite_utils/cli.py,789,,regla,B904,media,mantenibilidad,1,15,"Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling"
+sqlite_utils/cli.py,1147,,regla,B904,media,mantenibilidad,1,15,"Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling"
+sqlite_utils/cli.py,1156,,regla,B904,media,mantenibilidad,1,15,"Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling"
+sqlite_utils/cli.py,1162,,regla,B904,media,mantenibilidad,1,15,"Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling"
+sqlite_utils/cli.py,1240,,regla,S101,baja,seguridad,1,15.0,Use of `assert` detected
+sqlite_utils/cli.py,1261,,regla,B905,media,mantenibilidad,1,15,`zip()` without an explicit `strict=` parameter
+sqlite_utils/cli.py,1265,,regla,B905,media,mantenibilidad,1,15,`zip()` without an explicit `strict=` parameter
+sqlite_utils/cli.py,1283,,regla,B904,media,mantenibilidad,1,15,"Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling"
+sqlite_utils/cli.py,1311,,regla,B904,media,mantenibilidad,1,15,"Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling"
+sqlite_utils/cli.py,1486,,regla,B904,media,mantenibilidad,1,15,"Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling"
+sqlite_utils/cli.py,1576,,regla,B904,media,mantenibilidad,1,15,"Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling"
+sqlite_utils/cli.py,1659,,regla,B904,media,mantenibilidad,1,15,"Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling"
+sqlite_utils/cli.py,1829,,regla,B904,media,mantenibilidad,1,15,"Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling"
+sqlite_utils/cli.py,1853,,regla,B904,media,mantenibilidad,1,15,"Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling"
+sqlite_utils/cli.py,1881,,regla,B904,media,mantenibilidad,1,15,"Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling"
+sqlite_utils/cli.py,1885,,regla,B904,media,mantenibilidad,1,15,"Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling"
+sqlite_utils/cli.py,1958,,regla,B904,media,mantenibilidad,1,15,"Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling"
+sqlite_utils/cli.py,1961,,regla,B904,media,mantenibilidad,1,15,"Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling"
+sqlite_utils/cli.py,2172,,regla,PLW2901,media,mantenibilidad,1,15,`for` loop variable `path` overwritten by assignment target
+sqlite_utils/cli.py,2283,,regla,B904,media,mantenibilidad,1,15,"Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling"
+sqlite_utils/cli.py,2415,,regla,B904,media,mantenibilidad,1,15,"Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling"
+sqlite_utils/cli.py,2871,,regla,B904,media,mantenibilidad,1,15,"Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling"
+sqlite_utils/cli.py,2962,,regla,B007,media,mantenibilidad,1,15,Loop control variable `relative_path` not used within loop body
+sqlite_utils/cli.py,2971,,regla,B904,media,mantenibilidad,1,15,"Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling"
+sqlite_utils/cli.py,2999,,regla,B904,media,mantenibilidad,1,15,"Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling"
+sqlite_utils/cli.py,3022,,regla,B904,media,mantenibilidad,1,15,"Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling"
+sqlite_utils/cli.py,3283,,regla,B904,media,mantenibilidad,1,15,"Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling"
+sqlite_utils/cli.py,3339,,regla,B904,media,mantenibilidad,1,15,"Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling"
+sqlite_utils/cli.py,3607,,regla,B904,media,mantenibilidad,1,15,"Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling"
+sqlite_utils/cli.py,3661,,regla,PLW0108,media,mantenibilidad,1,15,Lambda may be unnecessary; consider inlining inner function
+sqlite_utils/cli.py,3701,,regla,B905,media,mantenibilidad,1,15,`zip()` without an explicit `strict=` parameter
+sqlite_utils/cli.py,3750,,regla,PLW2901,media,mantenibilidad,1,15,`for` loop variable `ext` overwritten by assignment target
+sqlite_utils/cli.py,3765,,regla,B904,media,mantenibilidad,1,15,"Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling"
+sqlite_utils/cli.py,3772,,regla,B904,media,mantenibilidad,1,15,"Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling"
+sqlite_utils/cli.py,3793,,regla,B904,media,mantenibilidad,1,15,"Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling"
+sqlite_utils/cli.py,3798,,regla,B904,media,mantenibilidad,1,15,"Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling"
+sqlite_utils/cli.py,3812,,regla,B904,media,mantenibilidad,1,15,"Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling"
+sqlite_utils/db.py,912,,regla,B905,media,mantenibilidad,1,15,`zip()` without an explicit `strict=` parameter
+sqlite_utils/db.py,934,,regla,B905,media,mantenibilidad,1,15,`zip()` without an explicit `strict=` parameter
+sqlite_utils/db.py,935,,regla,B905,media,mantenibilidad,1,15,`zip()` without an explicit `strict=` parameter
+sqlite_utils/db.py,1479,,regla,S101,baja,seguridad,1,15.0,Use of `assert` detected
+sqlite_utils/db.py,1479,,regla,B011,media,mantenibilidad,1,15,"Do not `assert False` (`python -O` removes these calls), raise `AssertionError()`"
+sqlite_utils/db.py,2049,,regla,B904,media,mantenibilidad,1,15,"Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling"
+sqlite_utils/db.py,2180,,regla,B905,media,mantenibilidad,1,15,`zip()` without an explicit `strict=` parameter
+sqlite_utils/db.py,2416,,regla,B904,media,mantenibilidad,1,15,"Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling"
+sqlite_utils/db.py,2483,,regla,B007,media,mantenibilidad,1,15,Loop control variable `seqno` not used within loop body
+sqlite_utils/db.py,2483,,regla,B007,media,mantenibilidad,1,15,Loop control variable `cid` not used within loop body
+sqlite_utils/db.py,2993,,regla,PLW2901,media,mantenibilidad,1,15,`for` loop variable `type_` overwritten by assignment target
+sqlite_utils/db.py,3049,,regla,PLW2901,media,mantenibilidad,1,15,`for` loop variable `key` overwritten by assignment target
+sqlite_utils/db.py,3183,,regla,S101,baja,seguridad,1,15.0,Use of `assert` detected
+sqlite_utils/db.py,3611,,regla,S101,baja,seguridad,1,15.0,Use of `assert` detected
+sqlite_utils/db.py,4067,,regla,B905,media,mantenibilidad,1,15,`zip()` without an explicit `strict=` parameter
+sqlite_utils/db.py,4173,,regla,S101,baja,seguridad,1,15.0,Use of `assert` detected
+sqlite_utils/db.py,4476,,regla,B905,media,mantenibilidad,1,15,`zip()` without an explicit `strict=` parameter
+sqlite_utils/db.py,4828,,regla,PLW2901,media,mantenibilidad,1,15,`for` loop variable `chunk` overwritten by assignment target
+sqlite_utils/db.py,4835,,regla,B905,media,mantenibilidad,1,15,`zip()` without an explicit `strict=` parameter
+sqlite_utils/db.py,4919,,regla,B905,media,mantenibilidad,1,15,`zip()` without an explicit `strict=` parameter
+sqlite_utils/db.py,4986,,regla,S101,baja,seguridad,1,15.0,Use of `assert` detected
+sqlite_utils/db.py,5004,,regla,S101,baja,seguridad,1,15.0,Use of `assert` detected
+sqlite_utils/db.py,5016,,regla,S101,baja,seguridad,1,15.0,Use of `assert` detected
+sqlite_utils/plugins.py,13,,regla,PLW0603,media,mantenibilidad,1,15,Using the global statement to update `_plugins_loaded` is discouraged
+sqlite_utils/utils.py,173,,regla,S101,baja,seguridad,1,15.0,Use of `assert` detected
+sqlite_utils/utils.py,379,,regla,B904,media,mantenibilidad,1,15,"Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling"
+sqlite_utils/utils.py,645,,regla,PLW2901,media,mantenibilidad,1,15,`for` loop variable `key` overwritten by assignment target
+sqlite_utils/cli.py,3250,convert,complejidad,cyclomatic>10,media,,17,14,
+sqlite_utils/cli.py,213,tables,complejidad,cyclomatic>10,media,,16,12,
+sqlite_utils/cli.py,2729,transform,complejidad,cognitive>15,media,,19,12,
+sqlite_utils/db.py,867,Database.query,complejidad,cyclomatic>10,media,,16,12,
+docs/conf.py,146,,satd,TODO,baja,,1,10.0,"# If true, `todo` and `todoList` produce output, else they produce nothing."
+sqlite_utils/cli.py,2729,transform,complejidad,cyclomatic>10,media,,15,10,
+sqlite_utils/create_table_parser.py,728,parse_uniques,complejidad,cyclomatic>10,media,,15,10,
+sqlite_utils/db.py,4172,,satd,TODO,baja,,1,10.0,# TODO: Test this works (rolls back) - use better exception:
+sqlite_utils/db.py,3754,Table.enable_fts,complejidad,cyclomatic>10,media,,15,10,
+sqlite_utils/utils.py,388,,satd,TODO,baja,,1,10.0,# TODO: Detect newline-JSON
+sqlite_utils/db.py,4255,Table._convert_multi,complejidad,cognitive>15,media,,18,9,
+sqlite_utils/db.py,1290,Database.resolve_foreign_keys,complejidad,cyclomatic>10,media,,14,8,
+sqlite_utils/db.py,3389,Table.create_index,complejidad,cyclomatic>10,media,,14,8,
+sqlite_utils/db.py,4177,Table.convert,complejidad,cyclomatic>10,media,,14,8,
+sqlite_utils/db.py,5117,Table.lookup,complejidad,cyclomatic>10,media,,14,8,
+docs/conf.py,54,,regla,PLR0911,baja,mantenibilidad,1,7.5,Too many return statements (8 > 6)
+sqlite_utils/cli.py,73,,regla,SIM105,baja,mantenibilidad,1,7.5,Use `contextlib.suppress(sqlite3.Error)` instead of `try`-`except`-`pass`
+sqlite_utils/cli.py,213,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (17 > 5)
+sqlite_utils/cli.py,213,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (17 > 5)
+sqlite_utils/cli.py,253,,regla,SIM108,baja,mantenibilidad,1,7.5,"Use ternary operator `items = db.view_names() if views else db.table_names(fts4=fts4, fts5=fts5)` instead of `if`-`else`-block"
+sqlite_utils/cli.py,313,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (14 > 5)
+sqlite_utils/cli.py,313,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (14 > 5)
+sqlite_utils/cli.py,528,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (9 > 5)
+sqlite_utils/cli.py,528,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (9 > 5)
+sqlite_utils/cli.py,574,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (7 > 5)
+sqlite_utils/cli.py,574,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (7 > 5)
+sqlite_utils/cli.py,675,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (8 > 5)
+sqlite_utils/cli.py,675,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (8 > 5)
+sqlite_utils/cli.py,760,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (9 > 5)
+sqlite_utils/cli.py,760,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (9 > 5)
+sqlite_utils/cli.py,774,,regla,RET505,baja,mantenibilidad,1,7.5,Unnecessary `elif` after `return` statement
+sqlite_utils/cli.py,1061,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (36 > 5)
+sqlite_utils/cli.py,1061,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (36 > 5)
+sqlite_utils/cli.py,1061,,regla,PLR0912,baja,mantenibilidad,1,7.5,Too many branches (42 > 12)
+sqlite_utils/cli.py,1061,,regla,PLR0915,baja,mantenibilidad,1,7.5,Too many statements (142 > 50)
+sqlite_utils/cli.py,1105,,regla,PLR0912,baja,mantenibilidad,1,7.5,Too many branches (14 > 12)
+sqlite_utils/cli.py,1130,,regla,SIM108,baja,mantenibilidad,1,7.5,"Use ternary operator `doc_chunks = chunks(docs, batch_size) if batch_size else [docs]` instead of `if`-`else`-block"
+sqlite_utils/cli.py,1167,,regla,RET506,baja,mantenibilidad,1,7.5,Unnecessary `else` after `raise` statement
+sqlite_utils/cli.py,1214,,regla,PLR2004,baja,mantenibilidad,1,7.5,"Magic value used in comparison, consider replacing `2` with a constant variable"
+sqlite_utils/cli.py,1355,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (33 > 5)
+sqlite_utils/cli.py,1355,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (33 > 5)
+sqlite_utils/cli.py,1491,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (30 > 5)
+sqlite_utils/cli.py,1491,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (30 > 5)
+sqlite_utils/cli.py,1591,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (20 > 5)
+sqlite_utils/cli.py,1591,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (20 > 5)
+sqlite_utils/cli.py,1746,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (12 > 5)
+sqlite_utils/cli.py,1746,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (12 > 5)
+sqlite_utils/cli.py,1907,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (6 > 5)
+sqlite_utils/cli.py,1907,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (6 > 5)
+sqlite_utils/cli.py,1923,,regla,RET505,baja,mantenibilidad,1,7.5,Unnecessary `elif` after `return` statement
+sqlite_utils/cli.py,1989,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (17 > 5)
+sqlite_utils/cli.py,1989,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (17 > 5)
+sqlite_utils/cli.py,2052,,regla,RET503,baja,mantenibilidad,1,7.5,Missing explicit `return` at the end of function able to return non-`None` value
+sqlite_utils/cli.py,2105,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (25 > 5)
+sqlite_utils/cli.py,2105,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (25 > 5)
+sqlite_utils/cli.py,2105,,regla,PLR0912,baja,mantenibilidad,1,7.5,Too many branches (25 > 12)
+sqlite_utils/cli.py,2105,,regla,PLR0915,baja,mantenibilidad,1,7.5,Too many statements (64 > 50)
+sqlite_utils/cli.py,2217,,regla,RET502,baja,mantenibilidad,1,7.5,Do not implicitly `return None` in function able to return non-`None` value
+sqlite_utils/cli.py,2222,,regla,RET502,baja,mantenibilidad,1,7.5,Do not implicitly `return None` in function able to return non-`None` value
+sqlite_utils/cli.py,2226,,regla,RET502,baja,mantenibilidad,1,7.5,Do not implicitly `return None` in function able to return non-`None` value
+sqlite_utils/cli.py,2233,,regla,RET502,baja,mantenibilidad,1,7.5,Do not implicitly `return None` in function able to return non-`None` value
+sqlite_utils/cli.py,2263,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (14 > 5)
+sqlite_utils/cli.py,2263,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (14 > 5)
+sqlite_utils/cli.py,2263,,regla,PLR0912,baja,mantenibilidad,1,7.5,Too many branches (16 > 12)
+sqlite_utils/cli.py,2346,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (19 > 5)
+sqlite_utils/cli.py,2346,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (19 > 5)
+sqlite_utils/cli.py,2418,,regla,RET506,baja,mantenibilidad,1,7.5,Unnecessary `else` after `raise` statement
+sqlite_utils/cli.py,2452,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (19 > 5)
+sqlite_utils/cli.py,2452,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (19 > 5)
+sqlite_utils/cli.py,2522,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (13 > 5)
+sqlite_utils/cli.py,2522,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (13 > 5)
+sqlite_utils/cli.py,2580,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (14 > 5)
+sqlite_utils/cli.py,2580,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (14 > 5)
+sqlite_utils/cli.py,2729,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (17 > 5)
+sqlite_utils/cli.py,2729,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (17 > 5)
+sqlite_utils/cli.py,2729,,regla,PLR0912,baja,mantenibilidad,1,7.5,Too many branches (13 > 12)
+sqlite_utils/cli.py,2787,,regla,SIM108,baja,mantenibilidad,1,7.5,Use ternary operator `pk_value = pk[0] if len(pk) == 1 else pk` instead of `if`-`else`-block
+sqlite_utils/cli.py,2843,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (7 > 5)
+sqlite_utils/cli.py,2843,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (7 > 5)
+sqlite_utils/cli.py,2906,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (13 > 5)
+sqlite_utils/cli.py,2906,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (13 > 5)
+sqlite_utils/cli.py,2978,,regla,ARG005,baja,mantenibilidad,1,7.5,Unused lambda argument: `p`
+sqlite_utils/cli.py,2979,,regla,ARG005,baja,mantenibilidad,1,7.5,Unused lambda argument: `p`
+sqlite_utils/cli.py,2980,,regla,ARG005,baja,mantenibilidad,1,7.5,Unused lambda argument: `p`
+sqlite_utils/cli.py,2981,,regla,ARG005,baja,mantenibilidad,1,7.5,Unused lambda argument: `p`
+sqlite_utils/cli.py,2984,,regla,ARG005,baja,mantenibilidad,1,7.5,Unused lambda argument: `p`
+sqlite_utils/cli.py,2987,,regla,ARG005,baja,mantenibilidad,1,7.5,Unused lambda argument: `p`
+sqlite_utils/cli.py,2988,,regla,ARG005,baja,mantenibilidad,1,7.5,Unused lambda argument: `p`
+sqlite_utils/cli.py,3051,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (8 > 5)
+sqlite_utils/cli.py,3051,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (8 > 5)
+sqlite_utils/cli.py,3074,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (7 > 5)
+sqlite_utils/cli.py,3074,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (7 > 5)
+sqlite_utils/cli.py,3250,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (14 > 5)
+sqlite_utils/cli.py,3250,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (14 > 5)
+sqlite_utils/cli.py,3389,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (8 > 5)
+sqlite_utils/cli.py,3389,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (8 > 5)
+sqlite_utils/cli.py,3534,,regla,PLR0912,baja,mantenibilidad,1,7.5,Too many branches (17 > 12)
+sqlite_utils/cli.py,3534,,regla,PLR0915,baja,mantenibilidad,1,7.5,Too many statements (55 > 50)
+sqlite_utils/cli.py,3683,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (6 > 5)
+sqlite_utils/cli.py,3683,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (6 > 5)
+sqlite_utils/cli.py,3730,,regla,RET505,baja,mantenibilidad,1,7.5,Unnecessary `else` after `return` statement
+sqlite_utils/create_table_parser.py,233,,regla,PLR0912,baja,mantenibilidad,1,7.5,Too many branches (16 > 12)
+sqlite_utils/create_table_parser.py,233,,regla,PLR0915,baja,mantenibilidad,1,7.5,Too many statements (55 > 50)
+sqlite_utils/create_table_parser.py,301,,regla,PLR2004,baja,mantenibilidad,1,7.5,"Magic value used in comparison, consider replacing `2` with a constant variable"
+sqlite_utils/create_table_parser.py,303,,regla,PLR2004,baja,mantenibilidad,1,7.5,"Magic value used in comparison, consider replacing `2` with a constant variable"
+sqlite_utils/create_table_parser.py,368,,regla,PLR0911,baja,mantenibilidad,1,7.5,Too many return statements (9 > 6)
+sqlite_utils/create_table_parser.py,400,,regla,PLR0911,baja,mantenibilidad,1,7.5,Too many return statements (8 > 6)
+sqlite_utils/create_table_parser.py,402,,regla,PLR2004,baja,mantenibilidad,1,7.5,"Magic value used in comparison, consider replacing `4` with a constant variable"
+sqlite_utils/create_table_parser.py,427,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (7 > 5)
+sqlite_utils/create_table_parser.py,427,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (7 > 5)
+sqlite_utils/create_table_parser.py,556,,regla,PLR2004,baja,mantenibilidad,1,7.5,"Magic value used in comparison, consider replacing `2` with a constant variable"
+sqlite_utils/create_table_parser.py,742,,regla,PLR2004,baja,mantenibilidad,1,7.5,"Magic value used in comparison, consider replacing `2` with a constant variable"
+sqlite_utils/create_table_parser.py,827,,regla,SIM103,baja,mantenibilidad,1,7.5,Return the negated condition directly
+sqlite_utils/create_table_parser.py,859,,regla,PLR2004,baja,mantenibilidad,1,7.5,"Magic value used in comparison, consider replacing `0x80` with a constant variable"
+sqlite_utils/create_table_parser.py,862,,regla,PLR1714,baja,mantenibilidad,1,7.5,"Consider merging multiple comparisons: `char in {""_"", ""$""}`."
+sqlite_utils/create_table_parser.py,862,,regla,PLR2004,baja,mantenibilidad,1,7.5,"Magic value used in comparison, consider replacing `0x80` with a constant variable"
+sqlite_utils/db.py,410,,regla,SIM105,baja,mantenibilidad,1,7.5,Use `contextlib.suppress(AttributeError)` instead of `try`-`except`-`pass`
+sqlite_utils/db.py,569,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (10 > 5)
+sqlite_utils/db.py,569,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (10 > 5)
+sqlite_utils/db.py,845,,regla,RET505,baja,mantenibilidad,1,7.5,Unnecessary `else` after `return` statement
+sqlite_utils/db.py,1290,,regla,PLR0912,baja,mantenibilidad,1,7.5,Too many branches (16 > 12)
+sqlite_utils/db.py,1324,,regla,PLR2004,baja,mantenibilidad,1,7.5,"Magic value used in comparison, consider replacing `4` with a constant variable"
+sqlite_utils/db.py,1339,,regla,PLR2004,baja,mantenibilidad,1,7.5,"Magic value used in comparison, consider replacing `3` with a constant variable"
+sqlite_utils/db.py,1371,,regla,PLR2004,baja,mantenibilidad,1,7.5,"Magic value used in comparison, consider replacing `3` with a constant variable"
+sqlite_utils/db.py,1429,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (12 > 5)
+sqlite_utils/db.py,1429,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (12 > 5)
+sqlite_utils/db.py,1429,,regla,PLR0912,baja,mantenibilidad,1,7.5,Too many branches (43 > 12)
+sqlite_utils/db.py,1429,,regla,PLR0915,baja,mantenibilidad,1,7.5,Too many statements (108 > 50)
+sqlite_utils/db.py,1698,,regla,RET504,baja,mantenibilidad,1,7.5,Unnecessary assignment to `sql` before `return` statement
+sqlite_utils/db.py,1700,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (15 > 5)
+sqlite_utils/db.py,1700,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (15 > 5)
+sqlite_utils/db.py,1700,,regla,PLR0912,baja,mantenibilidad,1,7.5,Too many branches (14 > 12)
+sqlite_utils/db.py,1743,,regla,RET505,baja,mantenibilidad,1,7.5,Unnecessary `elif` after `return` statement
+sqlite_utils/db.py,1867,,regla,RET505,baja,mantenibilidad,1,7.5,Unnecessary `elif` after `return` statement
+sqlite_utils/db.py,1893,,regla,PLR0912,baja,mantenibilidad,1,7.5,Too many branches (18 > 12)
+sqlite_utils/db.py,1906,,regla,PLR2004,baja,mantenibilidad,1,7.5,"Magic value used in comparison, consider replacing `4` with a constant variable"
+sqlite_utils/db.py,2140,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (6 > 5)
+sqlite_utils/db.py,2140,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (6 > 5)
+sqlite_utils/db.py,2285,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (17 > 5)
+sqlite_utils/db.py,2285,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (17 > 5)
+sqlite_utils/db.py,2540,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (14 > 5)
+sqlite_utils/db.py,2540,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (14 > 5)
+sqlite_utils/db.py,2643,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (12 > 5)
+sqlite_utils/db.py,2643,,regla,PLR0912,baja,mantenibilidad,1,7.5,Too many branches (13 > 12)
+sqlite_utils/db.py,2773,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (13 > 5)
+sqlite_utils/db.py,2773,,regla,PLR0912,baja,mantenibilidad,1,7.5,Too many branches (60 > 12)
+sqlite_utils/db.py,2773,,regla,PLR0915,baja,mantenibilidad,1,7.5,Too many statements (182 > 50)
+sqlite_utils/db.py,3011,,regla,SIM108,baja,mantenibilidad,1,7.5,Use ternary operator `pk = pks_renamed[0] if len(pks_renamed) == 1 else pks_renamed` instead of `if`-`else`-block
+sqlite_utils/db.py,3389,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (6 > 5)
+sqlite_utils/db.py,3389,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (6 > 5)
+sqlite_utils/db.py,3457,,regla,RET507,baja,mantenibilidad,1,7.5,Unnecessary `else` after `continue` statement
+sqlite_utils/db.py,3582,,regla,RET506,baja,mantenibilidad,1,7.5,Unnecessary `else` after `raise` statement
+sqlite_utils/db.py,3585,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (6 > 5)
+sqlite_utils/db.py,3585,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (6 > 5)
+sqlite_utils/db.py,3585,,regla,PLR0912,baja,mantenibilidad,1,7.5,Too many branches (18 > 12)
+sqlite_utils/db.py,3662,,regla,RET505,baja,mantenibilidad,1,7.5,Unnecessary `else` after `return` statement
+sqlite_utils/db.py,3926,,regla,RET505,baja,mantenibilidad,1,7.5,Unnecessary `else` after `return` statement
+sqlite_utils/db.py,3939,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (6 > 5)
+sqlite_utils/db.py,3939,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (6 > 5)
+sqlite_utils/db.py,4018,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (9 > 5)
+sqlite_utils/db.py,4018,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (9 > 5)
+sqlite_utils/db.py,4177,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (9 > 5)
+sqlite_utils/db.py,4177,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (9 > 5)
+sqlite_utils/db.py,4255,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (6 > 5)
+sqlite_utils/db.py,4255,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (6 > 5)
+sqlite_utils/db.py,4305,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (13 > 5)
+sqlite_utils/db.py,4305,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (13 > 5)
+sqlite_utils/db.py,4305,,regla,PLR0912,baja,mantenibilidad,1,7.5,Too many branches (34 > 12)
+sqlite_utils/db.py,4305,,regla,PLR0915,baja,mantenibilidad,1,7.5,Too many statements (86 > 50)
+sqlite_utils/db.py,4520,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (14 > 5)
+sqlite_utils/db.py,4520,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (14 > 5)
+sqlite_utils/db.py,4604,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (15 > 5)
+sqlite_utils/db.py,4604,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (15 > 5)
+sqlite_utils/db.py,4673,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (19 > 5)
+sqlite_utils/db.py,4673,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (19 > 5)
+sqlite_utils/db.py,4673,,regla,PLR0912,baja,mantenibilidad,1,7.5,Too many branches (69 > 12)
+sqlite_utils/db.py,4673,,regla,PLR0915,baja,mantenibilidad,1,7.5,Too many statements (182 > 50)
+sqlite_utils/db.py,4881,,regla,PLR5501,baja,mantenibilidad,1,7.5,"Use `elif` instead of `else` then `if`, to reduce indentation"
+sqlite_utils/db.py,4992,,regla,PLR5501,baja,mantenibilidad,1,7.5,"Use `elif` instead of `else` then `if`, to reduce indentation"
+sqlite_utils/db.py,5031,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (13 > 5)
+sqlite_utils/db.py,5031,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (13 > 5)
+sqlite_utils/db.py,5069,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (15 > 5)
+sqlite_utils/db.py,5069,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (15 > 5)
+sqlite_utils/db.py,5117,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (11 > 5)
+sqlite_utils/db.py,5117,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (11 > 5)
+sqlite_utils/db.py,5210,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (6 > 5)
+sqlite_utils/db.py,5210,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (6 > 5)
+sqlite_utils/db.py,5210,,regla,PLR0912,baja,mantenibilidad,1,7.5,Too many branches (14 > 12)
+sqlite_utils/db.py,5299,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (6 > 5)
+sqlite_utils/db.py,5299,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (6 > 5)
+sqlite_utils/db.py,5506,,regla,RET505,baja,mantenibilidad,1,7.5,Unnecessary `elif` after `return` statement
+sqlite_utils/db.py,5524,,regla,PLR0911,baja,mantenibilidad,1,7.5,Too many return statements (8 > 6)
+sqlite_utils/recipes.py,37,,regla,RET505,baja,mantenibilidad,1,7.5,Unnecessary `elif` after `return` statement
+sqlite_utils/recipes.py,64,,regla,RET505,baja,mantenibilidad,1,7.5,Unnecessary `elif` after `return` statement
+sqlite_utils/utils.py,170,,regla,PLR0911,baja,mantenibilidad,1,7.5,Too many return statements (7 > 6)
+sqlite_utils/utils.py,288,,regla,PLR0913,baja,mantenibilidad,1,7.5,Too many arguments in function definition (6 > 5)
+sqlite_utils/utils.py,288,,regla,PLR0917,baja,mantenibilidad,1,7.5,Too many positional arguments (6 > 5)
+sqlite_utils/utils.py,288,,regla,PLR0911,baja,mantenibilidad,1,7.5,Too many return statements (7 > 6)
+sqlite_utils/utils.py,288,,regla,PLR0912,baja,mantenibilidad,1,7.5,Too many branches (15 > 12)
+sqlite_utils/utils.py,345,,regla,RET505,baja,mantenibilidad,1,7.5,Unnecessary `elif` after `return` statement
+sqlite_utils/create_table_parser.py,541,parse_checks,complejidad,cognitive>15,media,,17,6,
+sqlite_utils/create_table_parser.py,627,_unique_columns,complejidad,cognitive>15,media,,17,6,
+sqlite_utils/create_table_parser.py,664,_column_uniques,complejidad,cyclomatic>10,media,,13,6,
+sqlite_utils/db.py,3477,Table.add_column,complejidad,cyclomatic>10,media,,13,6,
+sqlite_utils/db.py,3939,Table.search_sql,complejidad,cyclomatic>10,media,,13,6,
+sqlite_utils/db.py,4255,Table._convert_multi,complejidad,cyclomatic>10,media,,13,6,
+sqlite_utils/db.py,5210,Table.m2m,complejidad,cyclomatic>10,media,,13,6,
+sqlite_utils/utils.py,140,types_for_column_types,complejidad,cognitive>15,media,,17,6,
+sqlite_utils/cli.py,3683,output_rows,complejidad,cyclomatic>10,media,,12,4,
+sqlite_utils/create_table_parser.py,368,_literal_value,complejidad,cyclomatic>10,media,,12,4,
+sqlite_utils/create_table_parser.py,627,_unique_columns,complejidad,cyclomatic>10,media,,12,4,
+sqlite_utils/db.py,2540,Table.create,complejidad,cyclomatic>10,media,,12,4,
+sqlite_utils/db.py,4118,Table.update,complejidad,cyclomatic>10,media,,12,4,
+sqlite_utils/utils.py,170,column_affinity,complejidad,cyclomatic>10,media,,12,4,
+sqlite_utils/create_table_parser.py,456,_column_checks,complejidad,cognitive>15,media,,16,3,
+sqlite_utils/create_table_parser.py,585,parse_autoincrement,complejidad,cognitive>15,media,,16,3,
+sqlite_utils/db.py,508,_first_keyword,complejidad,cognitive>15,media,,16,3,
+sqlite_utils/db.py,3099,,regla,E721,baja,estilo,1,2.5,"Use `is` and `is not` for type comparisons, or `isinstance()` for isinstance checks"
+docs/conf.py,54,linkcode_resolve,complejidad,cyclomatic>10,media,,11,2,
+sqlite_utils/cli.py,2346,search,complejidad,cyclomatic>10,media,,11,2,
+sqlite_utils/cli.py,2961,insert_files.to_insert,complejidad,cyclomatic>10,media,,11,2,
+sqlite_utils/cli.py,3074,_analyze,complejidad,cyclomatic>10,media,,11,2,
+sqlite_utils/create_table_parser.py,322,_split_spans,complejidad,cyclomatic>10,media,,11,2,
+sqlite_utils/create_table_parser.py,400,_parse_options,complejidad,cyclomatic>10,media,,11,2,
+sqlite_utils/create_table_parser.py,541,parse_checks,complejidad,cyclomatic>10,media,,11,2,
+sqlite_utils/create_table_parser.py,788,parse_column_comments,complejidad,cyclomatic>10,media,,11,2,
+sqlite_utils/db.py,508,_first_keyword,complejidad,cyclomatic>10,media,,11,2,
+sqlite_utils/db.py,2419,Table.foreign_keys,complejidad,cyclomatic>10,media,,11,2,
+sqlite_utils/utils.py,528,_compile_code,complejidad,cyclomatic>10,media,,11,2,

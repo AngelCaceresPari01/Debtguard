@@ -76,6 +76,28 @@ def test_no_modifica_la_carpeta_analizada(repo):
     assert gitrepo.git(repo, "rev-parse", "HEAD") == cabeza
 
 
+def test_checkout_con_crlf_no_parece_modificado(tmp_path, monkeypatch):
+    # Git para Windows suele usar autocrlf=true: los archivos quedan con CRLF aunque git guarde LF.
+    monkeypatch.setattr(analyzer, "CACHE", tmp_path / "cache")
+    r = tmp_path / "crlf"
+    r.mkdir()
+    def git_crlf(*a):  # sin el -c core.autocrlf=false del ayudante g()
+        subprocess.run(["git", "-C", str(r), "-c", "user.name=Ana", "-c", "user.email=a@a", *a], check=True, capture_output=True)
+    git_crlf("init", "-q")
+    git_crlf("config", "core.autocrlf", "true")
+    (r / "a.py").write_bytes(b"X = 1\r\nY = 2\r\n")
+    git_crlf("add", "-A")
+    git_crlf("commit", "-qm", "inicio")
+    assert b"\r" not in subprocess.run(["git", "-C", str(r), "show", "HEAD:a.py"], capture_output=True).stdout  # git guarda LF
+    import os
+    import time
+    futuro = time.time() + 120  # misma contenido, otra fecha: obliga a git a comparar el contenido
+    os.utime(r / "a.py", (futuro, futuro))
+    info = analyzer.inspeccionar(r)
+    assert not info["sin_confirmar"]
+    assert analyzer.analizar_sin_confirmar(r, lambda *a: None)["metricas"]["archivos"] == 0
+
+
 def test_sin_confirmar_incluye_modificados_y_nuevos(repo):
     escribir(repo, "pkg/nuevo.py", "# FIXME luego\nZ = 1\n")
     escribir(repo, "pkg/a.py", "X = 2  # TODO revisar\nW = 1  # HACK temporal\n")
@@ -138,6 +160,8 @@ def test_comparacion_exige_muestra_y_acepta_etiquetas():
     horas = next(m for m in r["metricas"] if m["clave"] == "horas_kloc")
     assert r["suficiente"] and horas["cliff"] == 1 and horas["significativo"]
     assert stats.comparar(filas, {"i0": "sin_declarar"})["n_ia"] == 5
+    import json
+    json.dumps(r)  # la API devuelve este resultado como JSON
 
 
 @pytest.fixture
@@ -174,3 +198,14 @@ def test_trabajo_de_principio_a_fin(cliente, repo):
     assert len(t["resultado"]["historial"]["commits"]) == 3
     r = cliente.post("/api/comparar", json={"id": jid}, headers=h).get_json()
     assert r["n_ia"] == 1 and not r["suficiente"]
+
+
+def test_codigo_actual_incluye_acoplamiento_y_ciclos(tmp_path):
+    escribir(tmp_path, "p/__init__.py", "")
+    escribir(tmp_path, "p/a.py", "import p.b\n")
+    escribir(tmp_path, "p/b.py", "import p.a\n")
+    r = analyzer.analizar_codigo(tmp_path, None, *NADA)
+    assert r["metricas"]["ciclos"] == 1
+    assert r["metricas"]["acoplamiento_eferente_max"] == 1 and r["metricas"]["acoplamiento_aferente_max"] == 1
+    assert {m["modulo"] for m in r["modulos"]} == {"p.a", "p.b"}
+    assert any(h["regla"] == "R0401" for h in r["hallazgos"])

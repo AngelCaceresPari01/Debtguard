@@ -17,13 +17,13 @@ from pathlib import Path
 from debtguard import pipeline
 from debtguard.estimator import costs
 from debtguard.ingest.diff_reader import es_excluido
-from debtguard.metrics import clones, complexity, satd, static
+from debtguard.metrics import clones, complexity, coupling, satd, static
 from debtguard.models import ChangeSet
 
 from . import gitrepo
 
 CACHE = Path(__file__).resolve().parents[1] / "cache"
-MAX_ARCHIVOS, MAX_BYTES, LOTE_RUFF, MAX_OBJETIVOS_CICLOS = 5000, 1_000_000, 200, 12
+MAX_ARCHIVOS, MAX_BYTES, LOTE_RUFF = 5000, 1_000_000, 200
 
 
 class Cancelado(Exception):
@@ -64,7 +64,7 @@ def inspeccionar(carpeta: Path) -> dict:
 def analizar_codigo(carpeta: Path, raiz_repo: Path | None, avance, cancelado) -> dict:
     """Estado actual de la carpeta. Copia solo los .py a un directorio temporal y lo analiza alli."""
     base = raiz_repo or carpeta
-    cfg = {**pipeline.load_config()[0], "pylint_timeout_s": 120}
+    cfg = pipeline.load_config()[0]
     rutas = [r for r in gitrepo.archivos_de_carpeta(base, raiz_repo) if r.endswith(".py")]
     excluidos = [r for r in rutas if es_excluido(r)]
     rutas = [r for r in rutas if not es_excluido(r)]
@@ -90,9 +90,9 @@ def analizar_codigo(carpeta: Path, raiz_repo: Path | None, avance, cancelado) ->
             destino.write_text(texto, encoding="utf-8", newline="\n")
             lineas_txt = texto.splitlines()
             todas = set(range(1, len(lineas_txt) + 1))
+            fuentes[ruta] = texto  # incluso vacio: un __init__.py vacio define un paquete en el grafo de imports
             if not todas:
                 continue
-            fuentes[ruta] = texto
             cs.archivos[ruta] = sorted(todas)
             loc = sum(bool(l.strip()) for l in lineas_txt)
             cs.lineas_anadidas += loc
@@ -127,8 +127,10 @@ def analizar_codigo(carpeta: Path, raiz_repo: Path | None, avance, cancelado) ->
             errores.append(f"jscpd: {str(e)[:200]}")
         if cancelado():
             raise Cancelado
-        avance("Buscando importaciones cíclicas con Pylint", 0, 0)
-        hallazgos += _ciclos_acotados(cs, fuentes, cfg, avisos, errores)
+        avance("Calculando acoplamiento e importaciones cíclicas", 0, 0)
+        hs_ciclos, acop = coupling.analizar_todo(fuentes)
+        hallazgos += hs_ciclos
+        errores += acop.pop("errores_grafo")
 
         deuda_min = costs.assign(hallazgos, cfg)
         for h in hallazgos:
@@ -140,26 +142,17 @@ def analizar_codigo(carpeta: Path, raiz_repo: Path | None, avance, cancelado) ->
         for f in filas:
             f.setdefault("hallazgos", 0)
             f["horas"] = round(f.pop("minutos", 0) / 60, 2)
-        return {"tipo": "codigo", **_resumen(cs, hallazgos, deuda_min, filas), "errores": errores, "avisos": avisos,
+        resumen = _resumen(cs, hallazgos, deuda_min, filas)
+        resumen["metricas"].update(acoplamiento_eferente_max=acop["acoplamiento_eferente_max"],
+                                   acoplamiento_aferente_max=acop["acoplamiento_aferente_max"], ciclos=acop["ciclos"])
+        mis = [(f["mi"], f["loc"]) for f in filas if f.get("mi") is not None]
+        resumen["metricas"]["mi_promedio"] = sum(m * l for m, l in mis) / sum(l for _, l in mis) if mis and sum(l for _, l in mis) else None
+        resumen["metricas"]["mi_en_cero"] = sum(m == 0 for m, _ in mis)
+        return {"tipo": "codigo", **resumen, "modulos": acop["modulos"], "errores": errores, "avisos": avisos,
                 "excluidos": len(excluidos), "archivos": sorted(filas, key=lambda f: -f["horas"]),
                 "funciones": sorted(funciones, key=lambda f: (-f["cognitiva"], -f["ciclomatica"]))[:15]}
     finally:
         shutil.rmtree(temporal, ignore_errors=True)
-
-
-def _ciclos_acotados(cs, fuentes, cfg, avisos, errores) -> list:
-    # Pylint revisa cada elemento de primer nivel; en carpetas con muchos scripts sueltos se acota el tiempo.
-    tops = Counter(a.split("/")[0] for a in cs.archivos)
-    elegidos = {t for t, _ in tops.most_common(MAX_OBJETIVOS_CICLOS)}
-    if len(tops) > MAX_OBJETIVOS_CICLOS:
-        avisos.append(f"Importaciones cíclicas: se revisaron {MAX_OBJETIVOS_CICLOS} de {len(tops)} elementos de primer nivel.")
-    parte = ChangeSet(cs.caso_id, cs.origen, None, cs.ruta_repo, cs.base_rev,
-                      archivos={a: l for a, l in cs.archivos.items() if a.split("/")[0] in elegidos})
-    try:
-        return static.run_cycles(parte, fuentes, cfg)
-    except (RuntimeError, subprocess.TimeoutExpired, OSError) as e:
-        errores.append(f"pylint: {str(e)[:200]}")
-        return []
 
 
 def _resumen(cs: ChangeSet, hallazgos, deuda_min: float, filas: list[dict]) -> dict:
@@ -175,7 +168,8 @@ def _resumen(cs: ChangeSet, hallazgos, deuda_min: float, filas: list[dict]) -> d
         "nota_sqale": costs.sqale_rating(ratio),
         "metricas": {"cognitiva_max": max((f["cognitiva_max"] for f in filas), default=0),
                      "ciclomatica_max": max((f["ciclomatica_max"] for f in filas), default=0),
-                     "mi_min": min(mis) if mis else None, "clones": sum(h.familia == "clon" for h in hallazgos),
+                     "mi_min": min(mis) if mis else None, "clones": sum(h.regla == "clone" for h in hallazgos),
+                     "clones_similares": sum(h.regla == "clone-similar" for h in hallazgos),
                      "advertencias": len(reglas), "advertencias_kloc": por_kloc(len(reglas)), "satd": n_satd,
                      "satd_kloc": por_kloc(n_satd), "lineas": cs.lineas_anadidas, "archivos": len(cs.archivos),
                      "funciones": sum(f["funciones"] for f in filas)},

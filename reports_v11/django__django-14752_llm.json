@@ -1,0 +1,56 @@
+{
+  "caso_id": "django__django-14752_llm",
+  "origen": "LLM",
+  "modelo": "deepseek-v4-pro",
+  "kloc_cambiadas": 0.003,
+  "metricas": {
+    "cognitiva_max": 2,
+    "ciclomatica_max": 3,
+    "delta_cognitiva": 0,
+    "delta_ciclomatica": 1,
+    "funciones_tocadas": 2,
+    "mi_min": 73.47309620246227,
+    "delta_mi": -0.8063742724243497,
+    "advertencias": 0,
+    "advertencias_kloc": 0.0,
+    "adv_altas_kloc": 0.0,
+    "clones": 0,
+    "clones_similares": 0,
+    "mi_en_cero": 0,
+    "dependencias_nuevas": 0,
+    "acoplamiento_eferente_max": 4,
+    "acoplamiento_aferente_max": 1,
+    "modulos": [
+      {
+        "modulo": "django.contrib.admin.views.autocomplete",
+        "archivo": "django/contrib/admin/views/autocomplete.py",
+        "eferente": 4,
+        "aferente": 1,
+        "inestabilidad": 0.8
+      }
+    ],
+    "satd": 0,
+    "satd_kloc": 0.0,
+    "lineas_anadidas": 3,
+    "lineas_eliminadas": 1,
+    "archivos": 1
+  },
+  "hallazgos": [],
+  "deuda_min": 0,
+  "deuda_horas": 0.0,
+  "horas_kloc": 0.0,
+  "debt_ratio": 0.0,
+  "nota_sqale": "A",
+  "ird": 0.68,
+  "veredicto": "ACEPTAR",
+  "versiones": {
+    "radon": "6.0.1",
+    "complexipy": "8.3.0",
+    "ruff": "0.17.3",
+    "pylint": "4.1.3",
+    "unidiff": "1.0.1",
+    "jscpd": "jscpd 5.4.2"
+  },
+  "errores": [],
+  "excluidos": []
+}

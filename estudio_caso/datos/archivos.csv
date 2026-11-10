@@ -1,0 +1,12 @@
+﻿archivo,loc,funciones,cognitiva_max,ciclomatica_max,mi,hallazgos,horas
+sqlite_utils/db.py,5072,150,265,133,0.0,216,114.01
+sqlite_utils/cli.py,3465,86,150,64,0.0,189,53.67
+sqlite_utils/create_table_parser.py,823,27,48,23,0.0,39,8.22
+sqlite_utils/utils.py,548,36,31,19,33.58,18,5.72
+docs/conf.py,181,2,11,11,73.08,6,3.33
+sqlite_utils/recipes.py,67,3,6,5,80.57,4,0.92
+sqlite_utils/plugins.py,28,2,6,5,56.43,1,0.25
+sqlite_utils/__init__.py,12,0,0,0,100.0,0,0.0
+sqlite_utils/__main__.py,3,0,0,0,84.58,0,0.0
+sqlite_utils/hookspecs.py,11,2,0,1,100.0,0,0.0
+sqlite_utils/migrations.py,158,11,13,9,65.58,0,0.0

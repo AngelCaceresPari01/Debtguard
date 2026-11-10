@@ -69,13 +69,13 @@ const EXPLICACIONES = {
   clones(d, ctx) {
     const n = d.metricas.clones;
     return {
-      titulo: "Clones", valor: fmt(n, 0), estado: n ? "aviso" : "bien",
-      que: "Cuenta fragmentos de código copiados. Si un duplicado tiene un error, hay que corregirlo en cada copia.",
+      titulo: "Clones exactos", valor: fmt(n, 0), estado: n ? "aviso" : "bien",
+      que: "Cuenta fragmentos de código copiados casi literalmente. Si un duplicado tiene un error, hay que corregirlo en cada copia.",
       herramienta: "jscpd, con un mínimo de 50 tokens por fragmento.",
       calculo: `Compara el código con el resto del proyecto, sin contar pruebas ni documentación. Para ${alcance(ctx)}, un fragmento cuenta si al menos la mitad de sus líneas son nuevas. Cada uno cuesta 20 min.`,
       lectura: n ? `Hay ${fmt(n, 0)} ${n === 1 ? "fragmento duplicado" : "fragmentos duplicados"}, unos ${fmt((n * 20) / 60)} h estimadas. Revisa si se pueden unir en una función común.` : "No se encontraron fragmentos duplicados de este tipo.",
-      lista: n ? ["Dónde mirar", d.hallazgos.filter((h) => h.familia === "clon").slice(0, 5).map((h) => `${h.archivo}: ${h.detalle}`)] : null,
-      nota: "jscpd detecta copias textuales. No ve código que hace lo mismo escrito de otra forma, que es la redundancia que S03 asocia a los LLMs.",
+      lista: n ? ["Dónde mirar", d.hallazgos.filter((h) => h.regla === "clone").slice(0, 5).map((h) => `${h.archivo}: ${h.detalle}`)] : null,
+      nota: "Las funciones con la misma estructura y otros nombres se cuentan aparte, en «Clones parecidos».",
     };
   },
   advertencias(d, ctx) {
@@ -116,7 +116,7 @@ const EXPLICACIONES = {
       titulo: "Mantenibilidad mínima", valor: fmt(v, 1), estado,
       que: "Es un puntaje de 0 a 100 sobre qué tan fácil es mantener un archivo. Aquí, más alto es mejor.",
       herramienta: "Radon (índice de mantenibilidad).",
-      calculo: `Combina tamaño, complejidad y comentarios del archivo. Se muestra el peor puntaje entre los archivos de ${alcance(ctx)}. Rangos de Radon: 20 a 100 alto, 10 a 19 medio, 0 a 9 bajo.`,
+      calculo: `Combina tamaño, complejidad y comentarios del archivo. Se muestra el peor puntaje entre los archivos de ${alcance(ctx)}${d.metricas.mi_promedio !== undefined ? `; el promedio ponderado por líneas es ${fmt(d.metricas.mi_promedio, 1)}` : ""}. Rangos de Radon: 20 a 100 alto, 10 a 19 medio, 0 a 9 bajo.`,
       lectura: lecturas[estado], lista: peor.length ? ["Archivos con menor puntaje", peor] : null,
       nota: "No suma horas de deuda. Depende mucho del tamaño del archivo, y un cambio pequeño apenas lo mueve.",
     };
@@ -131,6 +131,65 @@ const EXPLICACIONES = {
       lectura: n ? `Hay ${fmt(n, 0)} ${n === 1 ? "comentario" : "comentarios"} que declaran deuda, unos ${fmt((n * 10) / 60)} h estimadas. Revisa si siguen vigentes.` : "No hay deuda declarada. Esto no significa que no exista deuda: solo que nadie la dejó escrita en un comentario.",
       lista: n ? ["Dónde mirar", d.hallazgos.filter((h) => h.familia === "satd").slice(0, 5).map((h) => `${h.archivo}:${h.linea}: ${h.detalle}`)] : null,
       nota: "En la literatura del Hito 1 (S02), los agentes de IA declaran menos deuda, así que un valor bajo no basta para concluir que el código está limpio.",
+    };
+  },
+  clones_similares(d, ctx) {
+    const n = d.metricas.clones_similares || 0;
+    return {
+      titulo: "Clones parecidos (Tipo 3)", valor: fmt(n, 0), estado: n ? "aviso" : "bien",
+      que: "Cuenta funciones con la misma estructura que otra del proyecto, aunque cambien los nombres de variables o los valores. Una copia exacta se cuenta en «Clones», no aquí.",
+      herramienta: "jscpd con --similarity 0,8: compara el árbol sintáctico normalizado de cada función.",
+      calculo: `Se cuenta si la similitud es de 0,8 o más y, para ${alcance(ctx)}, al menos la mitad del fragmento es nuevo. Cada uno cuesta 20 min, igual que un clon exacto.`,
+      lectura: n ? `Hay ${fmt(n, 0)} ${n === 1 ? "función parecida" : "funciones parecidas"} a otras. Suele indicar lógica repetida que podría unirse en una función con parámetros.` : "No se encontraron funciones con estructura repetida.",
+      lista: n ? ["Dónde mirar", d.hallazgos.filter((h) => h.regla === "clone-similar").slice(0, 5).map((h) => `${h.archivo}: ${h.detalle}`)] : null,
+      nota: "Cubre en parte la redundancia que S03 asocia a los LLMs. No detecta código que hace lo mismo con otra estructura (Tipo 4).",
+    };
+  },
+  acoplamiento(d, ctx) {
+    const m = d.metricas, ce = m.acoplamiento_eferente_max, ca = m.acoplamiento_aferente_max;
+    const filas = (d.modulos || m.modulos || []).slice(0, 5).map((f) => `${f.modulo}: salida ${f.eferente}, entrada ${f.aferente}, inestabilidad ${fmt(f.inestabilidad, 2)}`);
+    return {
+      titulo: "Acoplamiento", valor: `${fmt(ce, 0)} / ${fmt(ca, 0)}`, estado: "info",
+      que: "Mide cuánto depende un módulo de otros del mismo proyecto. Salida (eferente): cuántos módulos importa. Entrada (aferente): cuántos lo importan.",
+      herramienta: "Grafo de imports propio de debtguard, construido con ast sin ejecutar el código.",
+      calculo: `Se muestra el máximo entre los módulos de ${alcance(ctx)}. La inestabilidad de un módulo es salida ÷ (salida + entrada): cerca de 1 depende de mucho; cerca de 0, mucho depende de él. Solo cuenta imports que se ejecutan al cargar el módulo.`,
+      lectura: `El módulo con más dependencias de salida importa ${fmt(ce, 0)} módulos internos, y el más usado lo importan ${fmt(ca, 0)}. No hay un umbral universal: un módulo con mucha entrada es delicado de cambiar, y uno con mucha salida se rompe con facilidad cuando cambian otros.`,
+      lista: filas.length ? ["Módulos más acoplados", filas] : null,
+      nota: "Esta métrica no suma horas de deuda: no hay un costo de referencia validado. Ningún estudio del Hito 1 midió el acoplamiento en código generado.",
+    };
+  },
+  dependencias(d) {
+    const n = d.metricas.dependencias_nuevas;
+    return {
+      titulo: "Dependencias nuevas", valor: fmt(n, 0), estado: "info",
+      que: "Cuenta los imports nuevos entre módulos del propio proyecto que añade el cambio.",
+      herramienta: "Grafo de imports con ast, antes y después del cambio.",
+      calculo: "Compara las dependencias de cada módulo modificado con las que tenía en el commit anterior.",
+      lectura: n ? `El cambio añade ${fmt(n, 0)} ${n === 1 ? "dependencia interna" : "dependencias internas"}. No es malo por sí mismo, pero aumenta el acoplamiento; revisa que cada una sea necesaria.` : "El cambio no añade dependencias entre módulos del proyecto.",
+      nota: "Si una dependencia nueva cierra un ciclo, aparece además como advertencia R0401, con un costo de 30 min.",
+    };
+  },
+  ciclos(d) {
+    const n = d.metricas.ciclos || 0;
+    return {
+      titulo: "Ciclos de importación", valor: fmt(n, 0), estado: n ? "aviso" : "bien",
+      que: "Cuenta grupos de módulos que se importan entre sí al cargarse. Pueden causar errores al iniciar el programa y dificultan separar el código.",
+      herramienta: "Grafo de imports con ast (componentes fuertemente conexas). Reemplaza a Pylint R0401 de la v1.0, que era la parte más lenta.",
+      calculo: "Cada grupo se cuenta una vez y cuesta 30 min (mantenibilidad, severidad alta). Los imports dentro de funciones no cuentan.",
+      lectura: n ? `Hay ${fmt(n, 0)} ${n === 1 ? "grupo" : "grupos"} de módulos en ciclo. Conviene mover lo compartido a un módulo común o diferir el import.` : "No hay ciclos de importación.",
+      lista: n ? ["Dónde mirar", d.hallazgos.filter((h) => h.regla === "R0401").slice(0, 5).map((h) => `${h.archivo}:${h.linea}: ${h.detalle}`)] : null,
+    };
+  },
+  mi_cambio(d) {
+    const v = d.metricas.delta_mi;
+    const estado = v === null || v === undefined ? "info" : v >= 0 ? "bien" : v > -5 ? "aceptable" : "aviso";
+    return {
+      titulo: "Cambio de mantenibilidad", valor: v === null || v === undefined ? "—" : `${v > 0 ? "+" : ""}${fmt(v, 1)}`, estado,
+      que: "Cuánto sube o baja el índice de mantenibilidad (Radon, de 0 a 100) por este cambio, en el archivo que más empeora.",
+      herramienta: "Radon, aplicado al archivo antes y después del cambio.",
+      calculo: "Índice después − índice antes, por archivo; se muestra el menor (el peor cambio). Desde la v1.1 reemplaza al mínimo, que casi no se movía con parches pequeños y valía 0 en archivos grandes.",
+      lectura: v === null || v === undefined ? "No se pudo comparar: los archivos son nuevos o no se pudieron medir." : v >= 0 ? "El cambio no empeora la mantenibilidad de ningún archivo." : `El archivo que más empeora pierde ${fmt(-v, 1)} puntos. ${v > -5 ? "Es una caída pequeña." : "Es una caída notable: revisa si el cambio añadió mucha lógica a ese archivo."}`,
+      nota: d.metricas.mi_en_cero ? `${d.metricas.mi_en_cero} archivo(s) tocados tienen el índice en 0 (archivos muy grandes): ahí el cambio no se puede apreciar.` : "Los cortes de «caída pequeña» (menos de 5 puntos) son orientativos, no un estándar.",
     };
   },
   historial_deuda(h) {

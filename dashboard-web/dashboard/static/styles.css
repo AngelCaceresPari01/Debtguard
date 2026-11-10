@@ -61,7 +61,7 @@ main { max-width: 1320px; margin: 0 auto; padding: 0 24px 40px; }
 .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
 .tile { background: var(--superficie); border: 1px solid var(--borde); border-radius: 10px; padding: 12px 14px; }
 button.tile { display: block; width: 100%; text-align: left; white-space: normal; color: inherit; font: inherit; }
-button.tile span { display: block; }
+.tile span { display: block; }
 button.tile:hover { border-color: var(--acento); background: var(--fila); }
 .dlg-metrica { width: min(620px, calc(100vw - 24px)); padding: 0; }
 .exp-cabecera { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 16px; border-bottom: 1px solid var(--borde); }

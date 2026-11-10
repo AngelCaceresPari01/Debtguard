@@ -1,0 +1,128 @@
+{
+ "metricas": [
+  {
+   "clave": "cognitiva_max",
+   "cliff": 0.14772727272727273,
+   "hipotesis": "H1",
+   "magnitud": "pequeño",
+   "med_ia": 38.0,
+   "med_resto": 23.5,
+   "nombre": "Cognitiva máxima",
+   "p": 0.3424018605356203,
+   "p_holm": 1.0,
+   "significativo": false
+  },
+  {
+   "clave": "ciclomatica_max",
+   "cliff": 0.12045454545454545,
+   "hipotesis": "H1",
+   "magnitud": "despreciable",
+   "med_ia": 23.5,
+   "med_resto": 16.0,
+   "nombre": "Ciclomática máxima",
+   "p": 0.4396685387584688,
+   "p_holm": 1.0,
+   "significativo": false
+  },
+  {
+   "clave": "clones",
+   "cliff": -0.08295454545454546,
+   "hipotesis": "H2",
+   "magnitud": "despreciable",
+   "med_ia": 0.0,
+   "med_resto": 0.0,
+   "nombre": "Clones nuevos",
+   "p": 0.3017579639687106,
+   "p_holm": 1.0,
+   "significativo": false
+  },
+  {
+   "clave": "advertencias_kloc",
+   "cliff": 0.02159090909090909,
+   "hipotesis": "H3",
+   "magnitud": "despreciable",
+   "med_ia": 0.0,
+   "med_resto": 0.0,
+   "nombre": "Advertencias/KLOC",
+   "p": 0.8688085521409142,
+   "p_holm": 1.0,
+   "significativo": false
+  },
+  {
+   "clave": "delta_mi",
+   "cliff": 0.16136363636363638,
+   "hipotesis": "H3",
+   "magnitud": "pequeño",
+   "med_ia": 0.0,
+   "med_resto": 0.0,
+   "nombre": "Cambio del índice de mantenibilidad",
+   "p": 0.14498012896729331,
+   "p_holm": 1.0,
+   "significativo": false
+  },
+  {
+   "clave": "horas_kloc",
+   "cliff": 0.12954545454545455,
+   "hipotesis": "H4",
+   "magnitud": "despreciable",
+   "med_ia": 6.9145114942528725,
+   "med_resto": 6.662489557226399,
+   "nombre": "Horas/KLOC",
+   "p": 0.38777602355395946,
+   "p_holm": 1.0,
+   "significativo": false
+  },
+  {
+   "clave": "satd_kloc",
+   "cliff": 0.0,
+   "hipotesis": "H4",
+   "magnitud": "despreciable",
+   "med_ia": 0.0,
+   "med_resto": 0.0,
+   "nombre": "SATD/KLOC",
+   "p": 1.0,
+   "p_holm": 1.0,
+   "significativo": false
+  },
+  {
+   "clave": "clones_similares",
+   "cliff": 0.0,
+   "hipotesis": "v1.1",
+   "magnitud": "despreciable",
+   "med_ia": 0.0,
+   "med_resto": 0.0,
+   "nombre": "Clones parecidos",
+   "p": 1.0,
+   "p_holm": 1.0,
+   "significativo": false
+  },
+  {
+   "clave": "dependencias_nuevas",
+   "cliff": -0.025,
+   "hipotesis": "v1.1",
+   "magnitud": "despreciable",
+   "med_ia": 0.0,
+   "med_resto": 0.0,
+   "nombre": "Dependencias internas nuevas",
+   "p": 0.47900123899421043,
+   "p_holm": 1.0,
+   "significativo": false
+  },
+  {
+   "clave": "acoplamiento_eferente_max",
+   "cliff": -0.27954545454545454,
+   "hipotesis": "v1.1",
+   "magnitud": "pequeño",
+   "med_ia": 2.0,
+   "med_resto": 3.0,
+   "nombre": "Acoplamiento eferente máx.",
+   "p": 0.05545945873257016,
+   "p_holm": 0.5545945873257017,
+   "significativo": false
+  }
+ ],
+ "min_por_grupo": 5,
+ "n_ia": 22,
+ "n_resto": 40,
+ "suficiente": true
+}

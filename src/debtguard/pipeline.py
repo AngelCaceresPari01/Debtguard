@@ -10,7 +10,7 @@ import yaml
 from debtguard.estimator import costs, ird as ird_mod, verdict
 from debtguard.ingest.diff_reader import read_diff
 from debtguard.ingest.repo import file_at
-from debtguard.metrics import clones, complexity, satd, static
+from debtguard.metrics import clones, complexity, coupling, satd, static
 from debtguard.models import Assessment
 
 CONFIG = Path(__file__).resolve().parents[2] / "config"
@@ -38,7 +38,8 @@ def analyze(diff_text: str, repo: str | Path, caso_id: str, origen: str, modelo:
     cfg, th = load_config(config_dir)
     repo = Path(repo).resolve()
     cs = read_diff(diff_text, caso_id, origen, modelo, str(repo), base_rev)
-    hallazgos, errores, por_archivo, fuentes = [], [], [], {}
+    hallazgos, errores, por_archivo, fuentes, previas = [], [], [], {}, {}
+    acoplamiento: dict = {}
     for ruta, lineas in cs.archivos.items():
         ruta_abs = repo / ruta
         if not ruta_abs.exists():
@@ -49,14 +50,21 @@ def analyze(diff_text: str, repo: str | Path, caso_id: str, origen: str, modelo:
         anadidas = set(lineas)
         hallazgos += satd.analyze(ruta, fuente, anadidas)
         previa = file_at(repo, base_rev, ruta) if (repo / ".git").exists() else None
+        previas[ruta] = previa
         try:
             hs, m = complexity.analyze(ruta, fuente, previa, anadidas, cfg)
             hallazgos += hs
             por_archivo.append(m)
         except (SyntaxError, ValueError) as e:
             errores.append(f"{ruta}: complejidad no medible ({e.__class__.__name__})")
-    for nombre, paso in (("ruff", lambda: static.run_ruff(cs, cfg)),
-                         ("pylint", lambda: static.run_cycles(cs, fuentes, cfg)),
+    def ciclos_ast():
+        h, m = coupling.analizar_cambio(cs, {**coupling.fuentes_del_repo(repo), **fuentes}, previas)
+        acoplamiento.update(m)
+        return h
+
+    motor = (cfg.get("ciclos") or {}).get("motor", "pylint")
+    ciclos = ("grafo de imports", ciclos_ast) if motor == "ast" else ("pylint", lambda: static.run_cycles(cs, fuentes, cfg))
+    for nombre, paso in (("ruff", lambda: static.run_ruff(cs, cfg)), ciclos,
                          ("jscpd", lambda: clones.analyze(cs, cfg))):
         try:
             hallazgos += paso()
@@ -82,7 +90,13 @@ def analyze(diff_text: str, repo: str | Path, caso_id: str, origen: str, modelo:
         "advertencias": len(reglas),
         "advertencias_kloc": por_kloc(len(reglas)),
         "adv_altas_kloc": por_kloc(n_altas),
-        "clones": sum(f.familia == "clon" for f in hallazgos),
+        "clones": sum(f.regla == "clone" for f in hallazgos),
+        "clones_similares": sum(f.regla == "clone-similar" for f in hallazgos),
+        "mi_en_cero": sum(m["mi"] == 0 for m in por_archivo),
+        "dependencias_nuevas": acoplamiento.get("dependencias_nuevas"),
+        "acoplamiento_eferente_max": acoplamiento.get("acoplamiento_eferente_max"),
+        "acoplamiento_aferente_max": acoplamiento.get("acoplamiento_aferente_max"),
+        "modulos": acoplamiento.get("modulos", []),
         "satd": n_satd,
         "satd_kloc": por_kloc(n_satd),
         "lineas_anadidas": cs.lineas_anadidas,

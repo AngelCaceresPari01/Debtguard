@@ -11,6 +11,11 @@ clones:
   min_tokens: 50
   # Parte del fragmento clonado que debe ser linea nueva para atribuirlo al cambio.
   min_solapamiento: 0.5
+  # v1.1: clones parecidos (Tipo 3) por estructura de la funcion; null los desactiva.
+  similitud: 0.8
+# v1.1: "ast" usa el grafo de imports propio; "pylint" reproduce la v1.0 (R0401).
+ciclos:
+  motor: ast
 ruff:
   select: [E, W, F, B, BLE, S, PLE, PLW, PLR, SIM, RET, ARG]
   ignore: [E501]

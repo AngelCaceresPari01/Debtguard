@@ -10,3 +10,5 @@ data/correccion/.hf/
 salida/
 dashboard-web/cache/
 dashboard-web/.venv/
+estudio_caso/repo/
+reports_v11/*.tmp

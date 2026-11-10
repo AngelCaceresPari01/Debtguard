@@ -16,8 +16,10 @@ _IA = re.compile(r"(co-authored-by:[^\n]*(claude|copilot|cursor|codex|devin|aide
                  r"|generated (with|by) .{0,30}(claude|copilot|cursor|codex|chatgpt|gemini|aider|devin)", re.IGNORECASE)
 _ENTORNO = {**os.environ, "GIT_OPTIONAL_LOCKS": "0", "GIT_TERMINAL_PROMPT": "0"}
 # Una carpeta analizada no debe poder ejecutar programas a traves de su configuracion de git.
+# No se fuerza core.autocrlf: en Windows la carpeta del usuario suele tener CRLF y autocrlf=true en la
+# configuracion de sistema; forzarlo a false haria que git viera todos los archivos como modificados.
 _SEGURO = ["-c", "core.fsmonitor=false", "-c", "core.hooksPath=/dev/null", "-c", "core.quotepath=off", "-c", "core.longpaths=true",
-           "-c", "core.autocrlf=false", "-c", "diff.external=", "-c", "core.sshCommand="]
+           "-c", "diff.external=", "-c", "core.sshCommand="]
 
 
 class GitError(RuntimeError):
@@ -69,7 +71,7 @@ class Instantanea:
     def __init__(self, raiz: Path):
         self.temporal = Path(tempfile.mkdtemp(prefix="debtguard-"))
         self.ruta = self.temporal / "repo"
-        subprocess.run(["git", *_SEGURO, "clone", "-q", "--shared", "--no-checkout", str(raiz), str(self.ruta)],
+        subprocess.run(["git", *_SEGURO, "-c", "core.autocrlf=false", "clone", "-q", "--shared", "--no-checkout", str(raiz), str(self.ruta)],
                        check=True, capture_output=True, env=_ENTORNO, timeout=600)
         git(self.ruta, "config", "core.autocrlf", "false")
         git(self.ruta, "config", "core.longpaths", "true")

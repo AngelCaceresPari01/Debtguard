@@ -1,0 +1,56 @@
+{
+  "caso_id": "pallets__flask-4992_humano",
+  "origen": "humano",
+  "modelo": null,
+  "kloc_cambiadas": 0.007,
+  "metricas": {
+    "cognitiva_max": 5,
+    "ciclomatica_max": 5,
+    "delta_cognitiva": 1,
+    "delta_ciclomatica": 1,
+    "funciones_tocadas": 1,
+    "mi_min": 56.509403744424,
+    "delta_mi": -0.38914319431324174,
+    "advertencias": 0,
+    "advertencias_kloc": 0.0,
+    "adv_altas_kloc": 0.0,
+    "clones": 0,
+    "clones_similares": 0,
+    "mi_en_cero": 0,
+    "dependencias_nuevas": 0,
+    "acoplamiento_eferente_max": 0,
+    "acoplamiento_aferente_max": 2,
+    "modulos": [
+      {
+        "modulo": "flask.config",
+        "archivo": "src/flask/config.py",
+        "eferente": 0,
+        "aferente": 2,
+        "inestabilidad": 0.0
+      }
+    ],
+    "satd": 0,
+    "satd_kloc": 0.0,
+    "lineas_anadidas": 7,
+    "lineas_eliminadas": 3,
+    "archivos": 1
+  },
+  "hallazgos": [],
+  "deuda_min": 0,
+  "deuda_horas": 0.0,
+  "horas_kloc": 0.0,
+  "debt_ratio": 0.0,
+  "nota_sqale": "A",
+  "ird": 1.69,
+  "veredicto": "ACEPTAR",
+  "versiones": {
+    "radon": "6.0.1",
+    "complexipy": "8.3.0",
+    "ruff": "0.17.3",
+    "pylint": "4.1.3",
+    "unidiff": "1.0.1",
+    "jscpd": "jscpd 5.4.2"
+  },
+  "errores": [],
+  "excluidos": []
+}

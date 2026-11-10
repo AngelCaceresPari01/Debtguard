@@ -1,0 +1,85 @@
+{
+  "caso_id": "pylint-dev__pylint-7114_humano",
+  "origen": "humano",
+  "modelo": null,
+  "kloc_cambiadas": 0.005,
+  "metricas": {
+    "cognitiva_max": 41,
+    "ciclomatica_max": 22,
+    "delta_cognitiva": 1,
+    "delta_ciclomatica": 1,
+    "funciones_tocadas": 1,
+    "mi_min": 54.33826748459642,
+    "delta_mi": -1.5747587189289334,
+    "advertencias": 0,
+    "advertencias_kloc": 0.0,
+    "adv_altas_kloc": 0.0,
+    "clones": 0,
+    "clones_similares": 0,
+    "mi_en_cero": 0,
+    "dependencias_nuevas": 0,
+    "acoplamiento_eferente_max": 1,
+    "acoplamiento_aferente_max": 2,
+    "modulos": [
+      {
+        "modulo": "pylint.lint.expand_modules",
+        "archivo": "pylint/lint/expand_modules.py",
+        "eferente": 1,
+        "aferente": 2,
+        "inestabilidad": 0.333
+      }
+    ],
+    "satd": 0,
+    "satd_kloc": 0.0,
+    "lineas_anadidas": 5,
+    "lineas_eliminadas": 5,
+    "archivos": 1
+  },
+  "hallazgos": [
+    {
+      "archivo": "pylint/lint/expand_modules.py",
+      "linea": 64,
+      "funcion": "expand_modules",
+      "familia": "complejidad",
+      "regla": "cognitive>15",
+      "severidad": "alta",
+      "valor": 41,
+      "umbral": 15,
+      "costo_min": 3,
+      "categoria": null,
+      "valor_previo": 40,
+      "detalle": ""
+    },
+    {
+      "archivo": "pylint/lint/expand_modules.py",
+      "linea": 64,
+      "funcion": "expand_modules",
+      "familia": "complejidad",
+      "regla": "cyclomatic>10",
+      "severidad": "alta",
+      "valor": 22,
+      "umbral": 10,
+      "costo_min": 2,
+      "categoria": null,
+      "valor_previo": 21,
+      "detalle": ""
+    }
+  ],
+  "deuda_min": 5,
+  "deuda_horas": 0.08333333333333333,
+  "horas_kloc": 16.666666666666664,
+  "debt_ratio": 0.03333333333333333,
+  "nota_sqale": "A",
+  "ird": 19.85,
+  "veredicto": "ACEPTAR",
+  "versiones": {
+    "radon": "6.0.1",
+    "complexipy": "8.3.0",
+    "ruff": "0.17.3",
+    "pylint": "4.1.3",
+    "unidiff": "1.0.1",
+    "jscpd": "jscpd 5.4.2"
+  },
+  "errores": [],
+  "excluidos": []
+}

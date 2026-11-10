@@ -1,0 +1,8 @@
+metrica,nombre,n,med_humano,med_llm,media_humano,media_llm,llm_mayor,empates,llm_menor,W,p,cliff,magnitud,p_holm
+clones_similares,Clones parecidos (Tipo 3),30,0.0,0.0,0.0,0.03333333333333333,1,29,0,0.0,0.31731050786291415,0.03333333333333333,despreciable,1.0
+clones_total,Clones exactos + parecidos,30,0.0,0.0,0.1,0.13333333333333333,2,27,1,2.0,0.5637028616507731,0.03222222222222222,despreciable,1.0
+dependencias_nuevas,Dependencias internas nuevas,30,0.0,0.0,0.06666666666666667,0.06666666666666667,1,28,1,1.5,1.0,0.0,despreciable,1.0
+acoplamiento_eferente_max,Acoplamiento eferente máx.,30,6.0,6.0,7.0,7.0,1,28,1,1.5,1.0,0.0044444444444444444,despreciable,1.0
+acoplamiento_aferente_max,Acoplamiento aferente máx.,30,3.0,3.0,12.333333333333334,12.333333333333334,0,30,0,0.0,1.0,0.0,despreciable,1.0
+delta_mi,Cambio del índice de mantenibilidad,30,0.0,0.0,-0.4023732295083595,-0.44728906092040077,11,9,10,106.0,0.7412506037181041,0.0,despreciable,1.0
+horas_kloc,Horas/KLOC (v1.1),30,14.665032679738562,0.0,30.341580022049577,42.76493663993664,9,9,12,99.0,0.5663053702569848,-0.1111111111111111,despreciable,1.0

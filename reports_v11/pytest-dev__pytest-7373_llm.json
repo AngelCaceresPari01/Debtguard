@@ -1,0 +1,71 @@
+{
+  "caso_id": "pytest-dev__pytest-7373_llm",
+  "origen": "LLM",
+  "modelo": "deepseek-v4-pro",
+  "kloc_cambiadas": 0.003,
+  "metricas": {
+    "cognitiva_max": 28,
+    "ciclomatica_max": 10,
+    "delta_cognitiva": 0,
+    "delta_ciclomatica": 0,
+    "funciones_tocadas": 1,
+    "mi_min": 52.036334122716504,
+    "delta_mi": 1.1340548425489203,
+    "advertencias": 1,
+    "advertencias_kloc": 333.3333333333333,
+    "adv_altas_kloc": 333.3333333333333,
+    "clones": 0,
+    "clones_similares": 0,
+    "mi_en_cero": 0,
+    "dependencias_nuevas": 0,
+    "acoplamiento_eferente_max": 3,
+    "acoplamiento_aferente_max": 1,
+    "modulos": [
+      {
+        "modulo": "_pytest.mark.evaluate",
+        "archivo": "src/_pytest/mark/evaluate.py",
+        "eferente": 3,
+        "aferente": 1,
+        "inestabilidad": 0.75
+      }
+    ],
+    "satd": 0,
+    "satd_kloc": 0.0,
+    "lineas_anadidas": 3,
+    "lineas_eliminadas": 15,
+    "archivos": 1
+  },
+  "hallazgos": [
+    {
+      "archivo": "src/_pytest/mark/evaluate.py",
+      "linea": 85,
+      "funcion": null,
+      "familia": "regla",
+      "regla": "S307",
+      "severidad": "critica",
+      "valor": 1,
+      "umbral": null,
+      "costo_min": 120,
+      "categoria": "seguridad",
+      "valor_previo": null,
+      "detalle": "Use of possibly insecure function; consider using `ast.literal_eval`"
+    }
+  ],
+  "deuda_min": 120,
+  "deuda_horas": 2.0,
+  "horas_kloc": 666.6666666666666,
+  "debt_ratio": 1.3333333333333333,
+  "nota_sqale": "E",
+  "ird": 49.48,
+  "veredicto": "BLOQUEAR",
+  "versiones": {
+    "radon": "6.0.1",
+    "complexipy": "8.3.0",
+    "ruff": "0.17.3",
+    "pylint": "4.1.3",
+    "unidiff": "1.0.1",
+    "jscpd": "jscpd 5.4.2"
+  },
+  "errores": [],
+  "excluidos": []
+}

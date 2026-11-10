@@ -1,0 +1,16 @@
+﻿archivo,funcion,linea,cognitiva,ciclomatica,loc
+sqlite_utils/db.py,Table.insert_all,4673,265,106,357
+sqlite_utils/db.py,Table.transform_sql,2773,215,133,482
+sqlite_utils/cli.py,insert_upsert_implementation,1061,150,64,263
+sqlite_utils/db.py,Database.create_table_sql,1429,125,94,270
+sqlite_utils/db.py,Table.build_insert_queries_and_params,4305,106,65,214
+sqlite_utils/db.py,Database.add_foreign_keys,1893,50,33,120
+sqlite_utils/db.py,Database.create_table,1700,49,32,136
+sqlite_utils/create_table_parser.py,_lex,233,48,23,61
+sqlite_utils/cli.py,memory,2105,47,31,155
+sqlite_utils/cli.py,insert_files,2906,44,6,119
+sqlite_utils/cli.py,tables,213,39,16,75
+sqlite_utils/cli.py,migrate,3534,38,21,97
+sqlite_utils/db.py,Database.resolve_foreign_keys,1290,33,14,96
+sqlite_utils/utils.py,rows_from_file,288,31,19,122
+sqlite_utils/db.py,Table.add_foreign_key,3585,30,30,106

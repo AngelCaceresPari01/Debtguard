@@ -1,0 +1,63 @@
+﻿commit,fecha,origen,asunto,lineas_anadidas,lineas_eliminadas,cognitiva_max,ciclomatica_max,clones,clones_similares,advertencias,dependencias_nuevas,acoplamiento_eferente_max,delta_mi,satd,horas,horas_kloc,ird,veredicto,hallazgos
+6bc1d33d,2026-09-22,sin_declarar,Fix resource leaks caused by buffered readers,5,1,31,19,0,0,0,0,1,0.006124572229666114,0,0.0,0.0,10.49,ACEPTAR,0
+f6d73112,2026-08-13,sin_declarar,Fix for sqlite-utils 4.2 crashing bug (#843),1,2,0,1,0,0,0,0,3,0.0,0,0.0,0.0,0.0,ACEPTAR,0
+e4935e06,2026-08-13,sin_declarar,transform: coerce empty strings to NULL when converting TEXT columns to numeric types (#805),17,1,215,133,0,0,1,0,3,0.0,0,0.425,25.0,28.96,ADVERTIR,3
+75ba5884,2026-08-12,sin_declarar,Preserve composite UNIQUE constraints in transforms,295,0,210,129,3,0,1,0,3,-2.3246735141434525,0,5.208,17.66,46.32,BLOQUEAR,14
+2b52b5ed,2026-08-12,sin_declarar,Preserve AUTOINCREMENT through transforms,84,1,195,120,0,0,2,0,3,-2.08075357512153,0,3.883,46.23,56.56,BLOQUEAR,7
+fcfccea8,2026-08-12,sin_declarar,Support ANY column types for strict tables,42,9,27,29,0,0,0,0,5,-0.33738250007753123,0,0.283,6.75,11.55,ACEPTAR,3
+57192ef4,2026-08-12,sin_declarar,"table.transform(rename=...) now preserves indexes, closes #822",75,23,181,109,0,0,1,0,3,0.0,0,1.9,25.33,29.08,ADVERTIR,3
+88b48fa1,2026-08-12,sin_declarar,Fixed introspection of default values TRUE / FALSE / NULL,7,0,9,10,0,0,0,0,3,0.0,0,0.0,0.0,3.05,ACEPTAR,0
+e6be6267,2026-08-12,sin_declarar,Use quote_identifier() in indexes/xindexes PRAGMA statements (#825),4,10,8,5,0,0,0,0,3,0.0,0,0.0,0.0,2.71,ACEPTAR,0
+c5063f67,2026-08-12,sin_declarar,"Use quoted SQL identifiers in convert --dry-run, closes #829",5,5,30,17,0,0,0,0,5,0.0,0,0.0,0.0,10.15,ACEPTAR,0
+25c632fb,2026-08-12,sin_declarar,Handle empty input in rows_from_file,2,0,31,19,0,0,0,0,1,-0.2550001923616918,0,0.133,66.67,30.49,ADVERTIR,2
+ebb04a97,2026-08-12,sin_declarar,"Fixes for Pyright, closes #833",87,71,265,106,3,0,4,0,5,-0.16734803916968133,0,2.217,25.48,49.13,BLOQUEAR,10
+43d5d333,2026-08-12,sin_declarar,Emit LIMIT -1 when offset is used without limit (#821),8,0,14,13,0,0,0,0,5,0.0,0,0.033,4.17,6.23,ACEPTAR,1
+2d3c6b9a,2026-08-12,sin_declarar,Escape tokenize argument in enable_fts (#828),3,1,20,15,0,0,0,0,3,0.0,0,0.0,0.0,6.77,ACEPTAR,0
+b37b8cf8,2026-08-11,sin_declarar,Preserve column before/after comments through .transform(),83,16,160,91,0,0,0,0,3,-2.7837164314464005,0,1.083,13.05,24.68,ACEPTAR,7
+2303b80a,2026-08-11,sin_declarar,".transform() preserves check constraints, refs #762",132,1,157,88,0,0,4,0,3,-7.411384301834252,0,2.15,16.29,25.83,ACEPTAR,8
+3db0c57a,2026-08-11,sin_declarar,"table.checks, table.column_checks, table.table_checks, closes #834",530,0,48,32,0,0,11,1,3,0.0,0,5.675,10.71,20.08,ACEPTAR,20
+f726ea4a,2026-08-11,sin_declarar,transform() now works for tables referenced by views (#832),19,2,145,79,0,0,0,0,2,0.0,0,0.167,8.77,23.14,ACEPTAR,2
+6a456830,2026-07-25,sin_declarar,Fix _decode_default_value to unescape doubled single quotes in string defaults (#811),2,2,6,7,0,0,0,0,2,0.0,0,0.0,0.0,2.03,ACEPTAR,0
+69a1c0d9,2026-07-25,sin_declarar,Fixes for Ruff>=0.16.0 (#814),606,743,265,103,5,0,33,0,5,-2.722045628530225,0,22.167,36.58,73.1,BLOQUEAR,38
+f66ddcb2,2026-07-12,ia,Transform now refuses to run inside a transaction if destructive foreign keys exist (#795),34,0,24,21,0,0,0,0,2,0.0,0,0.683,20.1,15.32,ACEPTAR,2
+b74b7270,2026-07-11,sin_declarar,.transform(strict=) and sqlite-utils transform --strict/--no-strict (#788),20,1,144,77,1,0,0,0,5,0.0,0,0.567,28.33,40.15,BLOQUEAR,4
+7a522146,2026-07-07,sin_declarar,drop-index command and table.drop_index(index_name),38,0,4,4,0,0,1,0,5,0.0,0,0.25,6.58,3.71,ACEPTAR,1
+d2ac3765,2026-07-07,sin_declarar,"sqlite-utils insert/upsert --type colunm-name type option, closes #131",25,1,150,64,0,0,0,0,5,0.0,0,0.8,32.0,31.46,ADVERTIR,5
+569608e4,2026-07-07,sin_declarar,"sqlite-utils insert --code option, closes #684",147,69,146,62,0,0,10,0,5,0.0,0,5.408,36.79,53.18,BLOQUEAR,13
+23a21c1d,2026-07-07,sin_declarar,Ran Black,1,3,4,6,0,0,0,0,5,0.0,0,0.0,0.0,1.35,ACEPTAR,0
+ebafb84c,2026-07-07,sin_declarar,Allow sqlite-utils upsert to infer --pk from existing table,4,2,127,77,0,0,0,0,5,0.0,0,0.0,0.0,20.0,ACEPTAR,0
+aa300942,2026-07-07,sin_declarar,"Update sqlite-utils convert --help, refs #686",6,1,4,6,0,0,0,0,5,0.0,0,0.0,0.0,1.35,ACEPTAR,0
+cf3373e7,2026-07-07,sin_declarar,"Refactor --functions option, improve help",12,15,0,1,0,0,0,0,5,0.0,0,0.0,0.0,0.0,ACEPTAR,0
+8ee0b7c6,2026-07-07,sin_declarar,Fix for rogue quote in enable-fts --help,1,1,4,5,0,0,0,0,5,0.0,0,0.0,0.0,1.35,ACEPTAR,0
+fa5d66bf,2026-07-07,sin_declarar,Update create-table --help to mention real,2,2,8,9,0,0,0,0,5,0.0,0,0.0,0.0,2.71,ACEPTAR,0
+619770bf,2026-07-07,sin_declarar,"sqlite-utils query - to read SQL from stdin, closes #765",6,0,2,3,0,0,0,0,5,0.0,0,0.0,0.0,0.68,ACEPTAR,0
+60811e73,2026-07-07,ia,Fix rowid pk and last_rowid regressions in insert/upsert,68,28,265,103,0,0,2,0,2,0.0,0,3.8,55.88,60.0,BLOQUEAR,4
+d9a0fd26,2026-07-06,ia,Transaction cleanup no longer masks transaction-destroying errors,16,6,21,16,0,0,0,0,2,0.0,0,0.083,5.21,8.97,ACEPTAR,2
+93640a7d,2026-07-06,ia,migrate --list is read-only with legacy sqlite-migrate classes too,8,1,38,21,0,0,0,0,5,0.0,0,0.0,0.0,12.86,ACEPTAR,0
+548a886c,2026-07-06,ia,Clean CLI errors for InvalidColumns from insert --pk and extract,6,2,127,77,0,0,1,0,5,0.0,0,0.25,41.67,34.93,ADVERTIR,1
+8572d1e3,2026-07-06,ia,extract() no longer duplicates NULL-containing rows in shared lookups,17,1,24,26,0,0,1,0,2,0.0,0,1.117,65.69,48.12,BLOQUEAR,3
+16bbfb58,2026-07-06,ia,add_foreign_keys() errors instead of silently dropping action changes,22,3,50,33,0,0,0,0,2,0.0,0,0.683,31.06,28.05,ACEPTAR,2
+a0387791,2026-07-06,ia,ensure_autocommit_on() raises TransactionError inside a transaction,8,0,1,2,0,0,0,0,2,0.0,0,0.0,0.0,0.34,ACEPTAR,0
+b3aa3f47,2026-07-06,ia,migrate --stop-before an already-applied migration is now an error,24,2,38,21,0,0,1,0,5,-0.6640761990949784,0,0.433,18.06,19.33,ACEPTAR,3
+3de8507c,2026-07-06,ia,"insert(pk=, alter=True) can add the pk column from records again",18,1,222,91,0,0,0,0,2,0.0,0,1.067,59.26,40.0,BLOQUEAR,2
+88457468,2026-07-06,ia,insert/upsert --csv no longer rewrites column types of existing tables,11,1,127,77,0,0,0,0,5,0.0,0,0.033,3.03,21.09,ACEPTAR,1
+1ed95e4a,2026-07-06,ia,Fix pks_and_rows_where() on views,16,5,10,9,0,0,0,0,2,0.0,0,0.0,0.0,3.38,ACEPTAR,0
+29ca9d27,2026-07-06,ia,"foreign_keys= accepts mixed ForeignKey objects, tuples and strings again",16,14,33,14,0,0,0,0,2,0.0,0,0.0,0.0,11.17,ACEPTAR,0
+404e935b,2026-07-06,ia,"ForeignKey is now a frozen dataclass, restoring hashability",16,7,8,5,0,0,0,0,2,0.0,0,0.0,0.0,2.71,ACEPTAR,0
+8e015d02,2026-07-06,ia,Compound primary keys now resolve in PRIMARY KEY declaration order,21,10,142,74,0,0,0,0,2,0.0,0,0.05,2.38,20.85,ACEPTAR,1
+66934918,2026-07-06,ia,Document that rejected write PRAGMAs in db.query() still take effect,4,1,20,15,0,0,0,0,2,0.0,0,0.0,0.0,6.77,ACEPTAR,0
+adc10df9,2026-07-06,sin_declarar,"Fix for db.query(""; COMMIT"") bypasses the first-token scanner",6,5,16,11,0,0,0,0,2,0.0,0,0.083,13.89,10.39,ACEPTAR,2
+7d861181,2026-07-06,sin_declarar,Fix failed db.execute() write leaves a phantom transaction open,12,4,9,10,0,0,0,0,2,0.0,0,0.0,0.0,3.05,ACEPTAR,0
+2616dec7,2026-07-06,ia,".extract() and .lookup() no longer extract null values, closes #186",13,5,106,65,0,0,2,0,2,0.0,0,2.25,173.08,60.0,BLOQUEAR,6
+221774f2,2026-07-06,sin_declarar,"Fix for table.insert(..., pk=..., ignore=True), closes #554",46,10,204,86,1,0,0,0,2,0.0,0,2.65,57.61,50.0,BLOQUEAR,3
+6225eba5,2026-07-06,sin_declarar,"Raise InvalidColumns on insert(pk=""invalid"")",17,0,165,75,0,0,0,0,2,0.0,0,0.867,50.98,38.26,BLOQUEAR,2
+815b6a7d,2026-07-06,ia,"JSON output no longer escapes non-ASCII characters, new --ascii option (#777)",29,6,47,31,0,0,2,0,5,0.0,0,0.25,8.62,18.99,ACEPTAR,2
+d516e585,2026-07-06,ia,Honor --no-headers for --fmt and --table output (#566) (#751),15,3,39,20,1,0,0,0,5,0.0,0,0.65,43.33,38.72,BLOQUEAR,4
+5f81752c,2026-07-05,sin_declarar,Fix for frustrating error in 'just docs' locally,39,9,11,11,0,0,3,0,0,-27.06203780330648,0,1.033,26.5,13.21,ACEPTAR,4
+a4acc395,2026-07-06,sin_declarar,Fix transform() corrupting TRUE/FALSE/NULL column defaults into strings,4,0,7,8,0,0,0,0,2,0.0,0,0.0,0.0,2.37,ACEPTAR,0
+77d24195,2026-07-05,ia,"Match column names case-insensitively, closes #760",188,42,153,74,0,0,0,0,2,0.0,0,4.85,25.8,29.24,ADVERTIR,15
+50938ee6,2026-07-05,sin_declarar,"Rename ensure_autocommit_off() to ensure_autocommit_on(), closes #705",12,7,20,15,0,0,0,0,2,0.0,0,0.0,0.0,6.77,ACEPTAR,0
+07b603e5,2026-07-05,sin_declarar,Preserve duplicate column names in query results,37,4,20,15,0,0,1,0,5,-1.4985968205041402,0,0.25,6.76,9.19,ACEPTAR,1
+afbfd952,2026-07-05,sin_declarar,Remove sqlean.py support (#772),3,8,0,0,0,0,0,0,1,0.3548119272634409,0,0.0,0.0,0.0,ACEPTAR,0
+0ec01804,2026-07-05,ia,"add_foreign_key() on_delete= and on_update= parameters, closes #530",24,3,27,22,0,0,0,0,2,0.0,0,0.0,0.0,9.14,ACEPTAR,0
+5b615309,2026-07-05,ia,db.add_foreign_keys() no longer drops ON DELETE/ON UPDATE actions,24,18,35,25,0,0,0,0,2,0.0,0,0.0,0.0,11.84,ACEPTAR,0

@@ -7,8 +7,10 @@ from scipy.stats import mannwhitneyu
 from statsmodels.stats.multitest import multipletests
 
 METRICAS = [("cognitiva_max", "Cognitiva máxima", "H1"), ("ciclomatica_max", "Ciclomática máxima", "H1"), ("clones", "Clones nuevos", "H2"),
-            ("advertencias_kloc", "Advertencias/KLOC", "H3"), ("mi_min", "Índice de mantenibilidad", "H3"),
-            ("horas_kloc", "Horas/KLOC", "H4"), ("satd_kloc", "SATD/KLOC", "H4")]
+            ("advertencias_kloc", "Advertencias/KLOC", "H3"), ("delta_mi", "Cambio del índice de mantenibilidad", "H3"),
+            ("horas_kloc", "Horas/KLOC", "H4"), ("satd_kloc", "SATD/KLOC", "H4"),
+            ("clones_similares", "Clones parecidos", "v1.1"), ("dependencias_nuevas", "Dependencias internas nuevas", "v1.1"),
+            ("acoplamiento_eferente_max", "Acoplamiento eferente máx.", "v1.1")]
 MIN_POR_GRUPO = 5
 
 
@@ -49,5 +51,5 @@ def comparar(filas: list[dict], etiquetas: dict[str, str] | None = None) -> dict
     if pvalores:
         for fila, p in zip(pvalores, multipletests([f["p"] for f in pvalores], method="holm")[1]):
             fila["p_holm"] = float(p)
-            fila["significativo"] = p < 0.05 and abs(fila["cliff"]) >= 0.147
+            fila["significativo"] = bool(p < 0.05 and abs(fila["cliff"]) >= 0.147)  # bool de Python: numpy no es serializable
     return salida

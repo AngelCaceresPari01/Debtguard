@@ -18,6 +18,23 @@ El detalle está en el informe: [`entregables/A.9_HITO2_Carrasco_Caceres_Chancua
 
 **Pendiente del equipo:** la revisión manual de 60 alertas (Kappa y precisión) y la validación cronometrada de los costos. Ver [`entregables/REPARTO_HITO2.md`](entregables/REPARTO_HITO2.md).
 
+## Versión 1.1 (rama `v1.1-vacios`)
+
+Cubre tres vacíos detectados en el Hito 1. No cambia los resultados entregados, que siguen siendo los de `v1.0-experimento` en `reports/`.
+
+| Mejora | Qué hace | Dónde |
+|---|---|---|
+| Clones parecidos (Tipo 3) | Detecta funciones con la misma estructura aunque cambien los nombres (`jscpd --similarity 0.8`). Se cuentan aparte de los exactos y cuestan 20 min | `metrics/clones.py` |
+| Acoplamiento | Construye el grafo de imports con `ast` y calcula, por módulo, dependencias de salida (Ce), de entrada (Ca) e inestabilidad. En un cambio, cuenta también las dependencias internas nuevas | `metrics/coupling.py` |
+| Ciclos de importación | Usa el mismo grafo en lugar de Pylint R0401 y agrupa los ciclos en componentes, en vez de enumerar caminos. En Django (815 módulos) tardó 17 s frente a 33 s de Pylint, y encontró 7 grupos en ciclo donde Pylint lista 341 ciclos | `metrics/coupling.py` |
+| Índice de mantenibilidad | Reporta el cambio que produce el parche (`delta_mi`) y cuántos archivos tienen el índice en 0, en vez de usar solo el mínimo | `pipeline.py` |
+
+Las opciones `clones.similitud` y `ciclos.motor` de `config/remediation_costs.yaml` permiten volver al comportamiento de la v1.0.
+
+**Re-medición del experimento:** `experiments/remedir_v11.py` mide de nuevo los 60 parches en `reports_v11/`, y `experiments/analysis_v11.py` guarda las tablas en `data/v11/`. Tampoco aquí hubo diferencias significativas entre el código humano y el del LLM. Los resultados coinciden con la v1.0 salvo en un parche del LLM, en el que aparece un clon parecido nuevo, y ninguna de las dos versiones encontró ciclos nuevos.
+
+**Estudio de caso:** `estudio_caso/` analiza un repositorio real con el dashboard y guarda datos y capturas. Ver [`estudio_caso/README.md`](estudio_caso/README.md).
+
 ## Contenido
 
 | Carpeta | Contenido |

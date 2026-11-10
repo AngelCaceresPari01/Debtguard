@@ -12,3 +12,9 @@ dashboard-web/cache/
 dashboard-web/.venv/
 estudio_caso/repo/
 reports_v11/*.tmp
+
+# Informes y material del curso: se guardan solo en local
+entregables/
+docs/build_informe*.py
+docs/_tmp/
+~$*

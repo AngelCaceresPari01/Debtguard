@@ -14,9 +14,7 @@ El repositorio reúne tres partes:
 - **Corrección:** según las pruebas oficiales de SWE-bench, el LLM resolvió **9 de 30** problemas y las personas, 30 de 30. Con solo los 9 pares correctos tampoco hubo diferencias.
 - **Tamaño:** los parches del LLM son más pequeños: mediana de 3 líneas añadidas frente a 9.
 
-El detalle está en el informe: [`entregables/A.9_HITO2_Carrasco_Caceres_Chancuaña_Yana.docx`](entregables/A.9_HITO2_Carrasco_Caceres_Chancuaña_Yana.docx).
-
-**Pendiente del equipo:** la revisión manual de 60 alertas (Kappa y precisión) y la validación cronometrada de los costos. Ver [`entregables/REPARTO_HITO2.md`](entregables/REPARTO_HITO2.md).
+**Pendiente del equipo:** la revisión manual de 60 alertas (Kappa y precisión) y la validación cronometrada de los costos.
 
 ## Contenido
 
@@ -29,9 +27,8 @@ El detalle está en el informe: [`entregables/A.9_HITO2_Carrasco_Caceres_Chancua
 | `data/` | Casos, respuestas crudas del LLM, resultados, tablas y plantillas de validación |
 | `casos/` | Parches humanos y del LLM de cada caso |
 | `reports/` | JSON del prototipo para cada parche y para la muestra de calibración |
-| `docs/` | Figuras, capturas y el script que genera el informe |
+| `docs/` | Figuras y capturas del experimento |
 | `dashboard-web/` | Dashboard local |
-| `entregables/` | Informes de los Hitos 1 y 2, guías del curso y reparto de tareas |
 
 La etiqueta `v1.0-experimento` marca la configuración congelada antes de medir los parches del LLM.
 
@@ -39,7 +36,6 @@ La etiqueta `v1.0-experimento` marca la configuración congelada antes de medir 
 
 - Windows 10 u 11 (lo probado), Python 3.13, Node.js 18 o superior y git.
 - Docker solo si quieres repetir la comprobación funcional con SWE-bench.
-- Microsoft Word solo para abrir el informe y actualizar su índice.
 
 ## Instalación
 
@@ -141,17 +137,9 @@ P2 y P3 etiquetan por separado `data/validacion/alertas_P2.csv` y `data/validaci
 .venv\Scripts\python.exe experiments\validation.py calcular
 ```
 
-## Generar el informe
-
-```powershell
-.venv\Scripts\python.exe docs\build_informe.py
-```
-
-Lo escribe en `entregables\` con las cifras de `data\`. Sobrescribe cualquier cambio hecho a mano en el Word: usa otra ruta como argumento si quieres conservarlo.
-
 ## Uso de asistentes de IA
 
-El prototipo, el análisis y el borrador del informe se hicieron con ayuda de Claude Code. Los parches del experimento los generó únicamente DeepSeek-V4-Pro.
+El prototipo y el análisis se hicieron con ayuda de Claude Code. Los parches del experimento los generó únicamente DeepSeek-V4-Pro.
 
 ## Autores
 

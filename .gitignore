@@ -10,3 +10,9 @@ data/correccion/.hf/
 salida/
 dashboard-web/cache/
 dashboard-web/.venv/
+
+# Informes y material del curso: se guardan solo en local
+entregables/
+docs/build_informe*.py
+docs/_tmp/
+~$*
